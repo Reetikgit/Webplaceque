@@ -357,15 +357,15 @@
         <span class="ti-menu main-menu" data-ripple=""></span>
     </div>
 </div><!-- topbar -->
-    <div class="modal " id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
+    <div class="modal " id="exampleModalCenter" tabindex="-1"  role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered"  role="document">
+        <div class="modal-content" style="border: 5px solid black;">
             <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle">Email Id Not Verified</h5>
+            <h5 class="modal-title" id="exampleModalLongTitle" style="color:red">Email Id Not Verified</h5>
             
             </div>
-            <div class="modal-body">
-            Please Verifiy your email address first.
+            <div class="modal-body" style="font-weight: 700;">
+                Dear <span id="username" style="font-style: italic;color: green;"></span> Please Verifiy your email address & refresh the page for procedding to next steps.
             </div>
             <!-- <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -413,17 +413,30 @@ let newInterval = setInterval(function(){
 
         let current_user=user;
         index=1;
-        console.log(user)
+        if(index == 1){
+            clearInterval(newInterval)
+        }
         var isVerified= firebase.auth().currentUser.emailVerified
         console.log(isVerified)
         if(!isVerified){
+            document.getElementById("username").innerHTML=user.email
             $('#exampleModalCenter').modal('show')
+        }else{
+            $('#exampleModalCenter').modal('hide')
+            clearInterval(newInterval)
         }
-        if(isVerified == true){
-        console.log("CAME")
-        $('#exampleModalCenter').modal('hide')
-        clearInterval(newInterval)
-    }
+        console.log(window.location.href)
+        let refData= firebase.database().ref('studentData').child(user.uid)
+			refData.on('value', (snapshot) => {
+				const data = snapshot.val();
+                console.log(data)
+				if(data.studentVerified){
+					//Do Nothing
+				}else{
+                    if(!(window.location.href).includes("about.html"))
+					    window.location="about.html"
+				}
+			});
     }else{
      window.location="registration.html"
     }
