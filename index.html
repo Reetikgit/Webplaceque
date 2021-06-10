@@ -1,1155 +1,326 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="" />
     <meta name="keywords" content="" />
-	<title>placeQue | HOME </title>
+	<title>placeQue Social Network Toolkit</title>
     <link rel="icon" href="images/logo23.png" type="image/png" sizes="16x16"> 
     
     <link rel="stylesheet" href="css/main.min.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/color.css">
     <link rel="stylesheet" href="css/responsive.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-</head>
-<script>
-		
-		$(document).ready(function(){
-		
-		$('#navigation').load("commonNavigation.html");
 
- });
-</script>
+</head>
 <body>
 <!--<div class="se-pre-con"></div>-->
+<div id="overlay"></div>
+<div id="loader" style="z-index: 9999999;top:100%">
+    <div id="box"></div>
+    <div id="hill"></div>
+</div>
 <div class="theme-layout">
-	<div id="navigation"></div>
-	<section>
-		<div class="gap gray-bg">
-			<div class="container-fluid">
-				<div class="row">
-					<div class="col-lg-12">
-						<div class="row" id="page-contents">
-							<div class="col-lg-3">
-								<aside class="sidebar static">
-									<div class="widget">
-										<h4 class="widget-title">Shortcuts</h4>
-										<ul class="naves">
-											<li>
-												<i class="ti-clipboard"></i>
-												<a href="newsfeed.html" title="">place-Que Timeline</a>
-											</li>
-											<li>
-												<i class="ti-mouse-alt"></i>
-												<a href="inbox.html" title="">Inbox</a>
-											</li>
-											<li>
-												<i class="ti-files"></i>
-												<a href="about.html" title="">My profile</a>
-											</li>
-											<li>
-												<i class="ti-user"></i>
-												<a href="timeline-friends.html" title="">My classroom</a>
-											</li>
-											
-											<li>
-												<i class="ti-comments-smiley"></i>
-												<a href="messages.html" title="">Messages</a>
-											</li>
-											<li>
-												<i class="ti-bell"></i>
-												<a href="notifications.html" title="">Notifications</a>
-											</li>
-											<li>
-												<i class="ti-share"></i>
-												<a href="people-nearby.html" title="">Friends Nearby</a>
-											</li>
-											<li>
-												<i class="fa fa-bar-chart-o"></i>
-												<a href="insights.html" title="">insights</a>
-											</li>
-											<li>
-												<i class="ti-power-off"></i>
-												<a href="landing.html" title="">Logout</a>
-											</li>
-										</ul>
-									</div><!-- Shortcuts -->
-									<div class="widget">
-										<h4 class="widget-title">Upcomming Drives</h4>
-										<ul class="activitiez">
-											<li>
-												<div class="activity-meta">
-													<i>10 hours Ago</i>
-													<span><a href="#" title="">Epam india drive is scheduled on may 1st  </a></span>
-													<h6>All registred student must attend the drive</h6>
-												</div>
-											</li>
-											<li>
-												<div class="activity-meta">
-													<i>2 Days Ago</i>
-													<span><a href="#" title="">All students must register for C2TC traning program</a></span>
-												</div>
-											</li>
-											<li>
-												<div class="activity-meta">
-													<i>3 days ago</i>
-													<span><a href="#" title="">Capgemeni drive is scheduled on may 3rd </a></span>
-													<h6>"All registered student shuold take the test without fail</h6>
-												</div>
-											</li>
-										</ul>
-									</div><!-- recent activites -->
-									<div class="widget stick-widget">
-										<h4 class="widget-title">Other students</h4>
-										<ul class="followers">
-											<li>
-												<figure><img src="images/resources/friend-avatar2.jpg" alt=""></figure>
-												<div class="friend-meta">
-													<h4><a href="time-line.html" title="">Preetam</a></h4>
-													<a href="#" title="" class="underline">View  profile</a>
-												</div>
-											</li>
-											<li>
-												<figure><img src="images/resources/friend-avatar4.jpg" alt=""></figure>
-												<div class="friend-meta">
-													<h4><a href="time-line.html" title="">Prartana</a></h4>
-													<a href="#" title="" class="underline">View profile</a>
-												</div>
-											</li>
-											<li>
-												<figure><img src="images/resources/friend-avatar6.jpg" alt=""></figure>
-												<div class="friend-meta">
-													<h4><a href="time-line.html" title="">Ananya</a></h4>
-													<a href="#" title="" class="underline">View profile</a>
-												</div>
-											</li>
-											<li>
-												<figure><img src="images/resources/friend-avatar8.jpg" alt=""></figure>
-												<div class="friend-meta">
-													<h4><a href="time-line.html" title="">Aradya</a></h4>
-													<a href="#" title="" class="underline">view profile</a>
-												</div>
-											</li>
-											<li>
-												<figure><img src="images/resources/friend-avatar3.jpg" alt=""></figure>
-												<div class="friend-meta">
-													<h4><a href="time-line.html" title="">Arya</a></h4>
-													<a href="#" title="" class="underline">View profile</a>
-												</div>
-											</li>
-										</ul>
-									</div><!-- who's following -->
-								</aside>
-							</div><!-- sidebar -->
-							<div class="col-lg-6">
-								<!-- <div class="central-meta"> -->
-								<!--<div class="new-postbox">
-										<figure>
-											<img src="images/resources/admin2.jpg" alt="">
-										</figure>
-										<div class="newpst-input">
-											<form method="post">
-												<textarea rows="2" placeholder="write something"></textarea>
-												<div class="attachments">
-													<ul>
-														<li>
-															<i class="fa fa-music"></i>
-															<label class="fileContainer">
-																<input type="file">
-															</label>
-														</li>
-														<li>
-															<i class="fa fa-image"></i>
-															<label class="fileContainer">
-																<input type="file">
-															</label>
-														</li>
-														<li>
-															<i class="fa fa-video-camera"></i>
-															<label class="fileContainer">
-																<input type="file">
-															</label>
-														</li>
-														<li>
-															<i class="fa fa-camera"></i>
-															<label class="fileContainer">
-																<input type="file">
-															</label>
-														</li>
-														<li>
-															<button type="submit">Post</button>
-														</li>
-													</ul>
-												</div>
-											</form>
-										</div>
-									</div>-->
-								<!-- </div> -->
-								<div class="loadMore">
-								<div class="central-meta item">
-									<div class="user-post">
-										<div class="friend-info">
-											<figure>
-												<img src="https://upload.wikimedia.org/wikipedia/en/b/b2/Sai_Vidya_Institute_of_Technology_Logo.jpg" alt="">
-											</figure>
-											<div class="friend-name">
-												<ins><a href="time-line.html" title="">Placement</a></ins>
-												<span>posted on april 20</span>
-											</div>
-											<div class="post-meta">
-												<img src="https://cdn2.vectorstock.com/i/1000x1000/84/46/business-team-success-achievement-concept-vector-21618446.jpg" alt="">
-												<div class="we-video-info">
-													<ul>
-														<li>
-															<span class="views" data-toggle="tooltip" title="views">
-																<i class="fa fa-eye"></i>
-																<ins>1.2k</ins>
-															</span>
-														</li>
-														<li>
-															<span class="comment" data-toggle="tooltip" title="Comments">
-																<i class="fa fa-comments-o"></i>
-																<ins>52</ins>
-															</span>
-														</li>
-														<li>
-															<span class="like" data-toggle="tooltip" title="like">
-																<i class="ti-heart"></i>
-																<ins>2.2k</ins>
-															</span>
-														</li>
-														<li>
-															<span class="dislike" data-toggle="tooltip" title="dislike">
-																<i class="ti-heart-broken"></i>
-																<ins>200</ins>
-															</span>
-														</li>
-														<li class="social-media">
-															<div class="menu">
-															  <div class="btn trigger"><i class="fa fa-share-alt"></i></div>
-															  <div class="rotater">
-																<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-html5"></i></a></div>
-															  </div>
-															  <div class="rotater">
-																<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-facebook"></i></a></div>
-															  </div>
-															  <div class="rotater">
-																<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-google-plus"></i></a></div>
-															  </div>
-															  <div class="rotater">
-																<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-twitter"></i></a></div>
-															  </div>
-															  <div class="rotater">
-																<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-css3"></i></a></div>
-															  </div>
-															  <div class="rotater">
-																<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-instagram"></i></a>
-																</div>
-															  </div>
-																<div class="rotater">
-																<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-dribbble"></i></a>
-																</div>
-															  </div>
-															  <div class="rotater">
-																<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-pinterest"></i></a>
-																</div>
-															  </div>
-
-															</div>
-														</li>
-													</ul>
-												</div>
-												<div class="description">
-													
-													<p>
-														"There is only one thing that makes a dream impossible to achieve: the fear of failure.”
-													</p>
-												</div>
-											</div>
-										</div>
-										<div class="coment-area">
-											<ul class="we-comet">
-												<li>
-													<div class="comet-avatar">
-														<img src="images/resources/comet-1.jpg" alt="">
-													</div>
-													<div class="we-comment">
-														<div class="coment-head">
-															<h5><a href="time-line.html" title="">Yogesh</a></h5>
-															<span>1 year ago</span>
-															<a class="we-reply" href="#" title="Reply"><i class="fa fa-reply"></i></a>
-														</div>
-														<p>Cogratulations!!!</p>
-													</div>
-													<ul>
-														<li>
-															<div class="comet-avatar">
-																<img src="images/resources/comet-2.jpg" alt="">
-															</div>
-															<div class="we-comment">
-																<div class="coment-head">
-																	<h5><a href="time-line.html" title="">Pratvi</a></h5>
-																	<span>1 month ago</span>
-																	<a class="we-reply" href="#" title="Reply"><i class="fa fa-reply"></i></a>
-																</div>
-																<p>Good work keep it up</p>
-															</div>
-														</li>
-														<li>
-															<div class="comet-avatar">
-																<img src="images/resources/comet-3.jpg" alt="">
-															</div>
-															<div class="we-comment">
-																<div class="coment-head">
-																	<h5><a href="time-line.html" title="">Raj</a></h5>
-																	<span>16 days ago</span>
-																	<a class="we-reply" href="#" title="Reply"><i class="fa fa-reply"></i></a>
-																</div>
-																<p>Congratulations</p>
-															</div>
-														</li>
-													</ul>
-												</li>
-												<li>
-													<div class="comet-avatar">
-														<img src="images/resources/comet-1.jpg" alt="">
-													</div>
-													<div class="we-comment">
-														<div class="coment-head">
-															<h5><a href="time-line.html" title="">Shourya</h5>
-															<span>1 week ago</span>
-															<a class="we-reply" href="#" title="Reply"><i class="fa fa-reply"></i></a>
-														</div>
-														<p>Cogratulations
-															<i class="em em-smiley"></i>
-														</p>
-													</div>
-												</li>
-												<li>
-													<a href="#" title="" class="showmore underline">more comments</a>
-												</li>
-												<li class="post-comment">
-													<div class="comet-avatar">
-														<img src="images/resources/comet-1.jpg" alt="">
-													</div>
-													<div class="post-comt-box">
-														<form method="post">
-															<textarea placeholder="Post your comment"></textarea>
-															<div class="add-smiles">
-																<span class="em em-expressionless" title="add icon"></span>
-															</div>
-															<div class="smiles-bunch">
-																<i class="em em---1"></i>
-																<i class="em em-smiley"></i>
-																<i class="em em-anguished"></i>
-																<i class="em em-laughing"></i>
-																<i class="em em-angry"></i>
-																<i class="em em-astonished"></i>
-																<i class="em em-blush"></i>
-																<i class="em em-disappointed"></i>
-																<i class="em em-worried"></i>
-																<i class="em em-kissing_heart"></i>
-																<i class="em em-rage"></i>
-																<i class="em em-stuck_out_tongue"></i>
-															</div>
-															<button type="submit"></button>
-														</form>	
-													</div>
-												</li>
-											</ul>
-										</div>
-									</div>
-								</div>
-								<div class="central-meta item">
-									<div class="user-post">
-										<div class="friend-info">
-											<figure>
-												<img src="https://upload.wikimedia.org/wikipedia/en/b/b2/Sai_Vidya_Institute_of_Technology_Logo.jpg" alt="">
-											</figure>
-											<div class="friend-name">
-												<ins><a href="time-line.html" title="">Placement</a></ins>
-												<span>posted on april 12</span>
-											</div>
-											<div class="post-meta">
-												<img src="https://jobvision.in/wp-content/uploads/2020/05/20200504_114859.jpg" height="315" webkitallowfullscreen mozallowfullscreen allowfullscreen></img>
-												<div class="we-video-info">
-													<ul>
-														<li>
-															<span class="views" data-toggle="tooltip" title="views">
-																<i class="fa fa-eye"></i>
-																<ins>1.2k</ins>
-															</span>
-														</li>
-														<li>
-															<span class="comment" data-toggle="tooltip" title="Comments">
-																<i class="fa fa-comments-o"></i>
-																<ins>52</ins>
-															</span>
-														</li>
-														<li>
-															<span class="like" data-toggle="tooltip" title="like">
-																<i class="ti-heart"></i>
-																<ins>2.2k</ins>
-															</span>
-														</li>
-														<li>
-															<span class="dislike" data-toggle="tooltip" title="dislike">
-																<i class="ti-heart-broken"></i>
-																<ins>200</ins>
-															</span>
-														</li>
-														<li class="social-media">
-															<div class="menu">
-															  <div class="btn trigger"><i class="fa fa-share-alt"></i></div>
-															  <div class="rotater">
-																<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-html5"></i></a></div>
-															  </div>
-															  <div class="rotater">
-																<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-facebook"></i></a></div>
-															  </div>
-															  <div class="rotater">
-																<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-google-plus"></i></a></div>
-															  </div>
-															  <div class="rotater">
-																<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-twitter"></i></a></div>
-															  </div>
-															  <div class="rotater">
-																<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-css3"></i></a></div>
-															  </div>
-															  <div class="rotater">
-																<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-instagram"></i></a>
-																</div>
-															  </div>
-																<div class="rotater">
-																<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-dribbble"></i></a>
-																</div>
-															  </div>
-															  <div class="rotater">
-																<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-pinterest"></i></a>
-																</div>
-															  </div>
-
-															</div>
-														</li>
-													</ul>
-												</div>
-												<div class="description">
-													
-													<p>
-														accenture is hiring 2021 graduates check for more updates official websites
-													</p>
-												</div>
-											</div>
-										</div>
-										<div class="coment-area">
-											<ul class="we-comet">
-												<li>
-													<div class="comet-avatar">
-														<img src="images/resources/comet-1.jpg" alt="">
-													</div>
-													<div class="we-comment">
-														<div class="coment-head">
-															<h5><a href="time-line.html" title="">Pranav</a></h5>
-															<span>1 day ago</span>
-															<a class="we-reply" href="#" title="Reply"><i class="fa fa-reply"></i></a>
-														</div>
-														<p>what are the criteria for applying accenture</p>
-													</div>
-
-												</li>
-												<li>
-													<div class="comet-avatar">
-														<img src="images/resources/comet-2.jpg" alt="">
-													</div>
-													<div class="we-comment">
-														<div class="coment-head">
-															<h5><a href="time-line.html" title="">Pranamtya</a></h5>
-															<span>1 week ago</span>
-															<a class="we-reply" href="#" title="Reply"><i class="fa fa-reply"></i></a>
-														</div>
-														<p>what is the recruitment process for accenture
-															
-														</p>
-													</div>
-												</li>
-												<li>
-													<a href="#" title="" class="showmore underline">more comments</a>
-												</li>
-												<li class="post-comment">
-													<div class="comet-avatar">
-														<img src="images/resources/comet-2.jpg" alt="">
-													</div>
-													<div class="post-comt-box">
-														<form method="post">
-															<textarea placeholder="Post your comment"></textarea>
-															<div class="add-smiles">
-																<span class="em em-expressionless" title="add icon"></span>
-															</div>
-															<div class="smiles-bunch">
-																<i class="em em---1"></i>
-																<i class="em em-smiley"></i>
-																<i class="em em-anguished"></i>
-																<i class="em em-laughing"></i>
-																<i class="em em-angry"></i>
-																<i class="em em-astonished"></i>
-																<i class="em em-blush"></i>
-																<i class="em em-disappointed"></i>
-																<i class="em em-worried"></i>
-																<i class="em em-kissing_heart"></i>
-																<i class="em em-rage"></i>
-																<i class="em em-stuck_out_tongue"></i>
-															</div>
-															<button type="submit"></button>
-														</form>	
-													</div>
-												</li>
-											</ul>
-										</div>
-									</div>
-								</div>
-								<div class="central-meta item">
-									<div class="user-post">
-										<div class="friend-info">
-											<figure>
-												<img src="https://upload.wikimedia.org/wikipedia/en/b/b2/Sai_Vidya_Institute_of_Technology_Logo.jpg" alt="">
-											</figure>
-											<div class="friend-name">
-												<ins><a href="time-line.html" title="">Placement</a></ins>
-												<span>posted on april 5</span>
-											</div>
-											<div class="post-meta">
-												<!--<div class="post-map">
-													<div class="nearby-map">
-														<div id="map-canvas"></div>
-													</div>
-												</div>--><!-- near by map -->
-												<div class="we-video-info">
-													<ul>
-														<li>
-															<span class="views" data-toggle="tooltip" title="views">
-																<i class="fa fa-eye"></i>
-																<ins>1.2k</ins>
-															</span>
-														</li>
-														<li>
-															<span class="comment" data-toggle="tooltip" title="Comments">
-																<i class="fa fa-comments-o"></i>
-																<ins>52</ins>
-															</span>
-														</li>
-														<li>
-															<span class="like" data-toggle="tooltip" title="like">
-																<i class="ti-heart"></i>
-																<ins>2.2k</ins>
-															</span>
-														</li>
-														<li>
-															<span class="dislike" data-toggle="tooltip" title="dislike">
-																<i class="ti-heart-broken"></i>
-																<ins>200</ins>
-															</span>
-														</li>
-														<li class="social-media">
-															<div class="menu">
-															  <div class="btn trigger"><i class="fa fa-share-alt"></i></div>
-															  <div class="rotater">
-																<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-html5"></i></a></div>
-															  </div>
-															  <div class="rotater">
-																<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-facebook"></i></a></div>
-															  </div>
-															  <div class="rotater">
-																<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-google-plus"></i></a></div>
-															  </div>
-															  <div class="rotater">
-																<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-twitter"></i></a></div>
-															  </div>
-															  <div class="rotater">
-																<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-css3"></i></a></div>
-															  </div>
-															  <div class="rotater">
-																<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-instagram"></i></a>
-																</div>
-															  </div>
-																<div class="rotater">
-																<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-dribbble"></i></a>
-																</div>
-															  </div>
-															  <div class="rotater">
-																<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-pinterest"></i></a>
-																</div>
-															  </div>
-
-															</div>
-														</li>
-													</ul>
-												</div>
-												<div class="description">
-													
-													<p>
-														Cognizent is hiring for the BE freshers 2021 passout batches.
-													</p>
-												</div>
-											</div>
-										</div>
-										<div class="coment-area">
-											<ul class="we-comet">
-												<li>
-													<div class="comet-avatar">
-														<img src="images/resources/comet-1.jpg" alt="">
-													</div>
-													<div class="we-comment">
-														<div class="coment-head">
-															<h5><a href="time-line.html" title="">Pranita</a></h5>
-															<span>1 day ago</span>
-															<a class="we-reply" href="#" title="Reply"><i class="fa fa-reply"></i></a>
-														</div>
-														<p>What is the criteria for applying this job sir</p>
-													</div>
-
-												</li>
-												<li>
-													<div class="comet-avatar">
-														<img src="images/resources/comet-2.jpg" alt="">
-													</div>
-													<div class="we-comment">
-														<div class="coment-head">
-															<h5><a href="time-line.html" title="">ASha</a></h5>
-															<span>1 day ago</span>
-															<a class="we-reply" href="#" title="Reply"><i class="fa fa-reply"></i></a>
-														</div>
-														<p>What is the last day to register for this job sir?
-															
-														</p>
-													</div>
-												</li>
-												<li>
-													<a href="#" title="" class="showmore underline">more comments</a>
-												</li>
-												<li class="post-comment">
-													<div class="comet-avatar">
-														<img src="images/resources/comet-2.jpg" alt="">
-													</div>
-													<div class="post-comt-box">
-														<form method="post">
-															<textarea placeholder="Post your comment"></textarea>
-															<div class="add-smiles">
-																<span class="em em-expressionless" title="add icon"></span>
-															</div>
-															<div class="smiles-bunch">
-																<i class="em em---1"></i>
-																<i class="em em-smiley"></i>
-																<i class="em em-anguished"></i>
-																<i class="em em-laughing"></i>
-																<i class="em em-angry"></i>
-																<i class="em em-astonished"></i>
-																<i class="em em-blush"></i>
-																<i class="em em-disappointed"></i>
-																<i class="em em-worried"></i>
-																<i class="em em-kissing_heart"></i>
-																<i class="em em-rage"></i>
-																<i class="em em-stuck_out_tongue"></i>
-															</div>
-															<button type="submit"></button>
-														</form>	
-													</div>
-												</li>
-											</ul>
-										</div>
-									</div>
-								</div>
-								<div class="central-meta item">
-									<div class="user-post">
-										<div class="friend-info">
-											<figure>
-												<img alt="" src="https://upload.wikimedia.org/wikipedia/en/b/b2/Sai_Vidya_Institute_of_Technology_Logo.jpg">
-											</figure>
-											<div class="friend-name">
-												<ins><a title="" href="time-line.html">Placement</a></ins>
-												<span>posted on march 30</span>
-											</div>
-											<div class="description">
-													
-													<p>
-														Curabitur World's most beautiful car in <a title="" href="#">#test drive booking !</a> the most beatuiful car available in america and the saudia arabia, you can book your test drive by our official website
-													</p>
-												</div>
-											<div class="post-meta">
-												<div class="linked-image align-left">
-													<a title="" href="#"><img alt="" src="https://ximb.edu.in/wp-content/uploads/2020/07/E86C7FBCE5D14CE6861CE9CDCE68D05A.png"></a>
-												</div>
-												<div class="detail">
-													<span>Won prizes in SMH</span>
-													<p>participated and won the prizes </p>
-													<a title="" href="#">www.sample.com</a>
-												</div>		
-												<div class="we-video-info">
-													<ul>
-														<li>
-															<span class="views" data-toggle="tooltip" title="views">
-																<i class="fa fa-eye"></i>
-																<ins>1.2k</ins>
-															</span>
-														</li>
-														<li>
-															<span class="comment" data-toggle="tooltip" title="Comments">
-																<i class="fa fa-comments-o"></i>
-																<ins>52</ins>
-															</span>
-														</li>
-														<li>
-															<span class="like" data-toggle="tooltip" title="like">
-																<i class="ti-heart"></i>
-																<ins>2.2k</ins>
-															</span>
-														</li>
-														<li>
-															<span class="dislike" data-toggle="tooltip" title="dislike">
-																<i class="ti-heart-broken"></i>
-																<ins>200</ins>
-															</span>
-														</li>
-														<li class="social-media">
-															<div class="menu">
-															  <div class="btn trigger"><i class="fa fa-share-alt"></i></div>
-															  <div class="rotater">
-																<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-html5"></i></a></div>
-															  </div>
-															  <div class="rotater">
-																<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-facebook"></i></a></div>
-															  </div>
-															  <div class="rotater">
-																<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-google-plus"></i></a></div>
-															  </div>
-															  <div class="rotater">
-																<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-twitter"></i></a></div>
-															  </div>
-															  <div class="rotater">
-																<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-css3"></i></a></div>
-															  </div>
-															  <div class="rotater">
-																<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-instagram"></i></a>
-																</div>
-															  </div>
-																<div class="rotater">
-																<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-dribbble"></i></a>
-																</div>
-															  </div>
-															  <div class="rotater">
-																<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-pinterest"></i></a>
-																</div>
-															  </div>
-
-															</div>
-														</li>
-													</ul>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								</div>
-							</div>
-							<div class="col-lg-3">
-								<aside class="sidebar static">
-									<div class="widget">
-										<h4 class="widget-title">My Profile</h4>	
-										<div class="your-page">
-											<figure>
-												<a href="#" title=""><img src="images/resources/friend-avatar9.jpg" alt=""></a>
-											</figure>
-											<div class="page-meta">
-												<a href="#" title="" class="underline">My page</a>
-												<span><i class="ti-comment"></i><a href="insight.html" title="">Messages <em>9</em></a></span>
-												<span><i class="ti-bell"></i><a href="insight.html" title="">Notifications <em>2</em></a></span>
-											</div>
-											<div class="page-likes">
-												<ul class="nav nav-tabs likes-btn">
-													<li class="nav-item"><a class="active" href="#link1" data-toggle="tab">My SGPS Scores</a></li>
-													
-												</ul>
-												<!-- Tab panes -->
-												<div class="tab-content">
-												  <div class="tab-pane active fade show " id="link1" >
-													<span><i class="ti-heart"></i>884</span>
-													  
-												  </div>
-												  <div class="tab-pane fade" id="link2" >
-													  <span><i class="ti-eye"></i>440</span>
-													  <a href="#" title="weekly-likes">440 new views this week</a>
-													  <div class="users-thumb-list">
-														<a href="#" title="Anderw" data-toggle="tooltip">
-															<img src="images/resources/userlist-1.jpg" alt="">  
-														</a>
-														<a href="#" title="frank" data-toggle="tooltip">
-															<img src="images/resources/userlist-2.jpg" alt="">  
-														</a>
-														<a href="#" title="Sara" data-toggle="tooltip">
-															<img src="images/resources/userlist-3.jpg" alt="">  
-														</a>
-														<a href="#" title="Amy" data-toggle="tooltip">
-															<img src="images/resources/userlist-4.jpg" alt="">  
-														</a>
-														<a href="#" title="Ema" data-toggle="tooltip">
-															<img src="images/resources/userlist-5.jpg" alt="">  
-														</a>
-														<a href="#" title="Sophie" data-toggle="tooltip">
-															<img src="images/resources/userlist-6.jpg" alt="">  
-														</a>
-														<a href="#" title="Maria" data-toggle="tooltip">
-															<img src="images/resources/userlist-7.jpg" alt="">  
-														</a>  
-													  </div>
-												  </div>
-												</div>
-											</div>
-										</div>
-									</div><!-- page like widget -->
-									<div class="widget">
-										<div class="banner medium-opacity bluesh">
-											<div class="bg-image" style="background-image: url(https://cdn5.vectorstock.com/i/1000x1000/18/69/cv-or-resume-related-icons-image-vector-12641869.jpg)"></div>
-											<div class="baner-top">
-												<span><img alt="" src="https://cdn5.vectorstock.com/i/1000x1000/18/69/cv-or-resume-related-icons-image-vector-12641869.jpg"></span>
-												<i class="fa fa-ellipsis-h"></i>
-											</div>
-											<div class="banermeta">
-												<p>
-													create your own resume
-												</p>
-												<span>like them all</span>
-												<a data-ripple="" title="" href="#">create now!</a>
-											</div>
-										</div>											
-									</div>
-									<div class="widget friend-list stick-widget">
-										<h4 class="widget-title">Your classmates</h4>
-										<div id="searchDir"></div>
-										<ul id="people-list" class="friendz-list">
-											<li>
-												<figure>
-													<img src="images/resources/friend-avatar.jpg" alt="">
-													<span class="status f-online"></span>
-												</figure>
-												<div class="friendz-meta">
-													<a href="time-line.html">Akash</a>
-													<i><a href="https://wpkixx.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a0d7c9ced4c5d2d3cfccc4c5d2e0c7cdc1c9cc8ec3cfcd">[email&#160;protected]</a></i>
-												</div>
-											</li>
-											<li>
-												<figure>
-													<img src="images/resources/friend-avatar2.jpg" alt="">
-													<span class="status f-away"></span>
-												</figure>
-												<div class="friendz-meta">
-													<a href="time-line.html">Anjali</a>
-													<i><a href="https://wpkixx.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b4d6d5c6dad1c7f4d3d9d5ddd89ad7dbd9">[email&#160;protected]</a></i>
-												</div>
-											</li>
-											<li>
-												<figure>
-													<img src="images/resources/friend-avatar3.jpg" alt="">
-													<span class="status f-off"></span>
-												</figure>
-												<div class="friendz-meta">
-													<a href="time-line.html">Bhavya</a>
-													<i><a href="https://wpkixx.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1d777c6e72737f5d7a707c7471337e7270">[email&#160;protected]</a></i>
-												</div>
-											</li>
-											<li>
-												<figure>
-													<img src="images/resources/friend-avatar4.jpg" alt="">
-													<span class="status f-off"></span>
-												</figure>
-												<div class="friendz-meta">
-													<a href="time-line.html">KAvya</a>
-													<i><a href="https://wpkixx.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="bed4dfcdd1d0dcfed9d3dfd7d290ddd1d3">[email&#160;protected]</a></i>
-												</div>
-											</li>
-											<li>
-												
-												<figure>
-													<img src="images/resources/friend-avatar5.jpg" alt="">
-													<span class="status f-online"></span>
-												</figure>
-												<div class="friendz-meta">
-													<a href="time-line.html">Anagha</a>
-													<i><a href="https://wpkixx.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="553f34263a3b37153238343c397b363a38">[email&#160;protected]</a></i>
-												</div>
-											</li>
-											<li>
-												
-												<figure>
-													<img src="images/resources/friend-avatar6.jpg" alt="">
-													<span class="status f-away"></span>
-												</figure>
-												<div class="friendz-meta">
-													<a href="time-line.html">Manvi</a>
-													<i><a href="https://wpkixx.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5933382a36373b193e34383035773a3634">[email&#160;protected]</a></i>
-												</div>
-											</li>
-											<li>
-												
-												<figure>
-													<img src="images/resources/friend-avatar7.jpg" alt="">
-													<span class="status f-off"></span>
-												</figure>
-												<div class="friendz-meta">
-													<a href="time-line.html">priya</a>
-													<i><a href="https://wpkixx.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5933382a36373b193e34383035773a3634">[email&#160;protected]</a></i>
-												</div>
-											</li>
-											<li>
-												
-												<figure>
-													<img src="images/resources/friend-avatar5.jpg" alt="">
-													<span class="status f-online"></span>
-												</figure>
-												<div class="friendz-meta">
-													<a href="time-line.html">Pankaj</a>
-													<i><a href="https://wpkixx.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="dbb1baa8b4b5b99bbcb6bab2b7f5b8b4b6">[email&#160;protected]</a></i>
-												</div>
-											</li>
-											<li>
-												
-												<figure>
-													<img src="images/resources/friend-avatar2.jpg" alt="">
-													<span class="status f-away"></span>
-												</figure>
-												<div class="friendz-meta">
-													<a href="time-line.html">pratvi</a>
-													<i><a href="https://wpkixx.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="2644475448435566414b474f4a0845494b">[email&#160;protected]</a></i>
-												</div>
-											</li>
-										</ul>
-										<div class="chat-box">
-											<div class="chat-head">
-												<span class="status f-online"></span>
-												<h6>Bucky Barnes</h6>
-												<div class="more">
-													<span><i class="ti-more-alt"></i></span>
-													<span class="close-mesage"><i class="ti-close"></i></span>
-												</div>
-											</div>
-											<div class="chat-list">
-												<ul>
-													<li class="me">
-														<div class="chat-thumb"><img src="images/resources/chatlist1.jpg" alt=""></div>
-														<div class="notification-event">
-															<span class="chat-message-item">
-																Hi James! Please remember to buy the food for tomorrow! I’m gonna be handling the gifts and Jake’s gonna get the drinks
-															</span>
-															<span class="notification-date"><time datetime="2004-07-24T18:18" class="entry-date updated">Yesterday at 8:10pm</time></span>
-														</div>
-													</li>
-													<li class="you">
-														<div class="chat-thumb"><img src="images/resources/chatlist2.jpg" alt=""></div>
-														<div class="notification-event">
-															<span class="chat-message-item">
-																Hi James! Please remember to buy the food for tomorrow! I’m gonna be handling the gifts and Jake’s gonna get the drinks
-															</span>
-															<span class="notification-date"><time datetime="2004-07-24T18:18" class="entry-date updated">Yesterday at 8:10pm</time></span>
-														</div>
-													</li>
-													<li class="me">
-														<div class="chat-thumb"><img src="images/resources/chatlist1.jpg" alt=""></div>
-														<div class="notification-event">
-															<span class="chat-message-item">
-																Hi James! Please remember to buy the food for tomorrow! I’m gonna be handling the gifts and Jake’s gonna get the drinks
-															</span>
-															<span class="notification-date"><time datetime="2004-07-24T18:18" class="entry-date updated">Yesterday at 8:10pm</time></span>
-														</div>
-													</li>
-												</ul>
-												<form class="text-box">
-													<textarea placeholder="Post enter to post..."></textarea>
-													<div class="add-smiles">
-														<span title="add icon" class="em em-expressionless"></span>
-													</div>
-													<div class="smiles-bunch">
-														<i class="em em---1"></i>
-														<i class="em em-smiley"></i>
-														<i class="em em-anguished"></i>
-														<i class="em em-laughing"></i>
-														<i class="em em-angry"></i>
-														<i class="em em-astonished"></i>
-														<i class="em em-blush"></i>
-														<i class="em em-disappointed"></i>
-														<i class="em em-worried"></i>
-														<i class="em em-kissing_heart"></i>
-														<i class="em em-rage"></i>
-														<i class="em em-stuck_out_tongue"></i>
-													</div>
-													<button type="submit"></button>
-												</form>
-											</div>
-										</div>
-									</div><!-- friends list sidebar -->
-								</aside>
-							</div><!-- sidebar -->
-						</div>	
-					</div>
-				</div>
-			</div>
-		</div>	
-	</section>
-
-	<footer>
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-4 col-md-4">
-					<div class="widget">
-						<div class="foot-logo">
-							<div class="logo">
-								<a href="index-2.html" title=""><img src="images/logo.png" alt=""></a>
-							</div>	
-							<p>
-								The trio took this simple idea and built it into the world’s leading carpooling platform.
-							</p>
+	<div class="container-fluid pdng0">
+		<div class="row merged">
+		
+			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+				
+				<div class="login-reg-bg">
+					<div class="log-reg-area sign">
+						<div class="friend-l">
+							<img src="images/logo23.png" style="margin-left: auto;margin-right: auto;width: 130px;; display: block;" alt="">
 						</div>
-						<ul class="location">
-							<li>
-								<i class="ti-map-alt"></i>
-								<p>33 new montgomery st.750 san francisco, CA USA 94105.</p>
-							</li>
-							<li>
-								<i class="ti-mobile"></i>
-								<p>+1-56-346 345</p>
-							</li>
-						</ul>
+						<h2 class="log-title">Login</h2>
+						
+						<form method="post">
+							<div class="form-group">	
+							  <input type="text"  id="user_email" required="required"/>
+							  <label class="control-label" for="input">Email</label><i class="mtrl-select"></i>
+							</div>
+							<div class="form-group">	
+							  <input type="password" id="user_password" required="required"/>
+							  <label class="control-label" for="input" >Password</label><i class="mtrl-select"></i>
+							</div>
+							<p id="errorText" style="color: red;"></p>
+							<a href="#" title="" class="forgot-pwd">Forgot Password?</a>
+							<div class="submit-btns">
+								<button class="mtr-btn signin" type="button" onclick="login()" id="loginBtn"><span>Login</span></button>
+								<button class="mtr-btn signup" type="button"><span>Register</span></button>
+							</div>
+
+						</form>
 					</div>
-				</div>
-				<div class="col-lg-2 col-md-4">
-					<div class="widget">
-						<div class="widget-title"><h4>follow</h4></div>
-						<ul class="list-style">
-							<li><i class="fa fa-facebook-square"></i> <a href="https://web.facebook.com/shopcircut/" title="">facebook</a></li>
-							<li><i class="fa fa-twitter-square"></i><a href="https://twitter.com/login?lang=en" title="">twitter</a></li>
-							<li><i class="fa fa-instagram"></i><a href="https://www.instagram.com/?hl=en" title="">instagram</a></li>
-							<li><i class="fa fa-google-plus-square"></i> <a href="https://plus.google.com/discover" title="">Google+</a></li>
-							<li><i class="fa fa-pinterest-square"></i> <a href="https://www.pinterest.com/" title="">Pintrest</a></li>
-						</ul>
-					</div>
-				</div>
-				<div class="col-lg-2 col-md-4">
-					<div class="widget">
-						<div class="widget-title"><h4>Navigate</h4></div>
-						<ul class="list-style">
-							<li><a href="about.html" title="">about us</a></li>
-							<li><a href="contact.html" title="">contact us</a></li>
-							<li><a href="terms.html" title="">terms & Conditions</a></li>
-							<li><a href="#" title="">RSS syndication</a></li>
-							<li><a href="sitemap.html" title="">Sitemap</a></li>
-						</ul>
-					</div>
-				</div>
-				<div class="col-lg-2 col-md-4">
-					<div class="widget">
-						<div class="widget-title"><h4>useful links</h4></div>
-						<ul class="list-style">
-							<li><a href="#" title="">leasing</a></li>
-							<li><a href="#" title="">submit route</a></li>
-							<li><a href="#" title="">how does it work?</a></li>
-							<li><a href="#" title="">agent listings</a></li>
-							<li><a href="#" title="">view All</a></li>
-						</ul>
-					</div>
-				</div>
-				<div class="col-lg-2 col-md-4">
-					<div class="widget">
-						<div class="widget-title"><h4>download apps</h4></div>
-						<ul class="colla-apps">
-							<li><a href="https://play.google.com/store?hl=en" title=""><i class="fa fa-android"></i>android</a></li>
-							<li><a href="https://www.apple.com/lae/ios/app-store/" title=""><i class="ti-apple"></i>iPhone</a></li>
-							<li><a href="https://www.microsoft.com/store/apps" title=""><i class="fa fa-windows"></i>Windows</a></li>
-						</ul>
+					<div class="log-reg-area reg">
+						<div class="friend-l">
+							<img src="images/logo23.png" style="margin-left: auto;margin-right: auto;width: 130px;; display: block;" alt="">
+						</div>
+						<h2 class="log-title">Register</h2>
+						
+						<form method="post">
+							<div class="form-group">	
+							  <input type="text"  id="name" required="required"/>
+							  <label class="control-label" for="input">Name</label><i class="mtrl-select"></i>
+							</div>
+							<div class="form-group">	
+							  <input type="text"  id="email" required="required"/>
+							  <label class="control-label" for="input">Email</label><i class="mtrl-select"></i>
+							</div>
+							<div class="form-group">	
+							  <input type="password" id="pass" required="required"/>
+							  <label class="control-label" for="input" >Password</label><i class="mtrl-select"></i>
+							</div>
+							<div class="form-group">	
+								<input type="password" id="cpass" required="required"/>
+								<label class="control-label" for="input" >Confirm Password</label><i class="mtrl-select"></i>
+							  </div>
+							<!-- <div class="checkbox">
+							  <label>
+								<input type="checkbox" checked="checked"/><i class="check-box"></i>Accept Terms & Conditions ?
+							  </label>
+							</div> -->
+							<a href="#" title="" class="already-have">Already have an account</a>
+							<div class="submit-btns">
+								<button class="mtr-btn signup" onclick="submitForm()" type="button"><span>Register</span></button>
+							</div>
+						</form>
 					</div>
 				</div>
 			</div>
-		</div>
-	</footer><!-- footer -->
-	<div class="bottombar">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-12">
-					<span class="copyright"><a target="_blank" href="https://www.templateshub.net">placeQue @2021</a></span>
-					<i><img src="images/credit-cards.png" alt=""></i>
+			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 hide-small" >
+				<div class="land-featurearea">
+					<div class="land-meta">
+						<h1></h1>
+						<p>
+						
+						</p>
+						<div class="friend-l">
+							<span><img src="images/login.png" alt=""></span>
+						</div>
+						<a href="#" title="" class="folow-me"></a>
+					</div>	
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
-	<div class="side-panel">
-			<h4 class="panel-title">General Setting</h4>
-			<form method="post">
-				<div class="setting-row">
-					<span>use night mode</span>
-					<input type="checkbox" id="nightmode1"/> 
-					<label for="nightmode1" data-on-label="ON" data-off-label="OFF"></label>
-				</div>
-				<div class="setting-row">
-					<span>Notifications</span>
-					<input type="checkbox" id="switch22" /> 
-					<label for="switch22" data-on-label="ON" data-off-label="OFF"></label>
-				</div>
-				<div class="setting-row">
-					<span>Notification sound</span>
-					<input type="checkbox" id="switch33" /> 
-					<label for="switch33" data-on-label="ON" data-off-label="OFF"></label>
-				</div>
-				<div class="setting-row">
-					<span>My profile</span>
-					<input type="checkbox" id="switch44" /> 
-					<label for="switch44" data-on-label="ON" data-off-label="OFF"></label>
-				</div>
-				<div class="setting-row">
-					<span>Show profile</span>
-					<input type="checkbox" id="switch55" /> 
-					<label for="switch55" data-on-label="ON" data-off-label="OFF"></label>
-				</div>
-			</form>
-			<h4 class="panel-title">Account Setting</h4>
-			<form method="post">
-				<div class="setting-row">
-					<span>Sub users</span>
-					<input type="checkbox" id="switch66" /> 
-					<label for="switch66" data-on-label="ON" data-off-label="OFF"></label>
-				</div>
-				<div class="setting-row">
-					<span>personal account</span>
-					<input type="checkbox" id="switch77" /> 
-					<label for="switch77" data-on-label="ON" data-off-label="OFF"></label>
-				</div>
-				<div class="setting-row">
-					<span>Business account</span>
-					<input type="checkbox" id="switch88" /> 
-					<label for="switch88" data-on-label="ON" data-off-label="OFF"></label>
-				</div>
-				<div class="setting-row">
-					<span>Show me online</span>
-					<input type="checkbox" id="switch99" /> 
-					<label for="switch99" data-on-label="ON" data-off-label="OFF"></label>
-				</div>
-				<div class="setting-row">
-					<span>Delete history</span>
-					<input type="checkbox" id="switch101" /> 
-					<label for="switch101" data-on-label="ON" data-off-label="OFF"></label>
-				</div>
-				<div class="setting-row">
-					<span>Expose author name</span>
-					<input type="checkbox" id="switch111" /> 
-					<label for="switch111" data-on-label="ON" data-off-label="OFF"></label>
-				</div>
-			</form>
-		</div><!-- side panel -->		
 	
-	<script data-cfasync="false" src="../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="js/main.min.js"></script>
-	<script src="js/script.js"></script>
-	<script src="js/map-init.js"></script>
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA8c55_YHLvDHGACkQscgbGLtLRdxBDCfI"></script>
+<script data-cfasync="false" src="../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="js/main.min.js"></script>
+<script src="js/script.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.2/firebase.js"></script>
+<!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+<script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-analytics.js"></script>
+
+<!-- Add Firebase products that you want to use -->
+<script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-firestore.js"></script>
 
 </body>	
 
+<script>
+	var firebaseConfig = {
+	apiKey: "AIzaSyBrjKsOT5YXZSYFVOa3PeBi3997XdKJRbw",
+	authDomain: "placeque-47156.firebaseapp.com",
+	databaseURL: "https://placeque-47156-default-rtdb.firebaseio.com",
+	projectId: "placeque-47156",
+	storageBucket: "placeque-47156.appspot.com",
+	messagingSenderId: "387944466952",
+	appId: "1:387944466952:web:3ec6cfefc5682e3431dfbd",
+	measurementId: "G-N7RD97TPP5"
+};
+	// Initialize Firebase
+	setTimeout(function(){
+    document.getElementById("overlay").style.display="none"
+    document.getElementById("loader").style.display="none"
+},800)
+	firebase.initializeApp(firebaseConfig);
+	firebase.analytics();
+	var formStudent= firebase.database().ref('studentData')
+	var refData;
+	firebase.auth().onAuthStateChanged(function(user) {
+		if(user){
+			console.log(user.uid)
+			refData= firebase.database().ref('studentData').child(user.uid)
+			refData.on('value', (snapshot) => {
+				const data = snapshot.val();
+				console.log(data)
+
+				if(data.studentVerified){
+				
+					window.location="home.html"
+				}else{
+					if(user.emailVerified){
+						window.location="edit-profile-basic.html"
+					}else{
+						
+						//Email not verified let him login
+					}
+					
+				}
+			});
+		}else{
+			
+        }
+
+	})
+	function login(){
+		let email = document.querySelector("#user_email").value
+		let password = document.querySelector("#user_password").value
+		firebase.auth().signInWithEmailAndPassword(email, password).then(function(){
+			document.getElementById("loginBtn").style.backgroundColor="green"
+			document.getElementById("loginBtn").innerHTML="Verified ✔"
+			
+			// alert("Success")
+			firebase.auth().onAuthStateChanged(function(user) {
+				if (user) {
+					var user = firebase.auth().currentUser;
+					refData.on('value', (snapshot) => {
+						const data = snapshot.val();
+						console.log(data)
+						if(data.studentVerified){
+							window.location="home.html"
+						}else{
+						
+							if(user.emailVerified == false  || user.emailVerified == "false"){
+								user.sendEmailVerification().then(function() {
+							
+								})
+								window.location="edit-profile-basic.html"
+						
+							}else{
+								//Email not verified let him login
+								
+							}
+							
+						}
+					});
+					// user.sendEmailVerification().then(function() {
+					// // Email sent.
+					// console.log("emailsent")
+					// }).catch(function(error) {
+					// // An error happened.
+					// });
+					// User is signed in.
+					
+					var displayName = user.displayName;
+					var email = user.email;
+
+					var emailVerified = user.emailVerified;
+					var photoURL = user.photoURL;
+					var isAnonymous = user.isAnonymous;
+					var uid = user.uid;
+					var providerData = user.providerData;
+
+					//console.log(email + "" +providerData)
+					
+					// ...
+				}else {
+					document.getElementById("user_email").style.borderColor="red"
+					document.getElementById("user_password").style.borderColor="red"
+
+					// User is signed out.
+					// ...
+				}
+			});
+		}).catch(function(error) {
+		// Handle Errors here.
+			var errorCode = error.code;
+			var errorMessage = error.message;
+			console.log(errorCode);
+			if(errorCode.includes("auth/network-request-failed")){
+				document.getElementById("errorText").innerHTML="Check your internet connectivtiy & try again. "
+			}else{
+				document.getElementById("loginBtn").style.backgroundColor="red"
+				document.getElementById("loginBtn").innerHTML="Sign In"
+				document.getElementById("user_email").style.borderColor="red"
+				document.getElementById("user_password").style.borderColor="red"
+				document.getElementById("errorText").innerHTML="Invalid Username or password"
+				setTimeout(function(){
+					document.getElementById("loginBtn").style.backgroundColor="blue"
+					document.getElementById("user_email").style.borderColor="gray"
+					document.getElementById("user_password").style.borderColor="gray"
+					document.getElementById("errorText").innerHTML=""
+				},3000)
+			}
+			console.log(errorMessage);
+		});
+	}
+	function submitForm(){
+		let name = document.querySelector("#name").value
+		let email = document.querySelector("#email").value
+		let password = document.querySelector("#pass").value
+		let cpass = document.querySelector("#cpass").value
+
+	
+		if(cpass == password){
+			firebase.auth().createUserWithEmailAndPassword(email, password).then(function(){
+		
+				firebase.auth().signInWithEmailAndPassword(email, password).then(function(){
+			
+				firebase.auth().onAuthStateChanged(function(user) {
+					if (user) {
+						var user = firebase.auth().currentUser;
+						user.sendEmailVerification().then(function() {
+						// Email sent.
+							var displayName = user.displayName;
+							var email = user.email;
+							var emailVerified = user.emailVerified;
+							var photoURL = user.photoURL;
+							var isAnonymous = user.isAnonymous;
+							var uid = user.uid;
+							var providerData = user.providerData;
+							console.log("emailsent")
+
+							let newform=formStudent.child(uid)
+							console.log("SDS")
+								newform.set({
+									
+									Name : name, 
+									EmailName : user.displayName,
+									emailVerified : user.emailVerified,
+									photoURL :user.photoURL,
+									isAnonymous: user.isAnonymous,
+									uid : user.uid,
+									password:password,
+									email:email,
+									studentVerified : false,
+									detailsFilled :false,
+									providerData : user.providerData
+
+								}).then(function(){
+									window.location="edit-profile-basic.html"
+								}).catch(function(error){
+									alert(error)
+								});
+						}).catch(function(error) {
+						// An error happened.
+						});
+					}else {
+						// User is signed out.
+						// ...
+					}
+					});
+				}).catch(function(error) {
+				// Handle Errors here.
+					var errorCode = error.code;
+					var errorMessage = error.message;
+				});
+			}).catch(function(error) {
+				// Handle Errors here.
+				var errorCode = error.code;
+				var errorMessage = error.message;
+				console.log(errorCode);
+				console.log(errorMessage);
+			});
+			
+
+		}else{
+			alert("invalid password")
+		}
+	}
+
+</script>
 </html>

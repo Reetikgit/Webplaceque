@@ -1,15 +1,22 @@
 </script><script src="js/main.min.js"></script>
 <script src="js/script.js"></script>
 
+<style>
 
-<body>
+</style>
+
+<div id="overlay"></div>
+<div id="loader" style="z-index: 9999999;top:100%">
+    <div id="box"></div>
+    <div id="hill"></div>
+</div>
 <div class="responsive-header">
     <div class="mh-head first Sticky">
         <span class="mh-btns-left">
             <a class="" href="#menu"><i class="fa fa-align-justify"></i></a>
         </span>
         <span class="mh-text">
-            <a href="newsfeed.html" title=""><img src="images/loo2.png" alt=""></a>
+            <a href="newsfeed.html" title=""><img src="" alt=""></a>
         </span>
         <span class="mh-btns-right">
             <a class="fa fa-sliders" href="#shoppingbag"></a>
@@ -56,7 +63,7 @@
                     <li><a href="edit-interest.html" title="">edit-interest</a></li>
                     <li><a href="edit-password.html" title="">edit-password</a></li>
                     <li><a href="edit-profile-basic.html" title="">edit profile basics</a></li>
-                    <li><a href="edit-work-eductation.html" title="">edit work educations</a></li>
+                    <li><a href="edit-work-education.html" title="">edit work educations</a></li>
                     <li><a href="messages.html" title="">message box</a></li>
                     <li><a href="inbox.html" title="">Inbox</a></li>
                     <li><a href="notifications.html" title="">notifications page</a></li>
@@ -129,7 +136,7 @@
 
 <div class="topbar stick">
     <div class="logo">
-        <a title="" href="newsfeed.html"><img src="images/logo2.png" alt="">placeQue</a>
+        <a title="" href="newsfeed.html"><img src="" alt="">placeQue</a>
     </div>
     
     <div class="top-area">
@@ -168,7 +175,7 @@
                     <li><a href="edit-interest.html" title="">edit-interest</a></li>
                     <li><a href="edit-password.html" title="">edit-password</a></li>
                     <li><a href="edit-profile-basic.html" title="">edit profile basics</a></li>
-                    <li><a href="edit-work-eductation.html" title="">edit work educations</a></li>
+                    <li><a href="edit-work-education.html" title="">edit work educations</a></li>
                     <li><a href="messages.html" title="">message box</a></li>
                     <li><a href="inbox.html" title="">Inbox</a></li>
                     <li><a href="notifications.html" title="">notifications page</a></li>
@@ -351,7 +358,7 @@
                 <a href="#" title=""><i class="ti-pencil-alt"></i>edit profile</a>
                 <a href="#" title=""><i class="ti-target"></i>activity log</a>
                 <a href="#" title=""><i class="ti-settings"></i>account setting</a>
-                <a href="#" title=""><i class="ti-power-off"></i>log out</a>
+                <a href="#" title="" onclick="logout()"><i class="ti-power-off"></i>log out</a>
             </div>
         </div>
         <span class="ti-menu main-menu" data-ripple=""></span>
@@ -389,6 +396,11 @@
 <script>
 let index=0;
 
+setTimeout(function(){
+    document.getElementById("overlay").style.display="none"
+    document.getElementById("loader").style.display="none"
+},2500)
+
 let interval= setInterval(function(){
     index++;
     if(index==1){
@@ -407,6 +419,7 @@ let interval= setInterval(function(){
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 firebase.analytics();
+
 let newInterval = setInterval(function(){
     firebase.auth().onAuthStateChanged(function(user) {
     if(user){
@@ -425,24 +438,37 @@ let newInterval = setInterval(function(){
             $('#exampleModalCenter').modal('hide')
             clearInterval(newInterval)
         }
-        console.log(window.location.href)
         let refData= firebase.database().ref('studentData').child(user.uid)
 			refData.on('value', (snapshot) => {
 				const data = snapshot.val();
                 console.log(data)
-				if(data.studentVerified){
+                if(document.getElementById("student_name"))
+                    document.getElementById("student_name").innerHTML=data.Name
+				if(data.studentVerified ==true || data.studentVerified =="true"){
 					//Do Nothing
 				}else{
-                    if(!(window.location.href).includes("about.html"))
-					    window.location="about.html"
+                    if(!(window.location.href).includes("edit-profile-basic.html") && !(window.location.href).includes("edit-work-education.html") && !(window.location.href).includes("edit-interest.html"))
+					    window.location="edit-profile-basic.html"
+                        
 				}
 			});
     }else{
-     window.location="registration.html"
+     window.location="index.html"
     }
 
 })
-},900)
+},500)
 
 },1000)
+
+function logout(){
+    firebase.auth().signOut().then(function() {
+        // Sign-out successful.
+      
+         window.location="index.html"
+        }).catch(function(error) {
+        // An error happened.
+        console.log(error);
+        });
+}
 </script>
