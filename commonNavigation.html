@@ -129,6 +129,8 @@
             <li><a href="contact.html" title="">contact</a></li>
             <li><a href="contact-branches.html" title="">Contact Us2</a></li>
             <li><a href="widgets.html" title="">Widgts</a></li>
+
+            <li><span onclick="logout()">Logout</span></li>
         </ul>
     </nav>
     
@@ -348,7 +350,7 @@
             
         </ul>
         <div class="user-img">
-            <img src="images/resources/admin.jpg" alt="">
+            <img id="smallIcon" src="https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png" alt="" height="40"   width="50" style="display: inline-block;">
             <span class="status f-online"></span>
             <div class="user-setting">
                 <a href="#" title=""><span class="status f-online"></span>online</a>
@@ -419,11 +421,11 @@ let interval= setInterval(function(){
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 firebase.analytics();
-
+var data;
 let newInterval = setInterval(function(){
     firebase.auth().onAuthStateChanged(function(user) {
     if(user){
-
+        window.localStorage.setItem("user",user.uid)
         let current_user=user;
         index=1;
         if(index == 1){
@@ -436,18 +438,43 @@ let newInterval = setInterval(function(){
             $('#exampleModalCenter').modal('show')
         }else{
             $('#exampleModalCenter').modal('hide')
+
+            user.updateProfile({
+                emailVerified : true
+                }).then(function() {
+                updates = {
+                    emailVerified : true
+                }
+                firebase.database().ref('studentData').child(user.uid).update(updates);
+                console.log('User Profile Updated Successfully');
+                }).catch(function(error) {
+                // An error happened.
+            });
             clearInterval(newInterval)
         }
         let refData= firebase.database().ref('studentData').child(user.uid)
 			refData.on('value', (snapshot) => {
-				const data = snapshot.val();
+				data = snapshot.val();
                 console.log(data)
                 if(document.getElementById("student_name"))
                     document.getElementById("student_name").innerHTML=data.Name
+                if(document.getElementById("blah")){
+                    if(data.photoUrl){
+                        document.getElementById("blah").src=data.photoUrl
+                    }
+                }
+                if(data.photoUrl)
+                    document.getElementById("smallIcon").src=data.photoUrl
+                if(document.getElementById("sem"))
+                    document.getElementById("sem").innerHTML = data.sem
+                if(document.getElementById("branch"))
+                    document.getElementById("branch").innerHTML = data.branch
 				if(data.studentVerified ==true || data.studentVerified =="true"){
 					//Do Nothing
 				}else{
-                    if(!(window.location.href).includes("edit-profile-basic.html") && !(window.location.href).includes("edit-work-education.html") && !(window.location.href).includes("edit-interest.html"))
+                    if(!(window.location.href).includes("edit-profile-basic.html")
+                    && !(window.location.href).includes("edit-work-education.html") && !(window.location.href).includes("edit-interest.html") 
+                    && !(window.location.href).includes("edit-password.html"))
 					    window.location="edit-profile-basic.html"
                         
 				}

@@ -1,0 +1,137 @@
+<div class="feature-photo">
+    <figure><img src="https://www.iesonline.co.in/colleges-image/sai-vidhya-institute-lg.jpg" alt=""></figure>
+    <!-- <div class="add-btn">
+        <span>1205 followers</span>
+        <a href="#" title="" data-ripple="">Add Friend</a>
+    </div> -->
+
+    <div class="container-fluid">
+        <div class="row merged">
+            <div class="col-lg-2 col-sm-3">
+                <div class="user-avatar">
+                    <figure>
+                        <img id="blah" src="https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png" alt="">
+                        
+                        <form class="edit-phto">
+                            <i class="fa fa-camera-retro"></i>
+                            <label class="fileContainer" id="selectPic" style="display: block;">
+                                Edit Display Photo
+                                <input type="file"  id="slider-file" name="slider-file" class="mybtn1"  onchange="readURL(this)"/>
+                            </label>
+                            <label class="fileContainer" id="uploadNow" onclick="uploadFile()" style="display: none;background-color: green;cursor: pointer;">
+                                Upload now
+                            </label>
+                            <label class="fileContainer" id="clear" onclick="clearPic()" style="display: none;background-color: red;cursor: pointer;">
+                                Clear
+                            </label>
+                        </form>
+                    </figure>
+                </div>
+            </div>
+            <div class="col-lg-10 col-sm-9">
+                <div class="timeline-info">
+                    <ul>
+                
+                        <li class="admin-name">
+                          <h5 id="student_name">Loading..</h5>
+
+                        </li>
+                        <li>
+                               <span style="font-weight: 700;"> Semester - </span> <span style="font-weight: bold; padding-right:10px ;" id="sem">....</span>
+
+                                <span style="font-weight: 700;">Branch - </span><a href="#" title="" data-ripple="" id="branch">....</a>
+                        </li>
+                        
+                        <!-- <li>
+                            <a class="" href="time-line.html" title="" data-ripple="">time line</a>
+                        
+                            <a class="" href="timeline-friends.html" title="" data-ripple="">ClassMates</a>
+                            <a class="" href="groups.html" title="" data-ripple="">Groups</a>
+                            <a class="" href="about.html" title="" data-ripple="">about</a>
+                            <a class="active" href="#" title="" data-ripple="">more</a>
+                        </li> -->
+                        
+                    </ul>
+                </div>
+        
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+var selectedFile;
+var user = window.localStorage.getItem("user")
+
+    function readURL(input) {
+
+      if (input.files && input.files[0]) {
+        
+        var reader = new FileReader();
+        reader.onload = function (e) {
+          $('#blah')
+            .attr('src', e.target.result);
+        };
+        selectedFile=input.files[0];
+        reader.readAsDataURL(input.files[0]);
+        document.getElementById("selectPic").style.display="none"
+        document.getElementById("uploadNow").style.display="block"
+        document.getElementById("clear").style.display="block"
+      
+      }
+    }
+    function uploadFile(){
+        const  storageService = firebase.storage();
+        var uploadTask=storageService.ref(`/studentImages/${selectedFile.name}`).put(selectedFile);
+        uploadTask.on('state_changed', function(snapshot){
+            var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+
+            document.getElementById("uploadNow").innerHTML = progress;
+                switch (snapshot.state) {
+                case firebase.storage.TaskState.PAUSED: // or 'paused'
+                document.getElementById("uploadNow").innerHTML = "Upload Paused";
+                console.log('Upload is paused');
+                break;
+                case firebase.storage.TaskState.RUNNING: // or 'running'
+                document.getElementById("uploadNow").innerHTML = progress+"%";
+
+                break;
+                }
+                  },function(error){
+                      console.log(error);
+                        // Handle unsuccessful uploads
+                      }, function() {
+                  document.getElementById("uploadNow").innerHTML = "Uploaded"+ " "+progress+"%";
+
+                  uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+                  
+                  urls2 = downloadURL;
+                  console.log(urls2)
+                  updates = {
+                    photoUrl: urls2
+                }
+                console.log(user)
+                firebase.database().ref('studentData').child(user).update(updates);
+                document.getElementById("selectPic").style.display="block"
+                document.getElementById("uploadNow").style.display="none"
+                document.getElementById("clear").style.display="none"
+                });
+            })
+    }
+    function clearPic(){
+        $('#blah')
+            .attr('src',"https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png");
+        clearFileInput(document.getElementById("slider-file"));
+        document.getElementById("selectPic").style.display="block"
+        document.getElementById("uploadNow").style.display="none"
+        document.getElementById("clear").style.display="none"
+    };
+    function clearFileInput(ctrl) {
+        try {
+            ctrl.value = null;
+        } catch(ex) { }
+        if (ctrl.value) {
+            ctrl.parentNode.replaceChild(ctrl.cloneNode(true), ctrl);
+        }
+    }
+</script>

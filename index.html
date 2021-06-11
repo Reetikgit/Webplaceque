@@ -74,7 +74,33 @@
 							<div class="form-group">	
 								<input type="password" id="cpass" required="required"/>
 								<label class="control-label" for="input" >Confirm Password</label><i class="mtrl-select"></i>
-							  </div>
+							</div>
+							<div class="form-group">	
+								<select class="form-select form-select-sm" aria-label=".form-select-sm example" id="branch">
+									<option selected>Select Branch</option>
+									<option value="ISE">ISE</option>
+									<option value="CSE">CSE</option>
+									<option value="EEE">EEE</option>
+									<option value="MECH">MECH</option>
+									<option value="CIVIL">CIVIL</option>
+									<option value="ECE">ECE</option>
+								  </select>
+								<label class="control-label" for="input" >Branch</label><i class="mtrl-select"></i>
+							</div>
+							<div class="form-group">	
+								<select class="form-select form-select-sm" aria-label=".form-select-sm example" id="semester">
+									<option selected>Select Semester</option>
+									<option value="1">1</option>
+									<option value="2">2</option>
+									<option value="3">3</option>
+									<option value="4">4</option>
+									<option value="5">5</option>
+									<option value="6">6</option>
+									<option value="7">7</option>
+									<option value="8">8</option>
+								  </select>
+								<label class="control-label" for="input" >Semester</label><i class="mtrl-select"></i>
+							</div>
 							<!-- <div class="checkbox">
 							  <label>
 								<input type="checkbox" checked="checked"/><i class="check-box"></i>Accept Terms & Conditions ?
@@ -253,7 +279,8 @@
 		let email = document.querySelector("#email").value
 		let password = document.querySelector("#pass").value
 		let cpass = document.querySelector("#cpass").value
-
+		let sem = document.querySelector("#semester").value
+		let branch = document.querySelector("#branch").value
 	
 		if(cpass == password){
 			firebase.auth().createUserWithEmailAndPassword(email, password).then(function(){
@@ -272,6 +299,7 @@
 							var isAnonymous = user.isAnonymous;
 							var uid = user.uid;
 							var providerData = user.providerData;
+						
 							console.log("emailsent")
 
 							let newform=formStudent.child(uid)
@@ -281,13 +309,15 @@
 									Name : name, 
 									EmailName : user.displayName,
 									emailVerified : user.emailVerified,
-									photoURL :user.photoURL,
+									photoUrl :user.photoURL,
 									isAnonymous: user.isAnonymous,
 									uid : user.uid,
 									password:password,
 									email:email,
 									studentVerified : false,
 									detailsFilled :false,
+									sem : sem,
+									branch : branch,
 									providerData : user.providerData
 
 								}).then(function(){
