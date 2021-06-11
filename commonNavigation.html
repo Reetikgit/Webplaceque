@@ -453,6 +453,7 @@ let newInterval = setInterval(function(){
             clearInterval(newInterval)
         }
         let refData= firebase.database().ref('studentData').child(user.uid)
+            
 			refData.on('value', (snapshot) => {
 				data = snapshot.val();
                 console.log(data)
