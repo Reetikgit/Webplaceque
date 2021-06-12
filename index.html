@@ -116,6 +116,7 @@
 						<div class="friend-l">
 							<img src="images/logo23.png" style="margin-left: auto;margin-right: auto;width: 130px;; display: block;" alt="">
 						</div>
+						<br>
 						<h2 class="log-title">Forgot Password</h2>
 						
 						<form method="post">
@@ -124,10 +125,12 @@
 							  <label class="control-label" for="input">Registered Email</label><i class="mtrl-select"></i>
 							</div>
 							<p id="errorText2" style="color: red;"></p>
+							<p id="successText2" style="color: green;"></p>
 							<div class="submit-btns">
 								<button class="mtr-btn signin" type="button" onclick="resetPassword()"><span>Send Code</span></button>
+								<button class="mtr-btn signin" type="button"  onclick="backLogin()""><span>Back to login</span></button>
 							</div>
-							<button class="mtr-btn signin" type="button"  onclick="backLogin()""><span>Back to login</span></button>
+							
 						</form>
 					</div>
 				</div>
@@ -379,7 +382,7 @@
 	function backLogin(){
 	
 		document.getElementById("log").style.display="block"
-		document.getElementById("reg").style.display="block"
+		document.getElementById("reg").style.display="none"
 		document.getElementById("forgotPass").style.display="none"
 	}
 	function showRegister(){
@@ -400,9 +403,16 @@
 		var emailAddress = document.querySelector("#reset_email").value;
 		auth.sendPasswordResetEmail(emailAddress).then(function() {
 		// Email sent.
+		document.getElementById("successText2").innerHTML="Code Sent Successfully ✔"
+		setTimeout(function(){
+			document.getElementById("successText2").innerHTML=""
+		},3000)
 		console.log('Email Sent');
 		}).catch(function(error) {
-			document.getElementById("errorText2").innerHTML="Email id is not registered"
+			document.getElementById("errorText2").innerHTML="Email id is not registered ❌"
+			setTimeout(function(){
+				document.getElementById("errorText2").innerHTML=""
+			},3000)
 		});
 	}
 </script>
