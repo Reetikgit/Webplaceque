@@ -303,6 +303,12 @@ $(function() {
 		$('.login-reg-bg').removeClass('show');
 		return false;
 	  });
+
+	  $('.forget-pass').on("click", function(){
+		$('.login-reg-bg').removeClass('show');
+		// $('.forget-sec').addClass('show');
+		return false;
+	  });
 	
 //----- count down timer		
 	if ($.isFunction($.fn.downCount)) {

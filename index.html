@@ -28,7 +28,7 @@
 			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 				
 				<div class="login-reg-bg">
-					<div class="log-reg-area sign">
+					<div class="log-reg-area sign" id="log">
 						<div class="friend-l">
 							<img src="images/logo23.png" style="margin-left: auto;margin-right: auto;width: 130px;; display: block;" alt="">
 						</div>
@@ -44,15 +44,15 @@
 							  <label class="control-label" for="input" >Password</label><i class="mtrl-select"></i>
 							</div>
 							<p id="errorText" style="color: red;"></p>
-							<a href="#" title="" class="forgot-pwd">Forgot Password?</a>
+							<a href="#" title="" onclick="forgetCode()" class="forgot-pwd">Forgot Password?</a>
 							<div class="submit-btns">
 								<button class="mtr-btn signin" type="button" onclick="login()" id="loginBtn"><span>Login</span></button>
-								<button class="mtr-btn signup" type="button"><span>Register</span></button>
+								<button class="mtr-btn signup" type="button" onclick="showRegister()"><span>Register</span></button>
 							</div>
 
 						</form>
 					</div>
-					<div class="log-reg-area reg">
+					<div class="log-reg-area reg" id="reg">
 						<div class="friend-l">
 							<img src="images/logo23.png" style="margin-left: auto;margin-right: auto;width: 130px;; display: block;" alt="">
 						</div>
@@ -106,10 +106,28 @@
 								<input type="checkbox" checked="checked"/><i class="check-box"></i>Accept Terms & Conditions ?
 							  </label>
 							</div> -->
-							<a href="#" title="" class="already-have">Already have an account</a>
+							<a href="#" title="" onclick="showLogin()" class="already-have">Already have an account</a>
 							<div class="submit-btns">
 								<button class="mtr-btn signup" onclick="submitForm()" type="button"><span>Register</span></button>
 							</div>
+						</form>
+					</div>
+					<div class="log-reg-area forgot" id="forgotPass" style="display: none;">
+						<div class="friend-l">
+							<img src="images/logo23.png" style="margin-left: auto;margin-right: auto;width: 130px;; display: block;" alt="">
+						</div>
+						<h2 class="log-title">Forgot Password</h2>
+						
+						<form method="post">
+							<div class="form-group">	
+							  <input type="text"  id="reset_email" required="required"/>
+							  <label class="control-label" for="input">Registered Email</label><i class="mtrl-select"></i>
+							</div>
+							<p id="errorText2" style="color: red;"></p>
+							<div class="submit-btns">
+								<button class="mtr-btn signin" type="button" onclick="resetPassword()"><span>Send Code</span></button>
+							</div>
+							<button class="mtr-btn signin" type="button"  onclick="backLogin()""><span>Back to login</span></button>
 						</form>
 					</div>
 				</div>
@@ -352,5 +370,40 @@
 		}
 	}
 
+	function forgetCode(){
+	
+		document.getElementById("log").style.display="none"
+		document.getElementById("reg").style.display="none"
+		document.getElementById("forgotPass").style.display="block"
+	}	
+	function backLogin(){
+	
+		document.getElementById("log").style.display="block"
+		document.getElementById("reg").style.display="block"
+		document.getElementById("forgotPass").style.display="none"
+	}
+	function showRegister(){
+	
+		document.getElementById("log").style.display="none"
+		document.getElementById("reg").style.display="block"
+		document.getElementById("forgotPass").style.display="none"
+	}
+	function showLogin(){
+	
+	document.getElementById("log").style.display="block"
+	document.getElementById("reg").style.display="none"
+	document.getElementById("forgotPass").style.display="none"
+	}
+
+	function resetPassword(){
+		var auth = firebase.auth();
+		var emailAddress = document.querySelector("#reset_email").value;
+		auth.sendPasswordResetEmail(emailAddress).then(function() {
+		// Email sent.
+		console.log('Email Sent');
+		}).catch(function(error) {
+			document.getElementById("errorText2").innerHTML="Email id is not registered"
+		});
+	}
 </script>
 </html>
