@@ -306,92 +306,98 @@
 		let cpass = document.querySelector("#cpass").value
 		let sem = document.querySelector("#semester").value
 		let branch = document.querySelector("#branch").value
-	
-		if(cpass == password){
-			if(sem  != "" && branch!="" && name !=""){
-				document.getElementById("registerText").backgroundColor="orange"
-				document.getElementById("registerText").innerHTML="Verifying Details"
-				firebase.auth().createUserWithEmailAndPassword(email, password).then(function(){
-		
-				firebase.auth().signInWithEmailAndPassword(email, password).then(function(){
+		if(email.toLowerCase().includes("@saividya.ac.in")){
+			if(cpass == password){
+				if(sem  != "" && branch!="" && name !=""){
+					document.getElementById("registerText").backgroundColor="orange"
+					document.getElementById("registerText").innerHTML="Verifying Details"
+					firebase.auth().createUserWithEmailAndPassword(email, password).then(function(){
 			
-					firebase.auth().onAuthStateChanged(function(user) {
-						if (user) {
-							var user = firebase.auth().currentUser;
-							user.sendEmailVerification().then(function() {
-							// Email sent.
-								var displayName = user.displayName;
-								var email = user.email;
-								var emailVerified = user.emailVerified;
-								var photoURL = user.photoURL;
-								var isAnonymous = user.isAnonymous;
-								var uid = user.uid;
-								var providerData = user.providerData;
-							
-								console.log("emailsent")
+					firebase.auth().signInWithEmailAndPassword(email, password).then(function(){
+				
+						firebase.auth().onAuthStateChanged(function(user) {
+							if (user) {
+								var user = firebase.auth().currentUser;
+								user.sendEmailVerification().then(function() {
+								// Email sent.
+									var displayName = user.displayName;
+									var email = user.email;
+									var emailVerified = user.emailVerified;
+									var photoURL = user.photoURL;
+									var isAnonymous = user.isAnonymous;
+									var uid = user.uid;
+									var providerData = user.providerData;
+								
+									console.log("emailsent")
 
-								let newform=formStudent.child(uid)
-								console.log("SDS")
-									newform.set({
-										
-										Name : name, 
-										EmailName : user.displayName,
-										emailVerified : user.emailVerified,
-										photoUrl :user.photoURL,
-										isAnonymous: user.isAnonymous,
-										uid : user.uid,
-										password:password,
-										email:email,
-										studentVerified : false,
-										detailsFilled :false,
-										sem : sem,
-										branch : branch,
-										providerData : user.providerData
+									let newform=formStudent.child(uid)
+									
+										newform.set({
+											
+											Name : name, 
+											EmailName : user.displayName,
+											emailVerified : user.emailVerified,
+											photoUrl :user.photoURL,
+											isAnonymous: user.isAnonymous,
+											uid : user.uid,
+											password:password,
+											email:email,
+											studentVerified : false,
+											detailsFilled :false,
+											sem : sem,
+											branch : branch,
+											providerData : user.providerData
 
-									}).then(function(){
-										document.getElementById("registerText").innerHTML="Account Created ✔"
-										setTimeout(function(){
-											window.location="edit-profile-basic.html"
-										},1000)
-										
-									}).catch(function(error){
-										alert(error)
-									});
-							}).catch(function(error) {
-							// An error happened.
+										}).then(function(){
+											document.getElementById("registerText").innerHTML="Account Created ✔"
+											setTimeout(function(){
+												window.location="edit-profile-basic.html"
+											},1000)
+											
+										}).catch(function(error){
+											alert(error)
+										});
+								}).catch(function(error) {
+								// An error happened.
+								});
+							}else {
+								// User is signed out.
+								// ...
+							}
 							});
-						}else {
-							// User is signed out.
-							// ...
-						}
-						});
+							}).catch(function(error) {
+							// Handle Errors here.
+								var errorCode = error.code;
+								var errorMessage = error.message;
+							});
 						}).catch(function(error) {
-						// Handle Errors here.
+							// Handle Errors here.
 							var errorCode = error.code;
 							var errorMessage = error.message;
-						});
-					}).catch(function(error) {
-						// Handle Errors here.
-						var errorCode = error.code;
-						var errorMessage = error.message;
-						console.log(errorCode);
-						console.log(errorMessage);
-						document.getElementById("errorText3").innerHTML = errorMessage
-						setTimeout(function(){
-							document.getElementById("errorText3").innerHTML = ""	
-						},3000)
-				});
+							console.log(errorCode);
+							console.log(errorMessage);
+							document.getElementById("errorText3").innerHTML = errorMessage
+							setTimeout(function(){
+								document.getElementById("errorText3").innerHTML = ""	
+							},3000)
+					});
+				}else{
+					document.getElementById("errorText3").innerHTML = "Please fill all the details"
+					setTimeout(function(){
+						document.getElementById("errorText3").innerHTML = ""
+					},3000)
+				}
+				
 			}else{
-				document.getElementById("errorText3").innerHTML = "Please fill all the details"
+				document.getElementById("errorText3").innerHTML = "☹ Password did not matched"
 				setTimeout(function(){
 					document.getElementById("errorText3").innerHTML = ""
 				},3000)
 			}
-			
 		}else{
-			document.getElementById("errorText3").innerHTML = "☹ Password did not matched"
-			setTimeout(function(){
-				document.getElementById("errorText3").innerHTML = ""
+			document.getElementById("errorText3").innerHTML = "Please use college email id only"
+				setTimeout(function(){
+					document.getElementById("errorText3").innerHTML = ""
 			},3000)
 		}
 	}

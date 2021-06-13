@@ -21,6 +21,7 @@
 	
 	$('#navigation').load("commonNavigation.html");
 	$('#commonProfile').load("commonProfile.html");
+	$('#profileTask').load("profileTask.html");
 
 });
 </script>
@@ -39,35 +40,8 @@
 					<div class="col-lg-12">
 						<div class="row" id="page-contents">
 							<div class="col-lg-3">
-								<aside class="sidebar static">
-									<div class="alert alert-danger" role="alert">
-										Fill out the details <a href="#" class="alert-link">[Basic info , Education & interests]</a>to get verified by college.
-									  </div>
-									<div class="widget stick-widget">
-										<h4 class="widget-title">Edit info</h4>
-										<ul class="naves">
-											<li>
-												<i class="ti-info-alt"></i>
-												<a href="edit-profile-basic.html" title="">Basic info</a>
-											</li>
-											<li>
-												<i class="ti-mouse-alt"></i>
-												<a href="edit-work-education.html" title="">Education & Work</a>
-											</li>
-											<li>
-												<i class="ti-heart"></i>
-												<a href="edit-interest.html" title="">My interests</a>
-											</li>
-											<li>
-												<i class="ti-settings"></i>
-												<a href="edit-account-setting.html" title="">account setting</a>
-											</li>
-											<li>
-												<i class="ti-lock"></i>
-												<a href="edit-password.html" title="">change password</a>
-											</li>
-										</ul>
-									</div><!-- settings widget -->										
+								<aside class="sidebar static" id="profileTask">
+																
 								</aside>
 							</div><!-- sidebar -->
 							
@@ -81,7 +55,7 @@
 										<h5 class="f-title"><i class="ti-info-alt"></i> Edit work & Education</h5>
 									
 										<form method="post">
-											<div class="checkbox">
+											<!-- <div class="checkbox">
 											  <label>
 												<input type="checkbox" checked="checked"><i class="check-box"></i>School
 											  </label>
@@ -95,75 +69,80 @@
 												<label>
 												  <input type="checkbox" checked="checked"><i class="check-box"></i>Degree
 												</label>
-											  </div>
+											  </div> -->
 											  <h5 style="margin-bottom: 1%;text-align: center;">College Details</h5>
 											<div class="form-group">	
-											  <input type="text" id="input" required="required" />
+											  <input type="text" id="collegeName" required="required" />
 											  <label class="control-label" for="input">Institute Name</label><i class="mtrl-select"></i>
 											</div>
 											<div class="form-group half">	
-											  <input type="text" required="required"/>
+											  <input type="date" id='collegeFrom' required="required"/>
 											  <label class="control-label" for="input">From</label><i class="mtrl-select"></i>
 											</div>
 											<div class="form-group half">	
-											  <input type="text" required="required"/>
+											  <input type="date" id="collegeTo" required="required"/>
 											  <label class="control-label" for="input">To</label><i class="mtrl-select"></i>
 											</div>												
 											<div class="form-group">	
-											  <input type="text" required="required"/>
+											  <input type="text" id="collegeCity" required="required"/>
 											  <label class="control-label" for="input">City</label><i class="mtrl-select"></i>
 											</div>
-										
+											<div class="form-group">	
+												<input type="number" id="cmarks" required="required"/>
+												<label class="control-label" for="input">CGPA/SGPA/% ( in % Only)</label><i class="mtrl-select"></i>
+											</div>
 										
 									
 											<h5 style="margin-bottom: 1%;text-align: center;">Xth Details</h5>
 											<div class="form-group">	
 											
-												<br>
-												<br>
-												<input type="text" id="input" required="required" />
+												<input type="text" id="Xname" required="required" />
 												<label class="control-label" for="input">X Std School Name</label><i class="mtrl-select"></i>
 											  </div>
 											  <div class="form-group half">	
-												<input type="text" required="required"/>
+												<input type="date" id="Xfrom" required="required"/>
 												<label class="control-label" for="input">From</label><i class="mtrl-select"></i>
 											  </div>
 											  <div class="form-group half">	
-												<input type="text" required="required"/>
+												<input type="date" id="Xto" required="required"/>
 												<label class="control-label" for="input">To</label><i class="mtrl-select"></i>
 											  </div>												
 											  <div class="form-group">	
-												<input type="text" required="required"/>
+												<input type="text" id="XCity" required="required"/>
 												<label class="control-label" for="input">City</label><i class="mtrl-select"></i>
 											  </div>
-										  
+											  <div class="form-group">	
+												<input type="number" id="Xmarks" required="required"/>
+												<label class="control-label" for="input">CGPA/SGPA/% ( in % Only)</label><i class="mtrl-select"></i>
+											</div>
 											  
 									
 											  <h5 style="margin-bottom: 1%;text-align: center;">XII th Details</h5>
 											<div class="form-group">	
 											
-												<br>
-												<br>
-												<input type="text" id="input" required="required" />
+											
+												<input type="text" id="XIIname" required="required" />
 												<label class="control-label" for="input">XII Std School Name</label><i class="mtrl-select"></i>
 											  </div>
 											  <div class="form-group half">	
-												<input type="text" required="required"/>
+												<input type="date" id="XIIfrom" required="required"/>
 												<label class="control-label" for="input">From</label><i class="mtrl-select"></i>
 											  </div>
 											  <div class="form-group half">	
-												<input type="text" required="required"/>
+												<input type="date" id="XIIto" required="required"/>
 												<label class="control-label" for="input">To</label><i class="mtrl-select"></i>
 											  </div>												
 											  <div class="form-group">	
-												<input type="text" required="required"/>
+												<input type="text" id="XIICity" required="required"/>
 												<label class="control-label" for="input">City</label><i class="mtrl-select"></i>
 											  </div>
-										  
+											  <div class="form-group">	
+												<input type="number" id="XIImarks" required="required"/>
+												<label class="control-label" for="input">CGPA/SGPA/% ( in % Only)</label><i class="mtrl-select"></i>
+											</div>
 											  
 											<div class="submit-btns">
-												<button type="button" class="mtr-btn"><span>Cancel</span></button>
-												<button type="button" class="mtr-btn"><span>Update</span></button>
+												<button type="button" class="mtr-btn" onclick="step2()"><span>Update & Next</span></button>
 											</div>
 										</form>
 									</div>

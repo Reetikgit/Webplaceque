@@ -21,6 +21,7 @@
 	
 	$('#navigation').load("commonNavigation.html");
 	$('#commonProfile').load("commonProfile.html");
+	$('#profileTask').load("profileTask.html");
 });
 </script>
 <body>
@@ -38,35 +39,8 @@
 					<div class="col-lg-12">
 						<div class="row" id="page-contents">
 							<div class="col-lg-3">
-								<aside class="sidebar static">
-									<div class="alert alert-danger" role="alert">
-										Fill out the details <a href="#" class="alert-link">[Basic info , Education & interests]</a>to get verified by college.
-									  </div>
-									<div class="widget stick-widget">
-										<h4 class="widget-title">Edit info</h4>
-										<ul class="naves">
-											<li>
-												<i class="ti-info-alt"></i>
-												<a href="edit-profile-basic.html" title="">Basic info</a>
-											</li>
-											<li>
-												<i class="ti-mouse-alt"></i>
-												<a href="edit-work-education.html" title="">Education & Work</a>
-											</li>
-											<li>
-												<i class="ti-heart"></i>
-												<a href="edit-interest.html" title="">My interests</a>
-											</li>
-											<li>
-												<i class="ti-settings"></i>
-												<a href="edit-account-setting.html" title="">account setting</a>
-											</li>
-											<li>
-												<i class="ti-lock"></i>
-												<a href="edit-password.html" title="">change password</a>
-											</li>
-										</ul>
-									</div><!-- settings widget -->										
+								<aside class="sidebar static" id="profileTask">
+																		
 								</aside>
 							</div><!-- sidebar -->
 							
@@ -81,155 +55,160 @@
 
 										<form method="post">
 											<div class="form-group half">	
-											  <input type="text" id="input" required="required"/>
+											  <input type="text" id="fname" required="required"/>
 											  <label class="control-label" for="input">First Name</label><i class="mtrl-select"></i>
 											</div>
 											<div class="form-group half">	
-											  <input type="text" required="required"/>
+											  <input type="text" id="lname" required="required"/>
 											  <label class="control-label" for="input">Last Name</label><i class="mtrl-select"></i>
 											</div>
 											<div class="form-group">	
-											  <input type="text" required="required"/>
-											  <label class="control-label" for="input"><a href="https://wpkixx.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="4b0e262a22270b">[email&#160;protected]</a></label><i class="mtrl-select"></i>
+											  <input type="text" id="oemail" required="required"/>
+											  <label class="control-label" for="input"><a href="https://wpkixx.com/cdn-cgi/l/email-protection">Official Email </a></label><i class="mtrl-select"></i>
 											</div>
 											<div class="form-group">	
-											  <input type="text" required="required"/>
+												<input type="text" id="pemail" required="required"/>
+												<label class="control-label" for="input"><a href="https://wpkixx.com/cdn-cgi/l/email-protection">Personal Email </a></label><i class="mtrl-select"></i>
+											  </div>
+											<div class="form-group">	
+											  <input type="text" id="phone" required="required"/>
 											  <label class="control-label" for="input">Phone No.</label><i class="mtrl-select"></i>
 											</div>
 											<div class="dob">
 												<div class="form-group">
-													<select>
+													<select id="day">
 														<option value="Day">Day</option>
-														  <option>1</option>
-														  <option>2</option>
-														  <option>3</option>
-														  <option>4</option>
-														  <option>5</option>
-														  <option>6</option>
-														  <option>7</option>
-														  <option>8</option>
-														  <option>9</option>
-														  <option>10</option>
-														  <option>11</option>
-														  <option>12</option>
-														  <option>13</option>
-														  <option>14</option>
-														  <option>15</option>
-														  <option>16</option>
-														  <option>17</option>
-														  <option>18</option>
-														  <option>19</option>
-														  <option>20</option>
-														  <option>21</option>
-														  <option>22</option>
-														  <option>23</option>
-														  <option>24</option>
-														  <option>25</option>
-														  <option>26</option>
-														  <option>27</option>
-														  <option>28</option>
-														  <option>29</option>
-														  <option>30</option>
-														  <option>31</option>
+														<option value="01">01</option>
+														<option value="02">02</option>
+														<option value="03">03</option>
+														<option value="04">04</option>
+														<option value="05">05</option>
+														<option value="06">06</option>
+														<option value="07">07</option>
+														<option value="08">08</option>
+														<option value="09">09</option>
+														<option value="10">10</option>
+														<option value="11">11</option>
+														<option value="12">12</option>
+														<option value="13">13</option>
+														<option value="14">14</option>
+														<option value="15">15</option>
+														<option value="16">16</option>
+														<option value="17">17</option>
+														<option value="18">18</option>
+														<option value="19">19</option>
+														<option value="20">20</option>
+														<option value="21">21</option>
+														<option value="22">22</option>
+														<option value="23">23</option>
+														<option value="24">24</option>
+														<option value="25">25</option>
+														<option value="26">26</option>
+														<option value="27">27</option>
+														<option value="28">28</option>
+														<option value="29">29</option>
+														<option value="30">30</option>
+														<option value="31">31</option>
 													</select>
 												</div>
 												<div class="form-group">
-													<select>
+													<select id="month">
 														<option value="month">Month</option>
-														  <option>Jan</option>
-														  <option>Feb</option>
-														  <option>Mar</option>
-														  <option>Apr</option>
-														  <option>May</option>
-														  <option>Jun</option>
-														  <option>Jul</option>
-														  <option>Aug</option>
-														  <option>Sep</option>
-														  <option>Oct</option>
-														  <option>Nov</option>
-														  <option>Dec</option>
+														<option value="01">January</option>
+														<option value="02">February</option>
+														<option value="03">March</option>
+														<option value="04">April</option>
+														<option value="05">May</option>
+														<option value="06">June</option>
+														<option value="07">July</option>
+														<option value="08">August</option>
+														<option value="09">September</option>
+														<option value="10">October</option>
+														<option value="11">November</option>
+														<option value="12">December</option>
 													</select>
 												</div>
 												<div class="form-group">
-													<select>
+													<select id="year">
 													  <option value="year">Year</option>
-													  <option>2000</option>
-													  <option>2001</option>
-													  <option>2002</option>
-													  <option>2004</option>
-													  <option>2005</option>
-													  <option>2006</option>
-													  <option>2007</option>
-													  <option>2008</option>
-													  <option>2009</option>
-													  <option>2010</option>
-													  <option>2011</option>
-													  <option>2012</option>
+													  <option value="2000">2000</option>
+													  <option value="2001">2001</option>
+													  <option value="2002">2002</option>
+													  <option value="2003">2003</option>
+													  <option value="2004">2004</option>
+													  <option value="2005">2005</option>
+													  <option value="2006">2006</option>
+													  <option value="2007">2007</option>
+													  <option value="2008">2008</option>
+													  <option value="2009">2009</option>
+													  <option value="20010">2010</option>
+													  <option value="2011">2011</option>
+													  <option value="2012">2012</option>
 													</select>
 												</div>
 											</div>
 											<div class="form-radio">
 											  <div class="radio">
 												<label>
-												  <input type="radio" checked="checked" name="radio"><i class="check-box"></i>Male
+												  <input type="radio" checked="" value="Male" name="radio"><i class="check-box"></i>Male
 												</label>
 											  </div>
 											  <div class="radio">
 												<label>
-												  <input type="radio" name="radio"><i class="check-box"></i>Female
+												  <input type="radio" value="Female" name="radio"><i class="check-box"></i>Female
 												</label>
 											  </div>
 											</div>
 											<div class="form-group">	
-											  <input type="text" required="required"/>
+											  <input type="text" id="address" required="required"/>
 											  <label class="control-label" for="input">Address</label><i class="mtrl-select"></i>
 											</div>
-											
-											
 											<div class="form-group">	
-											  <textarea rows="4" id="textarea" required="required"></textarea>
-											  <label class="control-label" for="textarea">About Me</label><i class="mtrl-select"></i>
+												<input type="text" id="city" required="required"/>
+												<label class="control-label" for="input">City</label><i class="mtrl-select"></i>
+											</div>
+											<div class="form-group">	
+												<input type="text" id="state" required="required"/>
+												<label class="control-label" for="input">State</label><i class="mtrl-select"></i>
+											</div>
+											<div class="form-group">	
+												<input type="text" id="zip" required="required"/>
+												<label class="control-label" for="input">Zip</label><i class="mtrl-select"></i>
 											</div>
 											<label>Personal Information</label>
 											<div>
 												<div class="form-group half">	
-													<input type="text" id="input" required="required"/>
+													<input type="text" id="father" required="required"/>
 													<label class="control-label" for="input">Father Name</label><i class="mtrl-select"></i>
 												  </div>
 												  <div class="form-group half">	
-													<input type="text" required="required"/>
+													<input type="text" id="mother" required="required"/>
 													<label class="control-label" for="input">Mother Name</label><i class="mtrl-select"></i>
 												  </div>
 												  <div class="dob">
-												  <div class="form-group">
-													<select>
-														<option value="month">Blood Group</option>
-														  <option>A+ve</option>
-														  <option>A-ve</option>
-														  <option>B+ve</option>
-														  <option>B-ve</option>
-														  <option>AB+ve</option>
-														  <option>AB-ve</option>
-														  <option>O+ve</option>
-														  <option>O-ve</option>
-													</select>
-												</div>
-												<!-- <div >
-													<label>Marital Status</label><br><br>
-													<div class="radio">
-														<label>
-														  <input type="radio" checked="checked" name="radio"><i class="check-box"></i>Married&nbsp;&nbsp;&nbsp;
-														  <input type="radio" name="radio"><i class="check-box"></i>Single
-														</label>
-													  </div>
+												  <div class="form-group" style="display: flex;">
 													  
-												</div> -->
+													<select id="blood">
+														
+														<option value="none" >Blood Group </option>
+														  <option value="A+ve">A+ve</option>
+														  <option value="A-ve">A-ve</option>
+														  <option value="B+ve">B+ve</option>
+														  <option value="B-ve">B-ve</option>
+														  <option value="AB+ve">AB+ve</option>
+														  <option value="AB-ve">AB-ve</option>
+														  <option value="O+ve">O+ve</option>
+														  <option value="O-ve">O-ve</option>
+													</select>
+													
+												</div>
+												
 											</div>
 
 											</div>
 											<div class="submit-btns">
-												<button type="button" class="mtr-btn"><span>Cancel</span></button>
-												<button type="button" class="mtr-btn"><span>Update</span></button>
+												
+												<button type="button" class="mtr-btn" onclick="step1()" ><span>Update & Next</span></button>
 											</div>
 										</form>
 									</div>

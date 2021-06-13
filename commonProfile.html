@@ -61,6 +61,100 @@
 <script>
 var selectedFile;
 var user = window.localStorage.getItem("user")
+setTimeout(function(){
+    let refData= firebase.database().ref('studentData').child(user)
+            console.log(8)
+            refData.on('value', (snapshot) => {
+                data = snapshot.val();
+                if(data.BasicprofileData ){
+
+                }if(data.educationData){
+
+                }
+                if(data.BasicprofileData){ 
+                    let basic =data.BasicprofileData.basic
+                    if( data.BasicprofileData.basic){
+                        document.getElementById("incomp1").innerHTML="✔"
+                        document.getElementById("incomp1").style.color="green"
+                    }
+                   
+                    if(data.BasicprofileData.basic && window.location.href.includes("edit-profile-basic.html")){
+
+
+                        document.querySelector("#fname").value =basic.fname
+
+                        document.querySelector("#lname").value =basic.lname
+
+                        document.querySelector("#oemail").value = basic.officialEmail
+                        document.querySelector("#pemail").value = basic.personalEmail
+                        document.querySelector("#phone").value =basic.phone
+
+                        document.querySelector("#day").value =basic.day
+                        
+                        document.querySelector("#month").value =basic.month
+
+                        document.querySelector("#year").value =basic.year
+                        
+                        document.querySelector("#address").value =basic.address
+                        document.querySelector("#city").value =basic.city
+                        
+                        document.querySelector("#state").value =basic.state
+
+                        document.querySelector("#zip").value =basic.zip
+                        
+                        document.querySelector("#father").value =basic.father
+                        document.querySelector("#mother").value =basic.mother
+                        document.getElementById("blood").value =basic.blood
+      
+
+                    }
+                   
+                }
+                if(data.educationData){                
+                    if(data.educationData.education){
+                        document.getElementById("incomp2").innerHTML="✔"
+                        document.getElementById("incomp2").style.color="green"
+                    }
+                    if( data.educationData.education && window.location.href.includes("edit-work-education.html")){
+                        let edu=data.educationData.education
+                        document.querySelector("#collegeName").value = edu.collegeName
+                        document.querySelector("#collegeFrom").value = edu.collegeFrom
+                        document.querySelector("#collegeTo").value = edu.collegeTo
+                        document.querySelector("#cmarks").value = edu.cmarks
+                        document.querySelector("#collegeCity").value = edu.collegeCity
+
+                        document.querySelector("#Xname").value =edu.Xname
+                        
+                        document.querySelector("#Xfrom").value =edu.Xfrom
+                        
+                        document.querySelector("#Xto").value =edu.Xto
+                            
+                        document.querySelector("#Xmarks").value =edu.Xmarks
+                        document.querySelector("#XCity").value =edu.XCity
+                        
+                        document.querySelector("#XIIname").value =edu.XIIname
+
+                        document.querySelector("#XIIfrom").value =edu.XIIfrom
+
+                        document.querySelector("#XIIto").value =edu.XIIto
+                        
+                        document.querySelector("#XIImarks").value =edu.XIImarks
+                        document.querySelector("#XIICity").value =edu.XIICity
+                    }
+                }
+                if(data.interestData){
+                    if(data.interestData.interest){
+                        document.getElementById("incomp3").innerHTML="✔"
+                        document.getElementById("incomp3").style.color="green"
+                    }
+                }
+
+ 
+              
+
+
+            })
+},2000)
 
     function readURL(input) {
 
