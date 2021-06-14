@@ -66,10 +66,11 @@ setTimeout(function(){
             console.log(8)
             refData.on('value', (snapshot) => {
                 data = snapshot.val();
-                if(data.BasicprofileData ){
-
-                }if(data.educationData){
-
+                if(data.BasicprofileData  && data.educationData && data.skills){
+                    document.getElementById("alert2").style.display="none"
+                    document.getElementById("alert1").innerHTML = "Congratulations !! You have successfully updated your profile. Please wait while the placeque Team will verify your details"
+                    document.getElementById("alert1").style.backgroundColor = "lightgreen"
+                    document.getElementById("alert1").style.color="black"
                 }
                 if(data.BasicprofileData){ 
                     let basic =data.BasicprofileData.basic
@@ -152,20 +153,43 @@ setTimeout(function(){
                         console.log(data.skills[i])
                         document.getElementById("showSkills").innerHTML+=`
 
-                        <li><a href="#" title="">`+data.skills[i]+`</a><span class="remove" title="remove"><i class="fa fa-close"></i></span></li>
+                        <li><a href="#" title="">`+data.skills[i]+`</a><span class="remove" title="remove" onclick=removeSkill("`+data.skills[i]+`")><i class="fa fa-close"></i></span></li>
 
                         `
                     }
                     
                 }
-
- 
               
 
-
             })
+          
 },2000)
-
+    function removeSkill(value){
+        let arr=[]
+        let user = window.localStorage.getItem("user")
+        let refData2= firebase.database().ref('studentData').child(user)
+   
+        refData2.on('value', (snapshot) => {
+            data = snapshot.val();
+            if(data.skills){
+                for(let i =0 ;i<data.skills.length;i++){
+                    arr.push(data.skills[i])
+                }
+                console.log(arr)
+                arr = arr.filter(function(item) {
+                    return item !== value
+                })
+                console.log(arr)
+            }  
+        })
+            let basicData = {
+                skills : arr
+            }
+            firebase.database().ref('studentData').child(user).update(basicData).then(function(){
+                console.log("done")
+            });
+        
+    }
     function readURL(input) {
 
       if (input.files && input.files[0]) {

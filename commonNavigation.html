@@ -708,18 +708,19 @@ function step3(){
    
     refData2.on('value', (snapshot) => {
         data = snapshot.val();
-        console.log(809)
-        console.log(data.skills)
-        for(let i =0 ;i<data.skills.length;i++){
-            arr.push(data.skills[i])
+        if(data.skills){
+            for(let i =0 ;i<data.skills.length;i++){
+                arr.push(data.skills[i])
+            }
         }
-        arr=arr
+
+   
     })
-    console.log(arr)
+
     let skill = document.getElementById("newSkill").value
     if(skill !="" && skill !=undefined){
         arr.push(skill)
-        console.log(arr)
+       
         document.getElementById("newSkill").value=""
     }
 
