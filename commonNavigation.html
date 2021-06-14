@@ -31,14 +31,14 @@
     <nav id="menu" class="res-menu">
         <ul>
             <li><span>Home</span>
-                <ul>
+                <!-- <ul>
                     <li><a href="index-2.html" title="">Home Social</a></li>
                     <li><a href="index2.html" title="">Home Social 2</a></li>
                     <li><a href="index-company.html" title="">Home Company</a></li>
                     <li><a href="landing.html" title="">Login page</a></li>
                     <li><a href="logout.html" title="">Logout Page</a></li>
                     <li><a href="newsfeed.html" title="">news feed</a></li>
-                </ul>
+                </ul> -->
             </li>
             <li><span>Time Line</span>
                 <ul>
@@ -144,15 +144,15 @@
     <div class="top-area">
         <ul class="main-menu">
             <li>
-                <a href="#" title="">Home</a>
-                <ul>
+                <a href="home.html" title="">Home</a>
+                <!-- <ul>
                     <li><a href="index-2.html" title="">Home Social</a></li>
                     <li><a href="index2.html" title="">Home Social 2</a></li>
                     <li><a href="index-company.html" title="">Home Company</a></li>
                     <li><a href="landing.html" title="">Login page</a></li>
                     <li><a href="logout.html" title="">Logout Page</a></li>
                     <li><a href="newsfeed.html" title="">news feed</a></li>
-                </ul>
+                </ul> -->
             </li>
             <li>
                 <a href="#" title="">timeline</a>
@@ -350,7 +350,7 @@
             
         </ul>
         <div class="user-img">
-            <img id="smallIcon" src="https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png" alt="" height="40"   width="50" style="display: inline-block;">
+            <img id="smallIcon" src="https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png" alt="" height="50"   width="50" style="display: inline-block; object-fit: cover;height: 50px;width: 50px;">
             <span class="status f-online"></span>
             <div class="user-setting">
                 <a href="#" title=""><span class="status f-online"></span>online</a>
@@ -461,19 +461,58 @@ let newInterval = setInterval(function(){
 			refData.on('value', (snapshot) => {
 				data = snapshot.val();
                 console.log(data)
+                
                 if(document.getElementById("student_name"))
                     document.getElementById("student_name").innerHTML=data.Name
+                
+                if(document.getElementById("username1")){
+                    document.getElementById("username1").innerHTML=data.Name
+                }
+                if(document.getElementById("username2")){
+                    document.getElementById("username2").innerHTML=data.Name
+                }
+                if(document.getElementById("username3")){
+                    document.getElementById("username3").innerHTML=data.Name
+                }
+                if(document.getElementById("username4")){
+                    document.getElementById("username4").innerHTML=data.Name
+                }
+                
+               
+                if(data.BasicprofileData && window.location.href.includes("edit")){
+                    if(data.BasicprofileData.basic){
+                        document.getElementById("student_name").innerHTML=data.BasicprofileData.basic.fname +" "+data.BasicprofileData.basic.lname
+                    }
+                }
+                
                 if(document.getElementById("blah")){
                     if(data.photoUrl){
                         document.getElementById("blah").src=data.photoUrl
                     }
                 }
+                if(document.getElementById("imgSide")){
+                    if(data.photoUrl){
+                        document.getElementById("imgSide").src=data.photoUrl
+                    }
+                }
+                
                 if(data.photoUrl)
                     document.getElementById("smallIcon").src=data.photoUrl
                 if(document.getElementById("sem"))
                     document.getElementById("sem").innerHTML = data.sem
+                if(data.educationData && window.location.href.includes("edit")){
+                    if(data.educationData.education){
+                        document.getElementById("sem").innerHTML=data.educationData.education.semester
+                    }
+                }
                 if(document.getElementById("branch"))
                     document.getElementById("branch").innerHTML = data.branch
+                if(data.educationData && window.location.href.includes("edit") ){
+                    if(data.educationData.education){
+                        document.getElementById("branch").innerHTML=data.educationData.education.branch
+                    }
+                }
+            
 				if(data.studentVerified ==true || data.studentVerified =="true"){
 					//Do Nothing
 				}else{
@@ -612,11 +651,13 @@ function step2(){
     let collegeTo = document.querySelector("#collegeTo").value
     let cmarks = document.querySelector("#cmarks").value
     let collegeCity = document.querySelector("#collegeCity").value
+    let branch = document.querySelector("#branch2").value
+    let semester = document.getElementById("semester2").value
 
     let Xname =document.querySelector("#Xname").value
     let Xfrom =document.querySelector("#Xfrom").value
     let Xto =document.querySelector("#Xto").value
-    let Xmarks = document.querySelector("#Xmarks").value
+    let Xmarks = document.querySelector("#Xmarks").value    
     let XCity = document.querySelector("#XCity").value
     
     let XIIname =document.querySelector("#XIIname").value
@@ -633,6 +674,8 @@ function step2(){
                 collegeTo:collegeTo,
                 cmarks:cmarks,
                 collegeCity:collegeCity,
+                branch:branch,
+                semester:semester,
                 Xname:Xname,
                 Xfrom :Xfrom,
                 Xto:Xto,
@@ -659,6 +702,8 @@ function step2Save(){
     let collegeTo = document.querySelector("#collegeTo").value
     let cmarks = document.querySelector("#cmarks").value
     let collegeCity = document.querySelector("#collegeCity").value
+    let branch = document.querySelector("#branch2").value
+    let semester = document.getElementById("semester2").value
 
     let Xname =document.querySelector("#Xname").value
     let Xfrom =document.querySelector("#Xfrom").value
@@ -680,6 +725,8 @@ function step2Save(){
                 collegeTo:collegeTo,
                 cmarks:cmarks,
                 collegeCity:collegeCity,
+                branch:branch,
+                semester:semester,  
                 Xname:Xname,
                 Xfrom :Xfrom,
                 Xto:Xto,

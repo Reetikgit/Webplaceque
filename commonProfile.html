@@ -143,20 +143,25 @@ setTimeout(function(){
                         document.querySelector("#XIICity").value =edu.XIICity
                     }
                 }
-                if(data.skills){
+                if(data.skills ){
             
                     document.getElementById("incomp3").innerHTML="✔"
                     document.getElementById("incomp3").style.color="green"
-                    document.getElementById("showSkills").innerHTML=""
-                    for(let i=0 ;i<data.skills.length;i++){
-                     
-                        console.log(data.skills[i])
-                        document.getElementById("showSkills").innerHTML+=`
+                    if(document.getElementById("showSkills")){
+                        
+                        document.getElementById("showSkills").innerHTML=""
+                    
+                
+                        for(let i=0 ;i<data.skills.length;i++){
+                        
+                            console.log(data.skills[i])
+                            document.getElementById("showSkills").innerHTML+=`
 
-                        <li><a href="#" title="">`+data.skills[i]+`</a><span class="remove" title="remove" onclick=removeSkill("`+data.skills[i]+`")><i class="fa fa-close"></i></span></li>
+                            <li><a href="#" title="">`+data.skills[i]+`</a><span class="remove" title="remove" onclick=removeSkill("`+data.skills[i]+`")><i class="fa fa-close"></i></span></li>
 
-                        `
-                    }
+                            `
+                        }
+                     }
                     
                 }
               
