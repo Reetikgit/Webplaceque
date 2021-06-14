@@ -55,17 +55,14 @@
 									<div class="editing-interest">
 										<h5 class="f-title"><i class="ti-heart"></i>My Skills</h5>
 										<!-- <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate</p> -->
-										<form method="post">
+										<form >
 											<label>Add Skills: </label>
-											<input type="text" placeholder="Photography, Cycling, traveling.">
-											<button type="submit">Add</button>
-											<ol class="interest-added">
-												<li><a href="#" title="">Java</a><span class="remove" title="remove"><i class="fa fa-close"></i></span></li>
-												<li><a href="#" title="">Web Dev.</a><span class="remove" title="remove"><i class="fa fa-close"></i></span></li>
-												<li><a href="#" title="">C++</a><span class="remove" title="remove"><i class="fa fa-close"></i></span></li>
-												<li><a href="#" title="">App Dev.</a><span class="remove" title="remove"><i class="fa fa-close"></i></span></li>
-												<li><a href="#" title="">eating</a><span class="remove" title="remove"><i class="fa fa-close"></i></span></li>
-												<li><a href="#" title="">hoteling</a><span class="remove" title="remove"><i class="fa fa-close"></i></span></li>
+											<input type="text" id="newSkill" placeholder="Java,C,mysql etc.">
+											<button type="button"  onclick="step3()">Add</button>
+											<ol class="interest-added" id="showSkills">
+												
+											
+
 											</ol>
 											<div class="submit-btns">
 												<button type="button" class="mtr-btn"><span>Update</span></button>

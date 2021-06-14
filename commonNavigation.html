@@ -555,6 +555,57 @@ function step1(){
 
 }
 
+function step1Save(){
+    let fname = document.querySelector("#fname").value
+    let lname = document.querySelector("#lname").value
+    let oemail = document.querySelector("#oemail").value
+    let pemail = document.querySelector("#pemail").value
+    let phone = document.querySelector("#phone").value
+    let day = document.querySelector("#day").value
+    let month = document.querySelector("#month").value
+    let year = document.querySelector("#year").value
+    let address = document.querySelector("#address").value
+    let city = document.querySelector("#city").value
+    let state = document.querySelector("#state").value
+    let zip = document.querySelector("#zip").value
+    let father = document.querySelector("#father").value
+    let mother = document.querySelector("#mother").value
+    let blood = document.querySelector("#blood").value
+    let gen=$("input[type='radio'][name='radio']:checked").val();
+    
+    let basicData = {
+        BasicprofileData : {
+            basic :{
+                fname:fname,
+                lname:lname,
+                officialEmail :oemail,
+                personalEmail :pemail,
+                phone : phone,
+                day : day , 
+                month : month,
+                year : year,
+                address : address,
+                city : city,
+                state : state,
+                zip : zip,
+                gender:gen,
+                father :father,
+                mother : mother,
+                blood : blood
+            },
+            education : {
+
+            }
+        }
+    }
+    let key=window.localStorage.getItem("user")
+    console.log(key)
+    firebase.database().ref('studentData').child(key).update(basicData).then(function(){
+        
+    });
+
+}
+
 function step2(){
     let collegeName = document.querySelector("#collegeName").value
     let collegeFrom =document.querySelector("#collegeFrom").value
@@ -600,6 +651,85 @@ function step2(){
     console.log(key)
     firebase.database().ref('studentData').child(key).update(basicData).then(function(){
         window.location="edit-interest.html"
+    });
+}
+function step2Save(){
+    let collegeName = document.querySelector("#collegeName").value
+    let collegeFrom =document.querySelector("#collegeFrom").value
+    let collegeTo = document.querySelector("#collegeTo").value
+    let cmarks = document.querySelector("#cmarks").value
+    let collegeCity = document.querySelector("#collegeCity").value
+
+    let Xname =document.querySelector("#Xname").value
+    let Xfrom =document.querySelector("#Xfrom").value
+    let Xto =document.querySelector("#Xto").value
+    let Xmarks = document.querySelector("#Xmarks").value
+    let XCity = document.querySelector("#XCity").value
+    
+    let XIIname =document.querySelector("#XIIname").value
+    let XIIfrom =document.querySelector("#XIIfrom").value
+    let XIIto =document.querySelector("#XIIto").value
+    let XIImarks = document.querySelector("#XIImarks").value
+    let XIICity = document.querySelector("#XIICity").value
+
+    let basicData = {
+        educationData : {
+            education : {
+                collegeName :collegeName,
+                collegeFrom : collegeFrom,
+                collegeTo:collegeTo,
+                cmarks:cmarks,
+                collegeCity:collegeCity,
+                Xname:Xname,
+                Xfrom :Xfrom,
+                Xto:Xto,
+                Xmarks :Xmarks,
+                XCity :XCity,
+                XIIname :XIIname,
+                XIIfrom : XIIfrom,
+                XIIto:XIIto,
+                XIImarks:XIImarks,
+                XIICity :XIICity
+
+            }
+        }
+    }
+    let key=window.localStorage.getItem("user")
+    console.log(key)
+    firebase.database().ref('studentData').child(key).update(basicData).then(function(){
+        
+    });
+}
+
+function step3(){
+    var arr = []
+    let user = window.localStorage.getItem("user")
+    let refData2= firebase.database().ref('studentData').child(user)
+   
+    refData2.on('value', (snapshot) => {
+        data = snapshot.val();
+        console.log(809)
+        console.log(data.skills)
+        for(let i =0 ;i<data.skills.length;i++){
+            arr.push(data.skills[i])
+        }
+        arr=arr
+    })
+    console.log(arr)
+    let skill = document.getElementById("newSkill").value
+    if(skill !="" && skill !=undefined){
+        arr.push(skill)
+        console.log(arr)
+        document.getElementById("newSkill").value=""
+    }
+
+   
+    let basicData = {
+        skills : arr
+    }
+    let key=window.localStorage.getItem("user")
+    firebase.database().ref('studentData').child(key).update(basicData).then(function(){
+        console.log("done")
     });
 }
 </script>
