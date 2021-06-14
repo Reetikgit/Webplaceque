@@ -68,7 +68,7 @@
 					</div>
 					<form class="dropzone" action="#" id="my-awesome-dropzone">
 						<div class="fallback">
-							<input type="file" name="file" />
+							<input type="file" onchange="readURL(this)" name="file" />
 						</div>
 					</form>
 				</div>
@@ -95,7 +95,50 @@
 	<script src="vendors/scripts/core.js"></script>
 	<script src="vendors/scripts/layout-settings.js"></script>
 	<script src="src/plugins/dropzone/src/dropzone.js"></script>
-	<script>
+	<script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-app.js"></script>
+    
+    <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+    <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-analytics.js"></script>
+    
+    <!-- Add Firebase products that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-firestore.js"></script>
+
+<script>
+	let index2=0
+// 	let interval2= setInterval(function(){
+// 	index2++;
+// 	if(index2==1){
+// 		clearInterval(interval2)
+// 	}
+// 	var firebaseConfig = {
+// 		apiKey: "AIzaSyBrjKsOT5YXZSYFVOa3PeBi3997XdKJRbw",
+// 		authDomain: "placeque-47156.firebaseapp.com",
+// 		databaseURL: "https://placeque-47156-default-rtdb.firebaseio.com",
+// 		projectId: "placeque-47156",
+// 		storageBucket: "placeque-47156.appspot.com",
+// 		messagingSenderId: "387944466952",
+// 		appId: "1:387944466952:web:3ec6cfefc5682e3431dfbd",
+// 		measurementId: "G-N7RD97TPP5"
+// 	};
+// 	// Initialize Firebase
+// 	firebase.initializeApp(firebaseConfig);
+// 	firebase.analytics();
+// 	var user;
+// 	firebase.auth().onAuthStateChanged(function(user) {
+// 		if(user){
+// 			user=user
+// 			let current_user=user;
+//             index=1;
+		
+		    
+// 		}else{
+//             window.location="login.html"
+//         }
+
+// 	})
+// },1000)
+
 		Dropzone.autoDiscover = false;
 		$(".dropzone").dropzone({
 			addRemoveLinks: true,
@@ -105,6 +148,63 @@
 				return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;
 			}
 		});
+		var selectedFile;
+		function readURL(input) {
+			alert(9)
+			if (input.files && input.files[0]) {
+			
+			// var reader = new FileReader();
+			// reader.onload = function (e) {
+			// 	$('#blah')
+			// 	.attr('src', e.target.result);
+			// };
+			console.log(user)
+			selectedFile=input.files[0];
+			// reader.readAsDataURL(input.files[0]);
+			// document.getElementById("selectPic").style.display="none"
+			// document.getElementById("uploadNow").style.display="block"
+			// document.getElementById("clear").style.display="block"
+
+
+			}
+		}
+		function uploadFile(){
+			const  storageService = firebase.storage();
+			var uploadTask=storageService.ref(`/TimelineImages/${selectedFile.name}`).put(selectedFile);
+			uploadTask.on('state_changed', function(snapshot){
+				var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+				progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+
+				document.getElementById("uploadNow").innerHTML = progress;
+					switch (snapshot.state) {
+					case firebase.storage.TaskState.PAUSED: // or 'paused'
+					document.getElementById("uploadNow").innerHTML = "Upload Paused";
+					console.log('Upload is paused');
+					break;
+					case firebase.storage.TaskState.RUNNING: // or 'running'
+					document.getElementById("uploadNow").innerHTML = progress+"%";
+
+					break;
+					}
+					},function(error){
+						console.log(error);
+							// Handle unsuccessful uploads
+						}, function() {
+					document.getElementById("uploadNow").innerHTML = "Uploaded"+ " "+progress+"%";
+
+					uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+					
+					urls2 = downloadURL;
+					console.log(urls2)
+					updates = {
+						photoUrl: urls2
+					}
+					console.log(user)
+					firebase.database().ref('adminTimelineData').child(user).update(updates);
+			
+					});
+				})
+    	}
 	</script>
 </body>
 </html>
