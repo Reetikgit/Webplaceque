@@ -140,12 +140,12 @@
                 <div class="dropdown">
                     <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown">
                         <span class="user-icon">
-                            <img src="https://images.static-collegedunia.com/public/college_data/images/logos/1460356989Sai_Vidya_Institute_of_Technology_Logo.jpg" alt="">
+                            <img id="userImg" src="https://images.static-collegedunia.com/public/college_data/images/logos/1460356989Sai_Vidya_Institute_of_Technology_Logo.jpg" style="width: 50px;height: 50px; object-fit: cover;" alt="">
                         </span>
                         <span class="user-name" id="user_email"></span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                        <a class="dropdown-item" href="profile.html"><i class="dw dw-user1"></i> Profile</a>
+                        <a class="dropdown-item" href="userprofile.html"><i class="dw dw-user1"></i> Profile</a>
                         <a class="dropdown-item" href="profile.html"><i class="dw dw-settings2"></i> Setting</a>
                         <a class="dropdown-item" href="faq.html"><i class="dw dw-help"></i> Help</a>
                         <a class="dropdown-item" onclick="logout()" style="cursor: pointer;"><i class="dw dw-logout"></i> Log Out</a>
@@ -492,7 +492,7 @@
     <div class="mobile-menu-overlay"></div> >
     
     <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-app.js"></script>
-    
+    <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase.js"></script>
     <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
     <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-analytics.js"></script>
     
@@ -520,13 +520,57 @@
 	// Initialize Firebase
 	firebase.initializeApp(firebaseConfig);
 	firebase.analytics();
+    var ref=firebase.database().ref('adminData')
     firebase.auth().onAuthStateChanged(function(user) {
 		if(user){
-
+      
 			let current_user=user;
             index=1;
             window.localStorage.setItem("user",user)
-		    document.getElementById("user_email").innerHTML=current_user.email
+            window.localStorage.setItem("userId",user.uid)
+            ref.on('value',gotData,errData)
+            
+            function gotData(data){
+                
+
+
+                let sc=(data.val())
+                document.getElementById("userImg").src=(sc[user.uid].photoUrl)
+                document.getElementById("user_email").innerHTML=(sc[user.uid].email)
+                if( document.getElementById("blah"))
+                    document.getElementById("blah").src=(sc[user.uid].photoUrl)
+
+                if(window.location.href.includes("userprofile.html")){
+                    document.getElementById("name").value=sc[user.uid].name
+                    document.getElementById("email").value=sc[user.uid].email
+                    document.getElementById("email").disabled=true
+                    document.getElementById("phone").value=sc[user.uid].phone
+                    document.getElementById("address").value=sc[user.uid].address
+                    document.getElementById("dob").value=sc[user.uid].dob
+                    document.getElementById("useremail").innerHTML=sc[user.uid].email
+                    document.getElementById("userphone").innerHTML=sc[user.uid].phone
+                    document.getElementById("useraddress").innerHTML=sc[user.uid].address
+                    if(sc[user.uid].department){
+                        document.getElementById("userdepartment").innerHTML=sc[user.uid].department
+                    }else{
+                        document.getElementById("userdepartment").innerHTML="Training & Placement Department"
+                    }
+                    if(sc[user.uid].gender == "Male"){
+                        document.getElementById("customRadio4").checked = true
+                    }else{
+                        document.getElementById("customRadio5").checked = true
+                    }
+
+                    document.getElementById("username").innerHTML=sc[user.uid].name
+                    document.getElementById("userdob").innerHTML=sc[user.uid].dob
+                }
+                
+            }
+            function errData(){
+
+            } 
+
+
 		    
 		}else{
             window.location="login.html"
