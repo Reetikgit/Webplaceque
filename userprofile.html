@@ -125,6 +125,9 @@
 										<li class="nav-item">
 											<a class="nav-link" data-toggle="tab" href="#setting" role="tab">Add Staffs</a>
 										</li>
+										<li class="nav-item">
+											<a class="nav-link" data-toggle="tab" href="#allstaffs" role="tab">ALL Staffs</a>
+										</li>
 									</ul>
 									<div class="tab-content">
 										<!-- Timeline Tab start -->
@@ -382,6 +385,63 @@
 												</div>
 											</div>
 										</div>
+
+										<div class="tab-pane fade" id="allstaffs" role="tabpanel">
+											<div class="pd-20 profile-task-wrap">
+												<div class="container pd-0">
+													<!-- Open Task start -->
+													<div class="task-title row align-items-center">
+														<div class="col-md-8 col-sm-12">
+															<h5>Total Staffs (4)</h5>
+														</div>
+														<div class="col-md-4 col-sm-12 text-right">
+															<a href="task-add" data-toggle="modal" data-target="#task-add" class="bg-light-blue btn text-blue weight-500"><i class="ion-plus-round"></i> Add</a>
+														</div>
+													</div>
+													<div class="profile-task-list pb-30">
+														<ul>
+															<li>
+																<div class="custom-control custom-checkbox mb-5">
+																	<input type="checkbox" class="custom-control-input" id="task-1">
+																	<label class="custom-control-label" for="task-1"></label>
+																</div>
+																<div class="task-type">Email</div>
+																Lorem ipsum dolor sit amet, consectetur adipisicing elit. Id ea earum.
+																<div class="task-assign">Assigned to Ferdinand M. <div class="due-date">due date <span>22 February 2019</span></div></div>
+															</li>
+															<li>
+																<div class="custom-control custom-checkbox mb-5">
+																	<input type="checkbox" class="custom-control-input" id="task-2">
+																	<label class="custom-control-label" for="task-2"></label>
+																</div>
+																<div class="task-type">Email</div>
+																Lorem ipsum dolor sit amet.
+																<div class="task-assign">Assigned to Ferdinand M. <div class="due-date">due date <span>22 February 2019</span></div></div>
+															</li>
+															<li>
+																<div class="custom-control custom-checkbox mb-5">
+																	<input type="checkbox" class="custom-control-input" id="task-3">
+																	<label class="custom-control-label" for="task-3"></label>
+																</div>
+																<div class="task-type">Email</div>
+																Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+																<div class="task-assign">Assigned to Ferdinand M. <div class="due-date">due date <span>22 February 2019</span></div></div>
+															</li>
+															<li>
+																<div class="custom-control custom-checkbox mb-5">
+																	<input type="checkbox" class="custom-control-input" id="task-4">
+																	<label class="custom-control-label" for="task-4"></label>
+																</div>
+																<div class="task-type">Email</div>
+																Lorem ipsum dolor sit amet. Id ea earum.
+																<div class="task-assign">Assigned to Ferdinand M. <div class="due-date">due date <span>22 February 2019</span></div></div>
+															</li>
+														</ul>
+													</div>
+
+												</div>
+											</div>
+										</div>
 										<!-- Tasks Tab End -->
 										<!-- Setting Tab start -->
 										<div class="tab-pane fade height-100-p" id="setting" role="tabpanel">
@@ -596,6 +656,26 @@
         let dept = document.getElementById("sdepartment").value
         firebase.auth().createUserWithEmailAndPassword(semail, spass).then(function(){
             document.getElementById("staffBtn").innerHTML = "Staff Added Successfully"
+
+			let newformMessage =db.child(uid);
+
+				newformMessage.update({
+					displayName :user.displayName,
+					email : user.email,
+					emailVerified :user.emailVerified,
+					uid :user.uid,
+					lastLogin : new Date().toString(),
+					providerData :user.providerData,
+					name:"",
+					phone:"",
+					address :"",
+					dob: ""
+				}).then(function(){
+						setTimeout(function(){
+							window.location="index.html"
+						},900)
+				})
+
             setTimeout(function(){
                 document.getElementById("staffBtn").innerHTML = "Create Staff"
             },3000)

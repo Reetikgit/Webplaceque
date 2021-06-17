@@ -201,7 +201,11 @@
 					emailVerified :user.emailVerified,
 					uid :user.uid,
 					lastLogin : new Date().toString(),
-					providerData :user.providerData
+					providerData :user.providerData,
+					name:"",
+					phone:"",
+					address :"",
+					dob: ""
 				}).then(function(){
 						setTimeout(function(){
 							window.location="index.html"

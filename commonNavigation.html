@@ -535,12 +535,14 @@
 
 
                 let sc=(data.val())
-                document.getElementById("userImg").src=(sc[user.uid].photoUrl)
+                if(sc[user.uid].photoUrl)
+                    document.getElementById("userImg").src=(sc[user.uid].photoUrl)
                 document.getElementById("user_email").innerHTML=(sc[user.uid].email)
-                if( document.getElementById("blah"))
+                if( document.getElementById("blah") && sc[user.uid].photoUrl)
                     document.getElementById("blah").src=(sc[user.uid].photoUrl)
 
                 if(window.location.href.includes("userprofile.html")){
+
                     document.getElementById("name").value=sc[user.uid].name
                     document.getElementById("email").value=sc[user.uid].email
                     document.getElementById("email").disabled=true
