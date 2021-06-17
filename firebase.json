@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "site":"placeque",
     "public": "public",
     "ignore": [
       "firebase.json",
