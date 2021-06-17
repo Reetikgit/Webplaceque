@@ -66,19 +66,19 @@
 							<h4 class="text-blue h4">Upload Data Here</h4>
 						</div>
 					</div>
-					<form class="dropzone" action="#" id="my-awesome-dropzone">
+					<form class="dropzoe" action="/file-upload" id="my-awesome-dropzone">
 						<div class="fallback">
-							<input type="file" name="file" />
+							<input type="file" onchange="readURL(this)" name="file" />
 						</div>
 					</form>
 				</div>
 				<div class="html-editor pd-20 card-box mb-30">
 					<h4 class="h4 text-blue">Enter something about post</h4>
 					<!-- <p>Simple, beautiful wysiwyg editors</p> -->
-					<textarea class="textarea_editor form-control border-radius-0" placeholder="Satrt Typing here..."></textarea>
+					<textarea class="textarea_editor form-control border-radius-0" id="timelineText" placeholder="Satrt Typing here..."></textarea>
 				</div>
 				<div class="btn-list">
-					<button type="button" class="btn btn-success btn-lg btn-block">Post Data</button>
+					<button type="button" class="btn btn-success btn-lg btn-block" id="uploadNow" onclick="uploadFile()">Post Data</button>
 		
 				</div>
 
@@ -95,7 +95,49 @@
 	<script src="vendors/scripts/core.js"></script>
 	<script src="vendors/scripts/layout-settings.js"></script>
 	<script src="src/plugins/dropzone/src/dropzone.js"></script>
-	<script>
+	<script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase.js"></script>
+    <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+    <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-analytics.js"></script>
+    
+    <!-- Add Firebase products that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-firestore.js"></script>
+
+<script>
+	let index2=0
+// 	let interval2= setInterval(function(){
+// 	index2++;
+// 	if(index2==1){
+// 		clearInterval(interval2)
+// 	}
+	var firebaseConfig = {
+		apiKey: "AIzaSyBrjKsOT5YXZSYFVOa3PeBi3997XdKJRbw",
+		authDomain: "placeque-47156.firebaseapp.com",
+		databaseURL: "https://placeque-47156-default-rtdb.firebaseio.com",
+		projectId: "placeque-47156",
+		storageBucket: "placeque-47156.appspot.com",
+		messagingSenderId: "387944466952",
+		appId: "1:387944466952:web:3ec6cfefc5682e3431dfbd",
+		measurementId: "G-N7RD97TPP5"
+	};
+	// Initialize Firebase
+	firebase.initializeApp(firebaseConfig);
+// 	firebase.analytics();
+	var user;
+	var  storageService = firebase.storage();
+	var refer= firebase.database();
+	firebase.auth().onAuthStateChanged(function(user) {
+		if(user){
+			console.log(user)
+		
+		    
+		}else{
+            window.location="login.html"
+        }
+
+	})
+
 		Dropzone.autoDiscover = false;
 		$(".dropzone").dropzone({
 			addRemoveLinks: true,
@@ -105,6 +147,71 @@
 				return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;
 			}
 		});
+		var selectedFile;
+
+		function readURL(input) {
+			
+			if (input.files && input.files[0]) {
+			
+			// var reader = new FileReader();
+			// reader.onload = function (e) {
+			// 	$('#blah')
+			// 	.attr('src', e.target.result);
+			// };
+			// console.log(user)
+			selectedFile=input.files[0];
+			// reader.readAsDataURL(input.files[0]);
+			// document.getElementById("selectPic").style.display="none"
+			// document.getElementById("uploadNow").style.display="block"
+			// document.getElementById("clear").style.display="block"
+
+
+			}
+		}
+		function uploadFile(){
+			let uploadText = document.querySelector("#timelineText").value
+	
+			var uploadTask=storageService.ref(`/TimelineImages/${selectedFile.name}`).put(selectedFile);
+			uploadTask.on('state_changed', function(snapshot){
+				var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+				progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+
+				document.getElementById("uploadNow").innerHTML = progress;
+					switch (snapshot.state) {
+					case firebase.storage.TaskState.PAUSED: // or 'paused'
+					document.getElementById("uploadNow").innerHTML = "Upload Paused";
+					console.log('Upload is paused');
+					break;
+					case firebase.storage.TaskState.RUNNING: // or 'running'
+					document.getElementById("uploadNow").innerHTML = progress+"%";
+
+					break;
+					}
+					},function(error){
+						console.log(error);
+							// Handle unsuccessful uploads
+						}, function() {
+					document.getElementById("uploadNow").innerHTML = "Uploaded"+ " "+progress+"%";
+
+					uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+					
+					urls2 = downloadURL;
+					console.log(urls2)
+					let formMessage = refer.ref("adminTimelineData")
+					
+					let user= window.localStorage.getItem("user")
+					var newDate = new Date().toString();
+
+					console.log(newDate)
+					let newFormMessage=formMessage.push()
+					newFormMessage.set({
+						timeOfPost :newDate,
+						timelineUrl: urls2,
+						timelineText : uploadText,
+					})
+					});
+				})
+    	}
 	</script>
 </body>
 </html>

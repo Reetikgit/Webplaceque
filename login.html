@@ -129,7 +129,7 @@
 	<script src="vendors/scripts/process.js"></script>
 	<script src="vendors/scripts/layout-settings.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-app.js"></script>
-
+	<script src="https://www.gstatic.com/firebasejs/8.6.2/firebase.js"></script>
 	<!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
 	<script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-analytics.js"></script>
   
@@ -151,12 +151,13 @@
 	// Initialize Firebase
 	firebase.initializeApp(firebaseConfig);
 	firebase.analytics();
+	var formMessage = firebase.database().ref("adminData")
 	var user = firebase.auth().currentUser;
 	firebase.auth().onAuthStateChanged(function(user) {
 		if(user){
 			let current_user=user;
 			
-			window.location="index.html"
+			// window.location="index.html"
 		
 		}else{
 			
@@ -179,16 +180,7 @@
 			if (user) {
 				var user = firebase.auth().currentUser;
 			
-				setTimeout(function(){
-					window.location="index.html"
-				},1000)
-				// user.sendEmailVerification().then(function() {
-				// // Email sent.
-				// console.log("emailsent")
-				// }).catch(function(error) {
-				// // An error happened.
-				// });
-				// User is signed in.
+			
 				
 				var displayName = user.displayName;
 				var email = user.email;
@@ -198,6 +190,24 @@
 				var isAnonymous = user.isAnonymous;
 				var uid = user.uid;
 				var providerData = user.providerData;
+
+			
+
+				let newformMessage =formMessage.child(uid);
+
+				newformMessage.update({
+					displayName :user.displayName,
+					email : user.email,
+					emailVerified :user.emailVerified,
+					uid :user.uid,
+					lastLogin : new Date().toString(),
+					providerData :user.providerData,
+					
+				}).then(function(){
+						setTimeout(function(){
+							window.location="index.html"
+						},900)
+				})
 
 				//console.log(email + "" +providerData)
 				

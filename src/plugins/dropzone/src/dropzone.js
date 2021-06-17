@@ -134,7 +134,7 @@ class Dropzone extends Emitter {
       "queuecomplete"
     ];
 
-
+   
     this.prototype.defaultOptions = {
       /**
        * Has to be specified on elements other than form (or when the form
