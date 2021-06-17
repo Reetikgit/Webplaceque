@@ -521,27 +521,64 @@
 	firebase.initializeApp(firebaseConfig);
 	firebase.analytics();
     var ref=firebase.database().ref('adminData')
+    if(window.localStorage.getItem("image"))
+        document.getElementById("userImg").src=(window.localStorage.getItem("image"))
+    
+    document.getElementById("user_email").innerHTML=window.localStorage.getItem("email")
+    if( document.getElementById("blah") && window.localStorage.getItem("image"))
+        document.getElementById("blah").src=(window.localStorage.getItem("image"))
+    
     firebase.auth().onAuthStateChanged(function(user) {
 		if(user){
-      
+     
 			let current_user=user;
             index=1;
-            window.localStorage.setItem("user",user)
+            window.localStorage.setItem("user",JSON.stringify(user))
             window.localStorage.setItem("userId",user.uid)
             ref.on('value',gotData,errData)
-            
+         
             function gotData(data){
-                
-
-
+         
                 let sc=(data.val())
+                let key = Object.keys(sc)
+                window.localStorage.setItem("image",sc[user.uid].photoUrl)
+                window.localStorage.setItem("username",sc[user.uid].name)
+                window.localStorage.setItem("dept",sc[user.uid].dept)
+                window.localStorage.setItem("email",(sc[user.uid].email))
+               
                 if(sc[user.uid].photoUrl)
                     document.getElementById("userImg").src=(sc[user.uid].photoUrl)
+                else
+                    document.getElementById("userImg").src="https://images.static-collegedunia.com/public/college_data/images/logos/1460356989Sai_Vidya_Institute_of_Technology_Logo.jpg"
                 document.getElementById("user_email").innerHTML=(sc[user.uid].email)
                 if( document.getElementById("blah") && sc[user.uid].photoUrl)
                     document.getElementById("blah").src=(sc[user.uid].photoUrl)
-
+                else
+                    document.getElementById("blah").src="https://images.static-collegedunia.com/public/college_data/images/logos/1460356989Sai_Vidya_Institute_of_Technology_Logo.jpg"
                 if(window.location.href.includes("userprofile.html")){
+                    document.getElementById("allstaff").innerHTML=""
+                    for(let i =0; i<key.length;i++){
+                        let k = sc[key[i]]
+                  
+                       if(k.dept)
+                            document.getElementById("totalstaff").innerHTML='('+ key.length+ ')'
+                            if(!k.photoUrl){
+                                k.photoUrl = 'https://images.static-collegedunia.com/public/college_data/images/logos/1460356989Sai_Vidya_Institute_of_Technology_Logo.jpg'
+                            }
+                        
+                            document.getElementById("allstaff").innerHTML+=
+                            `
+                            <li>
+
+                                <div class="task-type">`+k.name+`</div>
+                                    <img src=`+k.photoUrl+` style="width:50px;height:50px;object-fit:cover;margin-right:20px;border-radius:50px">`+k.email+` <i class="fa fa-trash" onclick=deleteStaff("`+k.uid+`","`+k.email+`","`+k.password+`") style="cursor: pointer;padding:20px"  ></i>  
+                                <div class="task-assign">`+k.dept+` <div class="due-date">Last-Login : <span>`+(k.lastLogin).substring(0,24)+`</span></div></div>
+                            </li>
+                            
+                            `
+                            
+                    }
+                    
 
                     document.getElementById("name").value=sc[user.uid].name
                     document.getElementById("email").value=sc[user.uid].email
@@ -552,8 +589,8 @@
                     document.getElementById("useremail").innerHTML=sc[user.uid].email
                     document.getElementById("userphone").innerHTML=sc[user.uid].phone
                     document.getElementById("useraddress").innerHTML=sc[user.uid].address
-                    if(sc[user.uid].department){
-                        document.getElementById("userdepartment").innerHTML=sc[user.uid].department
+                    if(sc[user.uid].dept){
+                        document.getElementById("userdepartment").innerHTML=sc[user.uid].dept
                     }else{
                         document.getElementById("userdepartment").innerHTML="Training & Placement Department"
                     }
@@ -568,24 +605,60 @@
                 }
                 
             }
+            
             function errData(){
 
             } 
+        
+           
 
 
 		    
 		}else{
-            window.location="login.html"
+           // window.location="login.html"
         }
 
 	})
     },1000)
+    function deleteStaff(id,email,pass){
+       	
+		firebase.auth().signInWithEmailAndPassword(email, pass).then(function(){
+			
+			// alert("Success")
+            let user =firebase.auth().currentUser
+            user.delete().then(function() {
+            // User deleted.
+             
+                console.log(id)
+                firebase.database().ref('adminData').child(id).remove().then(function(){
+                    console.log("deleted")
+                    let em = window.localStorage.getItem("secretkey")
+                    let ps= window.localStorage.getItem("secretvalue")
+                    console.log(em)
+                    console.log(ps)
+                    firebase.auth().signInWithEmailAndPassword(em, ps).then(function(){
+                    console.log("done")
+                    })
+                }).catch(function(error){
+                    console.log(error)
+                })
+                
+             
+            }).catch(function(error) {
+            // An error happened.
+            });
+
+    })
+    }
     function logout(){
-    
+        
         firebase.auth().signOut().then(function() {
         // Sign-out successful.
-      
-         window.location="login.html"
+        window.localStorage.removeItem("image")
+        window.localStorage.removeItem("username")
+        window.localStorage.removeItem("dept")
+        window.localStorage.removeItem("email")
+        window.location="login.html"
         }).catch(function(error) {
         // An error happened.
         console.log(error);

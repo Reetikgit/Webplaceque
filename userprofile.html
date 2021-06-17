@@ -64,7 +64,7 @@
 							<div class="profile-photo">
                                 <input type="file" name="" id="selectFile" onchange="readURL(this)" style="visibility:hidden;" accept="images/*">
 								<label for="selectFile" class="edit-avatar"><i class="fa fa-pencil" style="cursor: pointer;"></i></label>
-								<img src="vendors/images/photo1.jpg" id="blah" alt="" class="avatar-photo" style="width: 100px;height: 100px; object-fit: cover;" >
+								<img src="https://images.static-collegedunia.com/public/college_data/images/logos/1460356989Sai_Vidya_Institute_of_Technology_Logo.jpg" id="blah" alt="" class="avatar-photo" style="width: 100px;height: 100px; object-fit: cover;" >
 								<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
 									<div class="modal-dialog modal-dialog-centered" role="document">
 										<div class="modal-content">
@@ -392,23 +392,13 @@
 													<!-- Open Task start -->
 													<div class="task-title row align-items-center">
 														<div class="col-md-8 col-sm-12">
-															<h5>Total Staffs (4)</h5>
+															<h5>Total Staffs <span id="totalstaff"></span></h5>
 														</div>
-														<div class="col-md-4 col-sm-12 text-right">
-															<a href="task-add" data-toggle="modal" data-target="#task-add" class="bg-light-blue btn text-blue weight-500"><i class="ion-plus-round"></i> Add</a>
-														</div>
+														
 													</div>
-													<div class="profile-task-list pb-30">
-														<ul>
-															<li>
-																<div class="custom-control custom-checkbox mb-5">
-																
-																</div>
-																<div class="task-type">Email</div>
-																<i class="fa fa-pencil" style="cursor: pointer;"></i>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Id ea earum.
-																<div class="task-assign">Assigned to Ferdinand M. <div class="due-date">due date <span>22 February 2019</span></div></div>
-															</li>
-
+													<div class="profile-task-list pb-30" >
+														<ul id="allstaff">
+														
 														</ul>
 													</div>
 
@@ -451,7 +441,7 @@
 															</div>
 														
 															<div class="form-group mb-0">
-																<button  class="btn btn-primary" value="Save & Update" onclick="createStaff()">Create Staff</button>
+																<button  class="btn btn-primary" value="Save & Update" id="staffBtn" onclick="createStaff()">Create Staff</button>
 															</div>
 														</li>
 													
@@ -492,36 +482,6 @@
 <script>
     var user;
 
-    // var firebaseConfig2 = {
-	// 	apiKey: "AIzaSyBrjKsOT5YXZSYFVOa3PeBi3997XdKJRbw",
-	// 	authDomain: "placeque-47156.firebaseapp.com",
-	// 	databaseURL: "https://placeque-47156-default-rtdb.firebaseio.com",
-	// 	projectId: "placeque-47156",
-	// 	storageBucket: "placeque-47156.appspot.com",
-	// 	messagingSenderId: "387944466952",
-	// 	appId: "1:387944466952:web:3ec6cfefc5682e3431dfbd",
-	// 	measurementId: "G-N7RD97TPP5"
-	// };
-	// // Initialize Firebase
-	// firebase.initializeApp(firebaseConfig2);
-	// firebase.analytics();
-    
-    // firebase.auth().onAuthStateChanged(function(user) {
-	// 	if(user){
-    //         this.user =user
-	// 		let current_user=user;
-    //         index=1;
-    //         console.log(user.uid)
-    //         window.localStorage.setItem("userId",user.uid)
-	// 	    // console.log(user)
-            
-		    
-	// 	}else{
-    //         window.location="login.html"
-    //     }
-
-    // })
-    
 
     var selectedFile;
     function readURL(input) {
@@ -627,31 +587,42 @@
         let semail  = document.getElementById("semail").value
         let spass = document.getElementById("spass").value
         let dept = document.getElementById("sdepartment").value
+		alert(8)
         firebase.auth().createUserWithEmailAndPassword(semail, spass).then(function(){
             document.getElementById("staffBtn").innerHTML = "Staff Added Successfully"
-
+			firebase.auth().onAuthStateChanged(function(user) {
+			console.log(user)
+			if (user) {
+			let uid=user.uid;
 			let newformMessage =db.child(uid);
-
+		
 				newformMessage.update({
 					displayName :user.displayName,
 					email : user.email,
 					emailVerified :user.emailVerified,
 					uid :user.uid,
+					password:spass,
 					lastLogin : new Date().toString(),
 					providerData :user.providerData,
+					dept:dept,
 					name:"",
 					phone:"",
 					address :"",
 					dob: ""
 				}).then(function(){
-						setTimeout(function(){
-							window.location="index.html"
-						},900)
+					setTimeout(function(){
+						let em = window.localStorage.getItem("secretkey")
+						let ps= window.localStorage.getItem("secretvalue")
+						firebase.auth().signInWithEmailAndPassword(em, ps).then(function(){
+							//back to original
+						})
+
+						document.getElementById("staffBtn").innerHTML = "Create Staff"
+					},2000)
 				})
 
-            setTimeout(function(){
-                document.getElementById("staffBtn").innerHTML = "Create Staff"
-            },3000)
+			}
+		})
         }).catch(function(error){
     
 		// Handle Errors here.
@@ -661,7 +632,7 @@
             console.log(errorMessage)
 			console.log(errorCode);
         })
-    
+		
         // let user1= window.localStorage.getItem("userId")
         
         // db.child(user1).update(updates).then(function(){
@@ -673,6 +644,7 @@
 
         
     }
+
 	</script>
 
 </html>
