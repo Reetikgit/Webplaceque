@@ -1,3 +1,6 @@
+<head>
+    <meta name="viewport" content= "width=device-width, user-scalable=no">
+</head>
 </script><script src="js/main.min.js"></script>
 <script src="js/script.js"></script>
 
@@ -462,34 +465,53 @@ let newInterval = setInterval(function(){
         timelineData.on('value',gotData,errData)
 
         function gotData(data){
+            let uids = window.localStorage.getItem("user")
             let sc= data.val()
             let keys= Object.keys(sc)
+            let totView=0;
             document.getElementById("timelineData").innerHTML=""
             if(document.getElementById("timelineData"))
-                for(let i=0;i<keys.length;i++){
+                for(let i=keys.length-1;i>=0;i--){
                     let key = keys[i]
+                    if(!sc[key].dept){
+                        sc[key].dept ="Training & Placement Department" 
+                    }
+                    if(!sc[key].view){
+                        totView =0
+                    }else{
+                        totView = sc[key].view.length
+                    }
                     console.log(sc[key].authorImage)
-                    console.log(sc[key])
                     document.getElementById("timelineData").innerHTML+=`
 
-                    <div class="central-meta item">
-                        <div class="user-post">
-                            <div class="friend-info">
+                    <div class="central-meta item" >
+                        <div class="user-post" onclick=increaseView("`+key+`","`+uids+`")>
+                            <div class="friend-info" >
                                 <figure>
-                                    <img src="`+sc[key].authorImage+`" alt="">
+                                   
+                                    <img src="`+sc[key].authorImage+`" alt="" style="height:50px;object-fit:cover;margin-left:4%">
                                 </figure>
                                 <div class="friend-name">
                                     <ins><a href="time-line.html" title="">`+sc[key].author+`</a></ins>
-                                    <span>posted on <span>`+sc[key].timeOfPost.substring(0,24)+`</span></span>
+                                    <span>Posted on <span>`+sc[key].timeOfPost.substring(0,24)+`</span></span>
+                                    <span><span>`+sc[key].dept+`</span></span>
+                                </div>
+                                <div class="description">
+                                        
+                                    <p style="font-weight:600;padding-lrft:4px;color:black">
+                                        `+sc[key].timelineText+`
+                                    </p>
                                 </div>
                                 <div class="post-meta">
-                                    <img src="`+sc[key].timelineUrl+`" alt="">
+                                    <embed src="`+sc[key].timelineUrl+`" alt="">
+                                    
                                     <div class="we-video-info">
+                                        <hr>
                                         <ul>
                                             <li>
                                                 <span class="views" data-toggle="tooltip" title="views">
                                                     <i class="fa fa-eye"></i>
-                                                    <ins>1.2k</ins>
+                                                    <ins>`+ totView+`</ins>
                                                 </span>
                                             </li>
                                             <li>
@@ -545,105 +567,10 @@ let newInterval = setInterval(function(){
                                             </li>
                                         </ul>
                                     </div>
-                                    <div class="description">
-                                        
-                                        <p>
-                                            `+sc[key].timelineText+`
-                                        </p>
-                                    </div>
+                                   
                                 </div>
                             </div>
-                            <div class="coment-area">
-                                <ul class="we-comet">
-                                    <li>
-                                        <div class="comet-avatar">
-                                            <img src="images/resources/comet-1.jpg" alt="">
-                                        </div>
-                                        <div class="we-comment">
-                                            <div class="coment-head">
-                                                <h5><a href="time-line.html" title="">Yogesh</a></h5>
-                                                <span>1 year ago</span>
-                                                <a class="we-reply" href="#" title="Reply"><i class="fa fa-reply"></i></a>
-                                            </div>
-                                            <p>Cogratulations!!!</p>
-                                        </div>
-                                        <ul>
-                                            <li>
-                                                <div class="comet-avatar">
-                                                    <img src="images/resources/comet-2.jpg" alt="">
-                                                </div>
-                                                <div class="we-comment">
-                                                    <div class="coment-head">
-                                                        <h5><a href="time-line.html" title="">Pratvi</a></h5>
-                                                        <span>1 month ago</span>
-                                                        <a class="we-reply" href="#" title="Reply"><i class="fa fa-reply"></i></a>
-                                                    </div>
-                                                    <p>Good work keep it up</p>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="comet-avatar">
-                                                    <img src="images/resources/comet-3.jpg" alt="">
-                                                </div>
-                                                <div class="we-comment">
-                                                    <div class="coment-head">
-                                                        <h5><a href="time-line.html" title="">Raj</a></h5>
-                                                        <span>16 days ago</span>
-                                                        <a class="we-reply" href="#" title="Reply"><i class="fa fa-reply"></i></a>
-                                                    </div>
-                                                    <p>Congratulations</p>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <div class="comet-avatar">
-                                            <img src="images/resources/comet-1.jpg" alt="">
-                                        </div>
-                                        <div class="we-comment">
-                                            <div class="coment-head">
-                                                <h5><a href="time-line.html" title="">Shourya</h5>
-                                                <span>1 week ago</span>
-                                                <a class="we-reply" href="#" title="Reply"><i class="fa fa-reply"></i></a>
-                                            </div>
-                                            <p>Cogratulations
-                                                <i class="em em-smiley"></i>
-                                            </p>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <a href="#" title="" class="showmore underline">more comments</a>
-                                    </li>
-                                    <li class="post-comment">
-                                        <div class="comet-avatar">
-                                            <img src="images/resources/comet-1.jpg" alt="">
-                                        </div>
-                                        <div class="post-comt-box">
-                                            <form method="post">
-                                                <textarea placeholder="Post your comment"></textarea>
-                                                <div class="add-smiles">
-                                                    <span class="em em-expressionless" title="add icon"></span>
-                                                </div>
-                                                <div class="smiles-bunch">
-                                                    <i class="em em---1"></i>
-                                                    <i class="em em-smiley"></i>
-                                                    <i class="em em-anguished"></i>
-                                                    <i class="em em-laughing"></i>
-                                                    <i class="em em-angry"></i>
-                                                    <i class="em em-astonished"></i>
-                                                    <i class="em em-blush"></i>
-                                                    <i class="em em-disappointed"></i>
-                                                    <i class="em em-worried"></i>
-                                                    <i class="em em-kissing_heart"></i>
-                                                    <i class="em em-rage"></i>
-                                                    <i class="em em-stuck_out_tongue"></i>
-                                                </div>
-                                                <button type="submit"></button>
-                                            </form>	
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
+                           
                         </div>
                     </div>
                     `
@@ -652,10 +579,11 @@ let newInterval = setInterval(function(){
         function errData(error){
 
         }
+      
             
 			refData.on('value', (snapshot) => {
 				data = snapshot.val();
-                console.log(data)
+            
                 
                 if(document.getElementById("student_name"))
                     document.getElementById("student_name").innerHTML=data.Name
@@ -726,7 +654,33 @@ let newInterval = setInterval(function(){
 },500)
 
 },1000)
-
+function increaseView(postid,userid){
+    var arr = []
+    let refData2= firebase.database().ref('adminTimelineData').child(postid)
+   
+    refData2.on('value', (snapshot) => {
+        data = snapshot.val();
+        console.log(data)
+        if(data.view){
+            console.log("camr")
+            console.log(data.view.length)
+            for(let i =0 ;i<data.view.length;i++){
+                console.log(data.view[i])
+                arr.push(data.view[i])
+            }
+            
+        }
+    })
+  
+    arr.push(userid)
+    data={
+        view :arr
+    }
+    
+    firebase.database().ref('adminTimelineData').child(postid).update(data).then(function(){
+        
+    });
+}
 function logout(){
     firebase.auth().signOut().then(function() {
         // Sign-out successful.
@@ -782,7 +736,7 @@ function step1(){
         }
     }
     let key=window.localStorage.getItem("user")
-    console.log(key)
+  
     firebase.database().ref('studentData').child(key).update(basicData).then(function(){
         window.location="edit-work-education.html"
     });

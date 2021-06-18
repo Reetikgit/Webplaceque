@@ -97,7 +97,10 @@ img {
     height: auto;
     max-width: 100%;
 }
-
+embed {
+    height: auto;
+    max-width: 100%;
+}
 .theme-layout {
     float: left;
     position: relative;
@@ -1392,7 +1395,7 @@ form button {
 
 .post-meta {
     float: left;
-    margin-top: 15px;
+  
     width: 100%;
 }
 
@@ -1400,7 +1403,10 @@ form button {
     float: left;
     width: 100%;
 }
-
+.post-meta > embed{
+    float: left;
+    width: 100%;
+}
 .description {
     float: left;
     margin-top: 12px;
