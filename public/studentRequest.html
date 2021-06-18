@@ -94,7 +94,9 @@
 							</thead>
 							<tbody id="tb">
 								<tr>
-									
+									<td>
+
+									</td>
 								</tr>
 							</tbody>
 						</table>
@@ -180,43 +182,54 @@
 	var sc;
 	formMessage.on('value',gotData,errData)
 	function gotData(data){
+	
 				 sc=data.val();
 				 var keys=Object.keys(sc);
 				 console.log(keys)
+				 document.getElementById("tb").innerHTML=""
 				 for(var i=0;i<keys.length;i++){
 					var k=keys[i]
+					
 					 var Name=sc[k].BasicprofileData.basic.fname
 		             var Lname=sc[k].BasicprofileData.basic.lname
 					 var Sem=sc[k].educationData.education.semester
 					 var Branch=sc[k].branch
-					document.getElementById("tb").innerHTML+=
-					`          <tr>
-								<td class="table-plus">`+Name+`</td>
-								<td>`+Sem+`</td>
-								<td>`+Branch+`</td>
-								<td>Pending </td>
-								<td>29-03-2018</td>
-								<td>
-									<div class="dropdown">
-										<a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
-											<i class="dw dw-more"></i>
-										</a>
-										<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-											<a class="dropdown-item" href="#" data-toggle="modal" data-target="#task-add" onclick=openModel("`+k+`")><i class="dw dw-eye" ></i> View</a>
-											<a class="dropdown-item" href="#" data-toggle="modal" data-target="#task-add"><i class="dw dw-check"></i> Accept</a>
-											<a class="dropdown-item" href="#" data-toggle="modal" data-target="#task-add"><i class="dw dw-cancle"></i> Reject</a>
-											
+					if(sc[k].BasicprofileData && sc[k].educationData)
+						document.getElementById("tb").innerHTML+=
+						`          <tr >
+									<td class="table-plus">`+Name+`</td>
+									<td>`+Sem+`</td>
+									<td>`+Branch+`</td>
+									<td>Pending </td>
+									<td>29-03-2018</td>
+									<td>
+										<div class="dropdown">
+											<a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+												<i class="dw dw-more"></i>
+											</a>
+											<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+												<a class="dropdown-item" href="#" data-toggle="modal" data-target="#task-add" onclick=openModel("`+k+`")><i class="dw dw-eye" ></i> View</a>
+												<a class="dropdown-item" href="#" onclick=acceptStudent("`+k+`")><i class="dw dw-check" ></i> Accept</a>
+												<a class="dropdown-item" href="#" data-toggle="modal" data-target="#task-add"><i class="dw dw-cancle"></i> Reject</a>
+												
+											</div>
 										</div>
-									</div>
-								</td>
-							</tr>`
+									</td>
+								</tr>`
 
 			 }
 		}
 	function errData(){
 		console.log("as")
 	}
-
+	function acceptStudent(id){
+		let res = confirm("Are u sure to accept")
+		data={
+			studentVerified : true
+		}
+		if(res)
+			firebase.database().ref("studentData").child(id).update(data)
+	}
 	function openModel(k){
 	
 	
@@ -389,7 +402,7 @@
 	<!-- buttons for Export datatable -->
 	
 	<!-- Datatable Setting js -->
-	<script src="vendors/scripts/datatable-setting.js"></script></body>
+</body>
 	<script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-app.js"></script>
     
     <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
