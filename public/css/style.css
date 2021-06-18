@@ -3785,7 +3785,9 @@ a.add-butn.more-action {
 
 
 /*--- edit basic info page ---*/
-
+.editing-info{
+    padding: 10px;
+}
 .editing-info > form {
     margin-top: 25px;
 }

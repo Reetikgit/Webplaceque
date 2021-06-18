@@ -469,6 +469,7 @@ let newInterval = setInterval(function(){
             let sc= data.val()
             let keys= Object.keys(sc)
             let totView=0;
+        if(document.getElementById("timelineData"))
             document.getElementById("timelineData").innerHTML=""
             if(document.getElementById("timelineData"))
                 for(let i=keys.length-1;i>=0;i--){
@@ -580,7 +581,6 @@ let newInterval = setInterval(function(){
 
         }
       
-            
 			refData.on('value', (snapshot) => {
 				data = snapshot.val();
             
@@ -646,6 +646,7 @@ let newInterval = setInterval(function(){
                         
 				}
 			});
+     
     }else{
      window.location="index.html"
     }
@@ -706,7 +707,8 @@ function step1(){
     let day = document.querySelector("#day").value
     let month = document.querySelector("#month").value
     let year = document.querySelector("#year").value
-    let address = document.querySelector("#address").value
+    let paddress = document.querySelector("#paddress").value
+    let peraddress = document.querySelector("#peraddress").value
     let city = document.querySelector("#city").value
     let state = document.querySelector("#state").value
     let zip = document.querySelector("#zip").value
@@ -726,7 +728,8 @@ function step1(){
                 day : day , 
                 month : month,
                 year : year,
-                address : address,
+                permanentAddress : peraddress,
+                currentAddress :paddress,
                 city : city,
                 state : state,
                 zip : zip,
@@ -757,7 +760,8 @@ function step1Save(){
     let day = document.querySelector("#day").value
     let month = document.querySelector("#month").value
     let year = document.querySelector("#year").value
-    let address = document.querySelector("#address").value
+    let paddress = document.querySelector("#paddress").value
+    let peraddress = document.querySelector("#peraddress").value
     let city = document.querySelector("#city").value
     let state = document.querySelector("#state").value
     let zip = document.querySelector("#zip").value
@@ -777,7 +781,8 @@ function step1Save(){
                 day : day , 
                 month : month,
                 year : year,
-                address : address,
+                permanentAddress: peraddress,
+                currentAddress :paddress,
                 city : city,
                 state : state,
                 zip : zip,
@@ -813,12 +818,14 @@ function step2(){
     let Xto =document.querySelector("#Xto").value
     let Xmarks = document.querySelector("#Xmarks").value    
     let XCity = document.querySelector("#XCity").value
+    let BOE10 =document.querySelector("#BOE10").value
     
     let XIIname =document.querySelector("#XIIname").value
     let XIIfrom =document.querySelector("#XIIfrom").value
     let XIIto =document.querySelector("#XIIto").value
     let XIImarks = document.querySelector("#XIImarks").value
     let XIICity = document.querySelector("#XIICity").value
+    let BOE12 =document.querySelector("#BOE12").value
 
     let basicData = {
         educationData : {
@@ -835,6 +842,8 @@ function step2(){
                 Xto:Xto,
                 Xmarks :Xmarks,
                 XCity :XCity,
+                BOE10 :BOE10,
+                BOE12 :BOE12,
                 XIIname :XIIname,
                 XIIfrom : XIIfrom,
                 XIIto:XIIto,
@@ -864,12 +873,14 @@ function step2Save(){
     let Xto =document.querySelector("#Xto").value
     let Xmarks = document.querySelector("#Xmarks").value
     let XCity = document.querySelector("#XCity").value
-    
+    let BOE10 =document.querySelector("#BOE10").value
+
     let XIIname =document.querySelector("#XIIname").value
     let XIIfrom =document.querySelector("#XIIfrom").value
     let XIIto =document.querySelector("#XIIto").value
     let XIImarks = document.querySelector("#XIImarks").value
     let XIICity = document.querySelector("#XIICity").value
+    let BOE12 =document.querySelector("#BOE12").value
 
     let basicData = {
         educationData : {
@@ -883,6 +894,8 @@ function step2Save(){
                 semester:semester,  
                 Xname:Xname,
                 Xfrom :Xfrom,
+                BOE10 :BOE10,
+                BOE12 :BOE12,
                 Xto:Xto,
                 Xmarks :Xmarks,
                 XCity :XCity,
