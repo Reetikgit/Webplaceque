@@ -1,4 +1,6 @@
-$('document').ready(function(){
+setTimeout(function(){
+
+
 	$('.data-table').DataTable({
 		scrollCollapse: true,
 		autoWidth: false,
@@ -94,4 +96,4 @@ $('document').ready(function(){
 			}
 		}
 	});
-});
+},2000)

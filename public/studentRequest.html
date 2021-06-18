@@ -93,11 +93,7 @@
 								</tr>
 							</thead>
 							<tbody id="tb">
-								<tr>
-									<td>
-
-									</td>
-								</tr>
+								
 							</tbody>
 						</table>
 						
@@ -127,12 +123,7 @@
 							</div>
 							
 						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-primary" style="background-color:green">Accept</button>
-							<button type="button" class="btn btn-primary" style="background-color:red">Reject</button>
-							
-							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-						</div>
+						
 					</div>
 				</div>
 			</div>
@@ -185,22 +176,32 @@
 	
 				 sc=data.val();
 				 var keys=Object.keys(sc);
-				 console.log(keys)
+				
 				 document.getElementById("tb").innerHTML=""
 				 for(var i=0;i<keys.length;i++){
 					var k=keys[i]
 					
-					 var Name=sc[k].BasicprofileData.basic.fname
-		             var Lname=sc[k].BasicprofileData.basic.lname
-					 var Sem=sc[k].educationData.education.semester
-					 var Branch=sc[k].branch
-					if(sc[k].BasicprofileData && sc[k].educationData)
+					console.log("HELLO"+sc[k])
+					if(sc[k].BasicprofileData && sc[k].educationData && sc[k].studentVerified !=true){
+						
+						var Name=sc[k].BasicprofileData.basic.fname
+						var Lname=sc[k].BasicprofileData.basic.lname
+						var Sem=sc[k].educationData.education.semester
+						var Branch=sc[k].branch
+						let status
+						if(sc[k].studentVerified == false){
+							status = "Pending"
+						}
+						if(sc[k].studentVerified =="rejected"){
+							status = "Rejected"
+						}
+					
 						document.getElementById("tb").innerHTML+=
 						`          <tr >
 									<td class="table-plus">`+Name+`</td>
 									<td>`+Sem+`</td>
 									<td>`+Branch+`</td>
-									<td>Pending </td>
+									<td>`+status+`</td>
 									<td>29-03-2018</td>
 									<td>
 										<div class="dropdown">
@@ -210,7 +211,7 @@
 											<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
 												<a class="dropdown-item" href="#" data-toggle="modal" data-target="#task-add" onclick=openModel("`+k+`")><i class="dw dw-eye" ></i> View</a>
 												<a class="dropdown-item" href="#" onclick=acceptStudent("`+k+`")><i class="dw dw-check" ></i> Accept</a>
-												<a class="dropdown-item" href="#" data-toggle="modal" data-target="#task-add"><i class="dw dw-cancle"></i> Reject</a>
+												<a class="dropdown-item" href="#" onclick=RejectStudent("`+k+`")><i class="dw dw-cancle"></i> Reject</a>
 												
 											</div>
 										</div>
@@ -218,6 +219,7 @@
 								</tr>`
 
 			 }
+			}
 		}
 	function errData(){
 		console.log("as")
@@ -226,6 +228,14 @@
 		let res = confirm("Are u sure to accept")
 		data={
 			studentVerified : true
+		}
+		if(res)
+			firebase.database().ref("studentData").child(id).update(data)
+	}
+	function RejectStudent(id){
+		let res = confirm("Are u sure to Reject")
+		data={
+			studentVerified : "rejected"
 		}
 		if(res)
 			firebase.database().ref("studentData").child(id).update(data)
@@ -387,7 +397,14 @@
 
 
 										</form>
-									</li>`
+									</li>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-primary" onclick=acceptStudent("`+k+`") style="background-color:green">Accept</button>
+										<button type="button" class="btn btn-primary" onclick=RejectStudent("`+k+`") style="background-color:red">Reject</button>
+										
+										<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+									</div>
+									`
 
 
 			 
