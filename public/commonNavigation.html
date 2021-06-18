@@ -485,7 +485,7 @@ let newInterval = setInterval(function(){
                     document.getElementById("timelineData").innerHTML+=`
 
                     <div class="central-meta item" >
-                        <div class="user-post" onclick=increaseView("`+key+`","`+uids+`")>
+                        <div class="user-post" onmouseover=increaseView("`+key+`","`+uids+`")>
                             <div class="friend-info" >
                                 <figure>
                                    
@@ -655,6 +655,7 @@ let newInterval = setInterval(function(){
 
 },1000)
 function increaseView(postid,userid){
+
     var arr = []
     let refData2= firebase.database().ref('adminTimelineData').child(postid)
    
@@ -671,8 +672,12 @@ function increaseView(postid,userid){
             
         }
     })
-  
-    arr.push(userid)
+    
+    if(arr.includes(userid)){
+
+    }else{
+        arr.push(userid)
+    }
     data={
         view :arr
     }
