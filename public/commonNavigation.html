@@ -1,6 +1,8 @@
 <head>
     <meta name="viewport" content= "width=device-width, user-scalable=no">
 </head>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
 </script><script src="js/main.min.js"></script>
 <script src="js/script.js"></script>
 
@@ -474,6 +476,7 @@ let newInterval = setInterval(function(){
             if(document.getElementById("timelineData"))
                 for(let i=keys.length-1;i>=0;i--){
                     let key = keys[i]
+                    let type ="embed"
                     if(!sc[key].dept){
                         sc[key].dept ="Training & Placement Department" 
                     }
@@ -482,15 +485,22 @@ let newInterval = setInterval(function(){
                     }else{
                         totView = sc[key].view.length
                     }
-                    console.log(sc[key].authorImage)
+                    console.log(sc[key].timelineUrl)
+                    if(sc[key].timelineUrl.includes("pdf") ||sc[key].timelineUrl.includes("xlsx")||sc[key].timelineUrl.includes("docx")){
+                      
+                        type="iframe"
+                    }
+                    let cmtImg =window.localStorage.getItem("studentImage")
+                   
                     document.getElementById("timelineData").innerHTML+=`
 
                     <div class="central-meta item" >
-                        <div class="user-post" onmouseover=increaseView("`+key+`","`+uids+`")>
+                        <div class="user-post"  onmouseover=increaseView("`+key+`","`+uids+`")>
                             <div class="friend-info" >
-                                <figure>
+                                <figure >
                                    
-                                    <img src="`+sc[key].authorImage+`" alt="" style="height:50px;object-fit:cover;margin-left:4%">
+                                    <img src="`+sc[key].authorImage+`"  alt="" style="height:50px;object-fit:cover;margin-left:4%">
+                                    
                                 </figure>
                                 <div class="friend-name">
                                     <ins><a href="time-line.html" title="">`+sc[key].author+`</a></ins>
@@ -499,40 +509,45 @@ let newInterval = setInterval(function(){
                                 </div>
                                 <div class="description">
                                         
-                                    <p style="font-weight:600;padding-lrft:4px;color:black">
+                                    <p style="font-weight:600;padding-left:4px;color:black">
                                         `+sc[key].timelineText+`
                                     </p>
                                 </div>
                                 <div class="post-meta">
-                                    <embed src="`+sc[key].timelineUrl+`" alt="">
+                                    <`+type+` src="`+sc[key].timelineUrl+`" data-toggle="modal" data-target="#exampleModalPreview`+key+`" alt="">
                                     
                                     <div class="we-video-info">
                                         <hr>
                                         <ul>
                                             <li>
                                                 <span class="views" data-toggle="tooltip" title="views">
-                                                    <i class="fa fa-eye"></i>
+                                                    <span class="material-icons">
+                                                     visibility
+                                                    </span>
+
                                                     <ins>`+ totView+`</ins>
                                                 </span>
                                             </li>
                                             <li>
                                                 <span class="comment" data-toggle="tooltip" title="Comments">
-                                                    <i class="fa fa-comments-o"></i>
+                                                
+                                                    <span class="material-icons" data-toggle="modal" data-target="#exampleModalPreview`+key+`">
+                                                        question_answer
+                                                    </span>
                                                     <ins>52</ins>
+
                                                 </span>
                                             </li>
                                             <li>
                                                 <span class="like" data-toggle="tooltip" title="like">
-                                                    <i class="ti-heart"></i>
+                                                    <span class="material-icons">
+                                                    thumb_up
+                                                    </span>
+
                                                     <ins>2.2k</ins>
                                                 </span>
                                             </li>
-                                            <li>
-                                                <span class="dislike" data-toggle="tooltip" title="dislike">
-                                                    <i class="ti-heart-broken"></i>
-                                                    <ins>200</ins>
-                                                </span>
-                                            </li>
+                                            
                                             <li class="social-media">
                                                 <div class="menu">
                                                 <div class="btn trigger"><i class="fa fa-share-alt"></i></div>
@@ -574,6 +589,113 @@ let newInterval = setInterval(function(){
                            
                         </div>
                     </div>
+                    <div class="modal fade right" id="exampleModalPreview`+key+`" tabindex="-1" role="dialog" aria-labelledby="exampleModalPreviewLabel" aria-hidden="true">
+                            <div class="modal-dialog-full-width modal-dialog momodel modal-fluid" role="document">
+                                <div class="modal-content-full-width modal-content ">
+                                    <div class=" modal-header-full-width   modal-header text-center">
+                                        <figure>
+                                   
+                                             <img src="`+sc[key].authorImage+`" alt="" style="height:50px;object-fit:cover;margin-left:4%">
+                                   
+                                        </figure>
+                                        <div class="friend-name">
+                                            <ins><a href="time-line.html" title="">`+sc[key].author+`</a></ins>
+                                            <span>Posted on <span>`+sc[key].timeOfPost.substring(0,24)+`</span></span>
+                                            <span><span>`+sc[key].dept+`</span></span>
+                                        </div>
+                                        <button type="button" class="close " data-dismiss="modal" aria-label="Close">
+                                            <span style="font-size: 1.3em;" aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <`+type+` src="`+sc[key].timelineUrl+`" alt="">
+                                        <div class="coment-area">
+											<ul class="we-comet">
+												<li>
+													<div class="comet-avatar">
+														<img src="images/resources/comet-1.jpg" alt="">
+													</div>
+													<div class="we-comment">
+														<div class="coment-head">
+															<h5><a href="time-line.html" title="">Jason borne</a></h5>
+															<span>1 year ago</span>
+															<a class="we-reply" href="#" title="Reply"><i class="fa fa-reply"></i></a>
+														</div>
+														<p>we are working for the dance and sing songs. this car is very awesome for the youngster. please vote this car and like our post</p>
+													</div>
+													<ul>
+														<li>
+															<div class="comet-avatar">
+																<img src="images/resources/comet-2.jpg" alt="">
+															</div>
+															<div class="we-comment">
+																<div class="coment-head">
+																	<h5><a href="time-line.html" title="">alexendra dadrio</a></h5>
+																	<span>1 month ago</span>
+																	<a class="we-reply" href="#" title="Reply"><i class="fa fa-reply"></i></a>
+																</div>
+																<p>yes, really very awesome car i see the features of this car in the official website of <a href="#" title="">#Mercedes-Benz</a> and really impressed :-)</p>
+															</div>
+														</li>
+														<li>
+															<div class="comet-avatar">
+																<img src="images/resources/comet-3.jpg" alt="">
+															</div>
+															<div class="we-comment">
+																<div class="coment-head">
+																	<h5><a href="time-line.html" title="">Olivia</a></h5>
+																	<span>16 days ago</span>
+																	<a class="we-reply" href="#" title="Reply"><i class="fa fa-reply"></i></a>
+																</div>
+																<p>i like lexus cars, lexus cars are most beautiful with the awesome features, but this car is really outstanding than lexus</p>
+															</div>
+														</li>
+													</ul>
+												</li>
+												<li>
+													<div class="comet-avatar">
+														<img src="images/resources/comet-1.jpg" alt="">
+													</div>
+													<div class="we-comment">
+														<div class="coment-head">
+															<h5><a href="time-line.html" title="">Donald Trump</a></h5>
+															<span>1 week ago</span>
+															<a class="we-reply" href="#" title="Reply"><i class="fa fa-reply"></i></a>
+														</div>
+														<p>we are working for the dance and sing songs. this video is very awesome for the youngster. please vote this video and like our channel
+															<i class="em em-smiley"></i>
+														</p>
+													</div>
+												</li>
+												<li>
+													<a href="#" title="" class="showmore underline">more comments</a>
+												</li>
+												
+											</ul>
+										</div>
+                                    </div>
+                                    <div class="modal-footer-full-width  modal-footer" style="position:sticky;bottom:0;background:#fffff">
+                                     
+                                        <div class="comet-avatar">
+                                            <img style="max-width:30px;;object-fit:cover" src="`+cmtImg+`" alt="">
+                                        </div>
+                                        <div class="post-comt-box">
+                                            <form method="post">
+                                                <textarea placeholder="Post your comment"></textarea>
+                                                <div class="add-smiles">
+                                                    <span class="material-icons">
+                                                        send
+                                                    </span>
+                                                </div>
+                                               
+                                                <button type="submit"></button>
+                                            </form>	
+                                        </div>
+										
+                                    </div>
+                                </div>
+                            </div>
+					    </div>
                     `
                 }
         }
@@ -607,9 +729,10 @@ let newInterval = setInterval(function(){
                         document.getElementById("student_name").innerHTML=data.BasicprofileData.basic.fname +" "+data.BasicprofileData.basic.lname
                     }
                 }
-                
+                window.localStorage.setItem("studentImage",data.photoUrl)
                 if(document.getElementById("blah")){
                     if(data.photoUrl){
+                        window.localStorage.setItem("studentImage",data.photoUrl)
                         document.getElementById("blah").src=data.photoUrl
                     }
                 }
