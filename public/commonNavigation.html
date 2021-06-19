@@ -393,11 +393,11 @@
 <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase.js"></script>
 <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
-<script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-analytics.js"></script>
+<!-- <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-analytics.js"></script> -->
 
 <!-- Add Firebase products that you want to use -->
 <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-firestore.js"></script>
+<!-- <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-firestore.js"></script> -->
 
 </body>	
 <script>
@@ -461,251 +461,16 @@ let newInterval = setInterval(function(){
             });
             clearInterval(newInterval)
         }
+        var copyData;
+        let refData2= firebase.database().ref('studentData')
         let refData= firebase.database().ref('studentData').child(user.uid)
+        refData2.on('value', (snapshot) => {
+            copyData = snapshot.val();
+        })
 
-        let timelineData = firebase.database().ref('adminTimelineData')
-        timelineData.on('value',gotData,errData)
-
-        function gotData(data){
-            let uids = window.localStorage.getItem("user")
-            let sc= data.val()
-            let keys= Object.keys(sc)
-            let totView=0;
-        if(document.getElementById("timelineData"))
-            document.getElementById("timelineData").innerHTML=""
-            if(document.getElementById("timelineData"))
-                for(let i=keys.length-1;i>=0;i--){
-                    let key = keys[i]
-                    let type ="embed"
-                    if(!sc[key].dept){
-                        sc[key].dept ="Training & Placement Department" 
-                    }
-                    if(!sc[key].view){
-                        totView =0
-                    }else{
-                        totView = sc[key].view.length
-                    }
-                    console.log(sc[key].timelineUrl)
-                    if(sc[key].timelineUrl.includes("pdf") ||sc[key].timelineUrl.includes("xlsx")||sc[key].timelineUrl.includes("docx")){
-                      
-                        type="iframe"
-                    }
-                    let cmtImg =window.localStorage.getItem("studentImage")
-                   
-                    document.getElementById("timelineData").innerHTML+=`
-
-                    <div class="central-meta item" >
-                        <div class="user-post"  onmouseover=increaseView("`+key+`","`+uids+`")>
-                            <div class="friend-info" >
-                                <figure >
-                                   
-                                    <img src="`+sc[key].authorImage+`"  alt="" style="height:50px;object-fit:cover;margin-left:4%">
-                                    
-                                </figure>
-                                <div class="friend-name">
-                                    <ins><a href="time-line.html" title="">`+sc[key].author+`</a></ins>
-                                    <span>Posted on <span>`+sc[key].timeOfPost.substring(0,24)+`</span></span>
-                                    <span><span>`+sc[key].dept+`</span></span>
-                                </div>
-                                <div class="description">
-                                        
-                                    <p style="font-weight:600;padding-left:4px;color:black">
-                                        `+sc[key].timelineText+`
-                                    </p>
-                                </div>
-                                <div class="post-meta">
-                                    <`+type+` src="`+sc[key].timelineUrl+`" data-toggle="modal" data-target="#exampleModalPreview`+key+`" alt="">
-                                    
-                                    <div class="we-video-info">
-                                        <hr>
-                                        <ul>
-                                            <li>
-                                                <span class="views" data-toggle="tooltip" title="views">
-                                                    <span class="material-icons">
-                                                     visibility
-                                                    </span>
-
-                                                    <ins>`+ totView+`</ins>
-                                                </span>
-                                            </li>
-                                            <li>
-                                                <span class="comment" data-toggle="tooltip" title="Comments">
-                                                
-                                                    <span class="material-icons" data-toggle="modal" data-target="#exampleModalPreview`+key+`">
-                                                        question_answer
-                                                    </span>
-                                                    <ins>52</ins>
-
-                                                </span>
-                                            </li>
-                                            <li>
-                                                <span class="like" data-toggle="tooltip" title="like">
-                                                    <span class="material-icons">
-                                                    thumb_up
-                                                    </span>
-
-                                                    <ins>2.2k</ins>
-                                                </span>
-                                            </li>
-                                            
-                                            <li class="social-media">
-                                                <div class="menu">
-                                                <div class="btn trigger"><i class="fa fa-share-alt"></i></div>
-                                                <div class="rotater">
-                                                    <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-html5"></i></a></div>
-                                                </div>
-                                                <div class="rotater">
-                                                    <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-facebook"></i></a></div>
-                                                </div>
-                                                <div class="rotater">
-                                                    <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-google-plus"></i></a></div>
-                                                </div>
-                                                <div class="rotater">
-                                                    <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-twitter"></i></a></div>
-                                                </div>
-                                                <div class="rotater">
-                                                    <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-css3"></i></a></div>
-                                                </div>
-                                                <div class="rotater">
-                                                    <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-instagram"></i></a>
-                                                    </div>
-                                                </div>
-                                                    <div class="rotater">
-                                                    <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-dribbble"></i></a>
-                                                    </div>
-                                                </div>
-                                                <div class="rotater">
-                                                    <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-pinterest"></i></a>
-                                                    </div>
-                                                </div>
-
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                   
-                                </div>
-                            </div>
-                           
-                        </div>
-                    </div>
-                    <div class="modal fade right" id="exampleModalPreview`+key+`" tabindex="-1" role="dialog" aria-labelledby="exampleModalPreviewLabel" aria-hidden="true">
-                            <div class="modal-dialog-full-width modal-dialog momodel modal-fluid" role="document">
-                                <div class="modal-content-full-width modal-content ">
-                                    <div class=" modal-header-full-width   modal-header text-center">
-                                        <figure>
-                                   
-                                             <img src="`+sc[key].authorImage+`" alt="" style="height:50px;object-fit:cover;margin-left:4%">
-                                   
-                                        </figure>
-                                        <div class="friend-name">
-                                            <ins><a href="time-line.html" title="">`+sc[key].author+`</a></ins>
-                                            <span>Posted on <span>`+sc[key].timeOfPost.substring(0,24)+`</span></span>
-                                            <span><span>`+sc[key].dept+`</span></span>
-                                        </div>
-                                        <button type="button" class="close " data-dismiss="modal" aria-label="Close">
-                                            <span style="font-size: 1.3em;" aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <`+type+` src="`+sc[key].timelineUrl+`" alt="">
-                                        <div class="coment-area">
-											<ul class="we-comet">
-												<li>
-													<div class="comet-avatar">
-														<img src="images/resources/comet-1.jpg" alt="">
-													</div>
-													<div class="we-comment">
-														<div class="coment-head">
-															<h5><a href="time-line.html" title="">Jason borne</a></h5>
-															<span>1 year ago</span>
-															<a class="we-reply" href="#" title="Reply"><i class="fa fa-reply"></i></a>
-														</div>
-														<p>we are working for the dance and sing songs. this car is very awesome for the youngster. please vote this car and like our post</p>
-													</div>
-													<ul>
-														<li>
-															<div class="comet-avatar">
-																<img src="images/resources/comet-2.jpg" alt="">
-															</div>
-															<div class="we-comment">
-																<div class="coment-head">
-																	<h5><a href="time-line.html" title="">alexendra dadrio</a></h5>
-																	<span>1 month ago</span>
-																	<a class="we-reply" href="#" title="Reply"><i class="fa fa-reply"></i></a>
-																</div>
-																<p>yes, really very awesome car i see the features of this car in the official website of <a href="#" title="">#Mercedes-Benz</a> and really impressed :-)</p>
-															</div>
-														</li>
-														<li>
-															<div class="comet-avatar">
-																<img src="images/resources/comet-3.jpg" alt="">
-															</div>
-															<div class="we-comment">
-																<div class="coment-head">
-																	<h5><a href="time-line.html" title="">Olivia</a></h5>
-																	<span>16 days ago</span>
-																	<a class="we-reply" href="#" title="Reply"><i class="fa fa-reply"></i></a>
-																</div>
-																<p>i like lexus cars, lexus cars are most beautiful with the awesome features, but this car is really outstanding than lexus</p>
-															</div>
-														</li>
-													</ul>
-												</li>
-												<li>
-													<div class="comet-avatar">
-														<img src="images/resources/comet-1.jpg" alt="">
-													</div>
-													<div class="we-comment">
-														<div class="coment-head">
-															<h5><a href="time-line.html" title="">Donald Trump</a></h5>
-															<span>1 week ago</span>
-															<a class="we-reply" href="#" title="Reply"><i class="fa fa-reply"></i></a>
-														</div>
-														<p>we are working for the dance and sing songs. this video is very awesome for the youngster. please vote this video and like our channel
-															<i class="em em-smiley"></i>
-														</p>
-													</div>
-												</li>
-												<li>
-													<a href="#" title="" class="showmore underline">more comments</a>
-												</li>
-												
-											</ul>
-										</div>
-                                    </div>
-                                    <div class="modal-footer-full-width  modal-footer" style="position:sticky;bottom:0;background:#fffff">
-                                     
-                                        <div class="comet-avatar">
-                                            <img style="max-width:30px;;object-fit:cover" src="`+cmtImg+`" alt="">
-                                        </div>
-                                        <div class="post-comt-box">
-                                            <form method="post">
-                                                <textarea placeholder="Post your comment"></textarea>
-                                                <div class="add-smiles">
-                                                    <span class="material-icons">
-                                                        send
-                                                    </span>
-                                                </div>
-                                               
-                                                <button type="submit"></button>
-                                            </form>	
-                                        </div>
-										
-                                    </div>
-                                </div>
-                            </div>
-					    </div>
-                    `
-                }
-        }
-        function errData(error){
-
-        }
-      
-			refData.on('value', (snapshot) => {
+        refData.on('value', (snapshot) => {
 				data = snapshot.val();
-            
+               
                 
                 if(document.getElementById("student_name"))
                     document.getElementById("student_name").innerHTML=data.Name
@@ -769,6 +534,235 @@ let newInterval = setInterval(function(){
                         
 				}
 			});
+        let timelineData = firebase.database().ref('adminTimelineData')
+        timelineData.on('value',gotData,errData)
+
+        function gotData(data){
+            let uids = window.localStorage.getItem("user")
+            let sc= data.val()
+            let keys= Object.keys(sc)
+            let totView=0;
+            let totLike =0
+            let totComment=0
+        if(document.getElementById("timelineData"))
+            document.getElementById("timelineData").innerHTML=""
+            if(document.getElementById("timelineData"))
+                for(let i=keys.length-1;i>=0;i--){
+                    let key = keys[i]
+                    let type ="embed"
+                    let color="gray"
+                    if(!sc[key].dept){
+                        sc[key].dept ="Training & Placement Department" 
+                    }
+                    if(!sc[key].view){
+                        totView =0
+                    }else{
+                        totView = sc[key].view.length
+                    }
+                    if(!sc[key].comments){
+                        totComment =0
+                    }else{
+                        totComment= sc[key].comments.length
+                    }
+                    if(!sc[key].like){
+                        totLike =0
+                    }else{
+                        totLike = sc[key].like.length
+                        let ar ;
+                        ar =sc[key].like
+                        console.log("SDS-----"+uids)
+                        console.log(ar)
+                        if(ar.includes(uids)){
+                            color = "orange"
+                        }else{
+                          
+                        }
+                    }
+                    
+  
+                    if(sc[key].timelineUrl.includes("pdf") ||sc[key].timelineUrl.includes("xlsx")||sc[key].timelineUrl.includes("docx")){
+                      
+                        type="iframe"
+                    }
+                    let cmtImg =window.localStorage.getItem("studentImage")
+                  
+                    document.getElementById("timelineData").innerHTML+=`
+
+                    <div class="central-meta item" >
+                        <div class="user-post"  onmouseover=increaseView("`+key+`","`+uids+`")>
+                            <div class="friend-info" >
+                                <figure >
+                                   
+                                    <img src="`+sc[key].authorImage+`"  alt="" style="height:50px;object-fit:cover;margin-left:4%">
+                                    
+                                </figure>
+                                <div class="friend-name">
+                                    <ins><a href="time-line.html" title="">`+sc[key].author+`</a></ins>
+                                    <span>Posted on <span>`+sc[key].timeOfPost.substring(0,24)+`</span></span>
+                                    <span><span>`+sc[key].dept+`</span></span>
+                                </div>
+                                <div class="description">
+                                        
+                                    <p style="font-weight:600;padding-left:4px;color:black">
+                                        `+sc[key].timelineText+`
+                                    </p>
+                                </div>
+                                <div class="post-meta">
+                                    <`+type+` src="`+sc[key].timelineUrl+`" data-toggle="modal" data-target="#exampleModalPreview`+key+`" alt="">
+                                    
+                                    <div class="we-video-info">
+                                        <hr>
+                                        <ul>
+                                            <li>
+                                                <span class="views" data-toggle="tooltip" title="views">
+                                                    <span class="material-icons">
+                                                     visibility
+                                                    </span>
+
+                                                    <ins>`+ totView+`</ins>
+                                                </span>
+                                            </li>
+                                            <li>
+                                                <span class="comment" data-toggle="tooltip" title="Comments">
+                                                
+                                                    <span class="material-icons" data-toggle="modal" data-target="#exampleModalPreview`+key+`" style="cursor:pointer">
+                                                        question_answer
+                                                    </span>
+                                                    <ins>`+totComment+`</ins>
+
+                                                </span>
+                                            </li>
+                                            <li>
+                                                <span class="like" data-toggle="tooltip" title="like">
+                                                    <span id="likeColor" class="material-icons" onclick=updateLike("`+key+`","`+uids+`") style="color:`+color+`" >
+                                                    thumb_up
+                                                    </span>
+
+                                                    <ins>`+totLike+`</ins>
+                                                </span>
+                                            </li>
+                                            
+                                            <li class="social-media">
+                                                <div class="menu">
+                                                <div class="btn trigger"><i class="fa fa-share-alt"></i></div>
+                                                <div class="rotater">
+                                                    <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-html5"></i></a></div>
+                                                </div>
+                                                <div class="rotater">
+                                                    <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-facebook"></i></a></div>
+                                                </div>
+                                                <div class="rotater">
+                                                    <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-google-plus"></i></a></div>
+                                                </div>
+                                                <div class="rotater">
+                                                    <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-twitter"></i></a></div>
+                                                </div>
+                                                <div class="rotater">
+                                                    <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-css3"></i></a></div>
+                                                </div>
+                                                <div class="rotater">
+                                                    <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-instagram"></i></a>
+                                                    </div>
+                                                </div>
+                                                    <div class="rotater">
+                                                    <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-dribbble"></i></a>
+                                                    </div>
+                                                </div>
+                                                <div class="rotater">
+                                                    <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-pinterest"></i></a>
+                                                    </div>
+                                                </div>
+
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                   
+                                </div>
+                            </div>
+                           
+                        </div>
+                    </div>
+                    <div class="modal fade right" id="exampleModalPreview`+key+`" tabindex="-1" role="dialog" aria-labelledby="exampleModalPreviewLabel" aria-hidden="true">
+                            <div class="modal-dialog-full-width modal-dialog momodel modal-fluid" role="document">
+                                <div class="modal-content-full-width modal-content ">
+                                    <div class=" modal-header-full-width   modal-header text-center">
+                                        <figure>
+                                            
+                                             <img src="`+sc[key].authorImage+`" alt="" style="height:50px;object-fit:cover;margin-left:4%">
+                                   
+                                        </figure>
+                                        <div class="friend-name">
+                                            <ins><a href="time-line.html" title="">`+sc[key].author+`</a></ins>
+                                            <span>Posted on <span>`+sc[key].timeOfPost.substring(0,24)+`</span></span>
+                                            <span><span>`+sc[key].dept+`</span></span>
+                                        </div>
+                                        <button type="button" class="close " data-dismiss="modal" aria-label="Close">
+                                            <span style="font-size: 1.3em;" aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <`+type+` src="`+sc[key].timelineUrl+`" alt="">
+                                        
+                                        <div class="coment-area">
+											<ul class="we-comet" id="cmt`+key+`">
+												
+												
+												
+											</ul>
+										</div>
+                                    </div>
+                                    <div class="modal-footer-full-width  modal-footer" style="position:sticky;bottom:0;background:#fffff">
+                                     
+                                        <div class="comet-avatar">
+                                            <img style="max-width:30px;;object-fit:cover" src="`+cmtImg+`" alt="">
+                                        </div>
+                                        <div class="post-comt-box">
+                                           
+                                                <textarea placeholder="Post your comment" id="cmtmsg`+key+`"></textarea>
+                                                <div class="add-smiles">
+                                                    <span class="material-icons"  onclick=sendComment("`+key+`","`+uids+`")>
+                                                        send
+                                                    </span>
+                                                </div>
+                                           
+                                        </div>
+										
+                                    </div>
+                                </div>
+                            </div>
+					    </div>
+                    `
+
+                    if(sc[key].comments){
+                        let stdKey=(sc[key].comments[0]['user'])
+                        
+                        for(let j =0;j<sc[key].comments.length;j++){
+    
+                            document.getElementById("cmt"+key).innerHTML+=`
+                            <li>
+                                <div class="comet-avatar">
+                                    <img src="`+copyData[sc[key].comments[0]['user']].photoUrl+`" alt="">
+                                </div>
+                                <div class="we-comment">
+                                    <div class="coment-head">
+                                        <h5><a href="time-line.html" title="">`+copyData[sc[key].comments[0]['user']].Name+`</a></h5>
+                                        <span>`+sc[key].comments[j]['time'].substring(0,24)+`</span>
+                                    
+                                    </div>
+                                    <p>`+sc[key].comments[j]['Message']+`</p>
+                                </div>
+                            </li>
+                            `
+                        }
+                    }
+                }
+        }
+        function errData(error){
+
+        }
+      
+			
      
     }else{
      window.location="index.html"
@@ -809,6 +803,84 @@ function increaseView(postid,userid){
     firebase.database().ref('adminTimelineData').child(postid).update(data).then(function(){
         
     });
+}
+
+function updateLike(postid,userid){
+
+    var arr = []
+    let refData2= firebase.database().ref('adminTimelineData').child(postid)
+
+    refData2.on('value', (snapshot) => {
+        data = snapshot.val();
+        console.log(data)
+        if(data.like){
+            console.log("camr")
+            console.log(data.like.length)
+            for(let i =0 ;i<data.like.length;i++){
+                console.log(data.like[i])
+                arr.push(data.like[i])
+            }
+            
+        }
+    })
+    console.log(arr)
+    console.log(userid + "----------")
+    if(arr.includes(userid)){
+        
+        arr.pop(userid)
+    
+    }else{
+    
+        arr.push(userid)
+    }
+    console.log(arr +"After pop")
+    data={
+        like :arr
+    }
+
+    firebase.database().ref('adminTimelineData').child(postid).update(data).then(function(){
+        
+    });
+}
+
+function sendComment(postid,userid){
+
+let message = document.getElementById("cmtmsg"+postid).value
+
+var arr = []
+let refData2= firebase.database().ref('adminTimelineData').child(postid)
+
+refData2.on('value', (snapshot) => {
+    data = snapshot.val();
+    console.log(data)
+    if(data.comments){
+
+        for(let i =0 ;i<data.comments.length;i++){
+            console.log(data.comments[i])
+            arr.push(data.comments[i])
+        }
+        
+    }
+})
+if(message!=""){
+    arr.push(
+    {
+        "Message": message,
+        "user" : userid,
+        "time" : new Date().toString()
+
+    }
+    )
+  
+    data={
+        comments :arr
+    }
+
+    firebase.database().ref('adminTimelineData').child(postid).update(data).then(function(){
+        
+    });  
+
+}
 }
 function logout(){
     firebase.auth().signOut().then(function() {
