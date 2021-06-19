@@ -93,9 +93,7 @@
 								</tr>
 							</thead>
 							<tbody id="tb">
-								<tr>
-									
-								</tr>
+								
 							</tbody>
 						</table>
 						
@@ -125,12 +123,7 @@
 							</div>
 							
 						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-primary" style="background-color:green">Accept</button>
-							<button type="button" class="btn btn-primary" style="background-color:red">Reject</button>
-							
-							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-						</div>
+						
 					</div>
 				</div>
 			</div>
@@ -180,44 +173,73 @@
 	var sc;
 	formMessage.on('value',gotData,errData)
 	function gotData(data){
+	
 				 sc=data.val();
 				 var keys=Object.keys(sc);
-				 console.log(keys)
+				
+				 document.getElementById("tb").innerHTML=""
 				 for(var i=0;i<keys.length;i++){
 					var k=keys[i]
-					 var Name=sc[k].BasicprofileData.basic.fname
-		             var Lname=sc[k].BasicprofileData.basic.lname
-					 var Sem=sc[k].educationData.education.semester
-					 var Branch=sc[k].branch
-					 
-					document.getElementById("tb").innerHTML+=
-					`          <tr>
-								<td class="table-plus">`+Name+`</td>
-								<td>`+Sem+`</td>
-								<td>`+Branch+`</td>
-								<td>Pending </td>
-								<td>29-03-2018</td>
-								<td>
-									<div class="dropdown">
-										<a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
-											<i class="dw dw-more"></i>
-										</a>
-										<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-											<a class="dropdown-item" href="#" data-toggle="modal" data-target="#task-add" onclick=openModel("`+k+`")><i class="dw dw-eye" ></i> View</a>
-											<a class="dropdown-item" href="#" data-toggle="modal" data-target="#task-add"><i class="dw dw-check"></i> Accept</a>
-											<a class="dropdown-item" href="#" data-toggle="modal" data-target="#task-add"><i class="dw dw-cancle"></i> Reject</a>
-											
+					
+					console.log("HELLO"+sc[k])
+					if(sc[k].BasicprofileData && sc[k].educationData && sc[k].studentVerified !=true){
+						
+						var Name=sc[k].BasicprofileData.basic.fname
+						var Lname=sc[k].BasicprofileData.basic.lname
+						var Sem=sc[k].educationData.education.semester
+						var Branch=sc[k].branch
+						let status
+						if(sc[k].studentVerified == false){
+							status = "Pending"
+						}
+						if(sc[k].studentVerified =="rejected"){
+							status = "Rejected"
+						}
+					
+						document.getElementById("tb").innerHTML+=
+						`          <tr >
+									<td class="table-plus">`+Name+`</td>
+									<td>`+Sem+`</td>
+									<td>`+Branch+`</td>
+									<td>`+status+`</td>
+									<td>29-03-2018</td>
+									<td>
+										<div class="dropdown">
+											<a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+												<i class="dw dw-more"></i>
+											</a>
+											<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+												<a class="dropdown-item" href="#" data-toggle="modal" data-target="#task-add" onclick=openModel("`+k+`")><i class="dw dw-eye" ></i> View</a>
+												<a class="dropdown-item" href="#" onclick=acceptStudent("`+k+`")><i class="dw dw-check" ></i> Accept</a>
+												<a class="dropdown-item" href="#" onclick=RejectStudent("`+k+`")><i class="dw dw-cancle"></i> Reject</a>
+												
+											</div>
 										</div>
-									</div>
-								</td>
-							</tr>`
+									</td>
+								</tr>`
 
 			 }
+			}
 		}
 	function errData(){
 		console.log("as")
 	}
-
+	function acceptStudent(id){
+		let res = confirm("Are u sure to accept")
+		data={
+			studentVerified : true
+		}
+		if(res)
+			firebase.database().ref("studentData").child(id).update(data)
+	}
+	function RejectStudent(id){
+		let res = confirm("Are u sure to Reject")
+		data={
+			studentVerified : "rejected"
+		}
+		if(res)
+			firebase.database().ref("studentData").child(id).update(data)
+	}
 	function openModel(k){
 	
 	
@@ -245,60 +267,62 @@
 					 var Year=sc[k].BasicprofileData.basic.year
 					 var boe10=sc[k].educationData.education.BOE10
 					 var boe12=sc[k].educationData.education.BOE12
+					 var profileimage=sc[k].photoUrl
 					 
 					 document.getElementById("details").innerHTML+=
 					 `<li>
 										<form>
 											<h3>Personal Details</h3>
+											<img src=`+profileimage+` alt="" width="200" height="40" borderradius:100px style="float:right;border-radius:10px; ">
 											<div class="form-group row">
-												<label class="col-md-4">Student Name - `+Name+`</label>
+												<label class="col-md-8">Student Name - `+Name+`</label>
 											</div>
 											<div class="form-group row">
-												<label class="col-md-4">Branch - `+Branch+` </label>
+												<label class="col-md-8">Branch - `+Branch+` </label>
 												
 											</div>
 											<div class="form-group row">
-												<label class="col-md-4">Semester  - `+Sem+`</label>
+												<label class="col-md-8">Semester  - `+Sem+`</label>
 												
 											</div>
 											<div class="form-group row">
-												<label class="col-md-4">Mobile Number - `+Phonenumber+`</label>
+												<label class="col-md-8">Mobile Number - `+Phonenumber+`</label>
 												
 											</div>
 											<div class="form-group row">
-												<label class="col-md-4">Gender - `+Gender+`</label>
+												<label class="col-md-8">Gender - `+Gender+`</label>
 												
 											</div>
 											<div class="form-group row">
-												<label class="col-md-4">Father Name - `+fathername+` </label>
+												<label class="col-md-8">Father Name - `+fathername+` </label>
 												
 											</div>
 											<div class="form-group row">
-												<label class="col-md-4">Present Address - `+presentaddr+`</label>
+												<label class="col-md-8">Present Address - `+presentaddr+`</label>
 												
 											</div>
 											<div class="form-group row">
-												<label class="col-md-4">Permanent Address - `+permanentaddr+`</label>
+												<label class="col-md-8">Permanent Address - `+permanentaddr+`</label>
 												
 											</div>
 											<div class="form-group row">
-												<label class="col-md-4">official Email id- `+officialemailid+`</label>
+												<label class="col-md-8">official Email id- `+officialemailid+`</label>
 												
 											</div>
 											<div class="form-group row">
-												<label class="col-md-4">Personal Email id - `+personalemailid+`</label>
+												<label class="col-md-8">Personal Email id - `+personalemailid+`</label>
 												
 											</div>
 											<div class="form-group row">
-												<label class="col-md-4">Date of birth - `+date+`/`+Month+`/`+Year+`</label>
+												<label class="col-md-8">Date of birth - `+date+`/`+Month+`/`+Year+`</label>
 												
 											</div>
 											<div class="form-group row">
-												<label class="col-md-4">Present location - `+presentaddr+`</label>
+												<label class="col-md-8">Present location - `+presentaddr+`</label>
 												
 											</div>
 											<div class="form-group row">
-												<label class="col-md-4">Permanent location- `+permanentaddr+`</label>
+												<label class="col-md-8">Permanent location- `+permanentaddr+`</label>
 												
 											</div>
 										</form>
@@ -308,74 +332,81 @@
 										<form>
 											<h3>Education Details</h3>
 											<div class="form-group row">
-												<label class="col-md-4">Highset Qualification- BE</label>
+												<label class="col-md-8">Highset Qualification- BE</label>
 												
 											</div>
 											<div class="form-group row">
-												<label class="col-md-4">Highest Degree - BE</label>
+												<label class="col-md-8">Highest Degree - BE</label>
 												
 											</div>
 
 											<div class="form-group row">
-												<label class="col-md-4">Branch - `+Branch+` </label>
+												<label class="col-md-8">Branch - `+Branch+` </label>
 												
 											</div>
 											<div class="form-group row">
-												<label class="col-md-4">Year of Pass - `+yearofpass+` </label>
+												<label class="col-md-8">Year of Pass - `+yearofpass+` </label>
 												
 											</div>
 											<div class="form-group row">
-												<label class="col-md-4">Percentage/CGPA - `+percentage+`</label>
+												<label class="col-md-8">Percentage/CGPA - `+percentage+`</label>
 												
 											</div>
 											<div class="form-group row">
-												<label class="col-md-4">College Name - `+collegename+`</label>
+												<label class="col-md-8">College Name - `+collegename+`</label>
 												
 											</div>
 											
 											<h4>12th/Diploma</h4>
 											<div class="form-group row">
-												<label class="col-md-4">12th/Deploma</label>
+												<label class="col-md-8">12th/Deploma</label>
 												
 											</div>
 											<div class="form-group row">
-												<label class="col-md-4">College Name - `+Collegename12+`</label>
+												<label class="col-md-8">College Name - `+Collegename12+`</label>
 												
 											</div>
 											<div class="form-group row">
-												<label class="col-md-4">Enter a board of education - `+boe10+`</label>
+												<label class="col-md-8">Enter a board of education - `+boe10+`</label>
 												
 											</div>
 											<div class="form-group row">
-												<label class="col-md-4">Percentage - `+percentage12+`</label>
+												<label class="col-md-8">Percentage - `+percentage12+`</label>
 												
 											</div>
 											<div class="form-group row">
-												<label class="col-md-4">Year of Pass - `+yearofpass12+`</label>
+												<label class="col-md-8">Year of Pass - `+yearofpass12+`</label>
 												
 											</div>
 											<h4>10th class</h4>
 											
 											<div class="form-group row">
-												<label class="col-md-4">School Name - `+schoolname+`</label>
+												<label class="col-md-8">School Name - `+schoolname+`</label>
 												
 											</div>
 											<div class="form-group row">
-												<label class="col-md-4">Enter a board of education - `+boe12+`</label>
+												<label class="col-md-8">Enter a board of education - `+boe12+`</label>
 												
 											</div>
 											<div class="form-group row">
-												<label class="col-md-4">Percentage - `+schoolmarks+`</label>
+												<label class="col-md-8">Percentage - `+schoolmarks+`</label>
 												
 											</div>
 											<div class="form-group row">
-												<label class="col-md-4">Year of Pass -`+yearofpass10+`</label>
+												<label class="col-md-8">Year of Pass -`+yearofpass10+`</label>
 												
 											</div>
 
 
 										</form>
-									</li>`
+									</li>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-primary" onclick=acceptStudent("`+k+`") style="background-color:green">Accept</button>
+										<button type="button" class="btn btn-primary" onclick=RejectStudent("`+k+`") style="background-color:red">Reject</button>
+										
+										<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+									</div>
+									`
 
 
 			 
@@ -390,7 +421,7 @@
 	<!-- buttons for Export datatable -->
 	
 	<!-- Datatable Setting js -->
-	<script src="vendors/scripts/datatable-setting.js"></script></body>
+</body>
 	<script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-app.js"></script>
     
     <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
