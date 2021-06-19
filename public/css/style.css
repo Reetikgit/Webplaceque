@@ -1804,7 +1804,7 @@ for some reason nth-child(1) is always busy and elements starting from 2 */
     border: 1px solid #ede9e9;
     display: table-cell;
     margin-left: 20px;
-    padding: 10px;
+    padding: 5px;
     vertical-align: top;
     position: relative;
     width: 65%;
@@ -1874,7 +1874,7 @@ for some reason nth-child(1) is always busy and elements starting from 2 */
     line-height: 26px;
     margin-bottom: 0;
     max-width: 100%;
-    margin-top: 5px;
+    /* margin-top: 5px; */
 }
 
 .we-reply {

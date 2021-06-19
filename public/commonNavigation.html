@@ -441,7 +441,7 @@ let newInterval = setInterval(function(){
             clearInterval(newInterval)
         }
         var isVerified= firebase.auth().currentUser.emailVerified
-        console.log(isVerified)
+ 
         if(isVerified == false){
             document.getElementById("username").innerHTML=user.email
             $('#exampleModalCenter').modal('show')
@@ -464,96 +464,29 @@ let newInterval = setInterval(function(){
         var copyData;
         let refData2= firebase.database().ref('studentData')
         let refData= firebase.database().ref('studentData').child(user.uid)
-        refData2.on('value', (snapshot) => {
-            copyData = snapshot.val();
-        })
-
-        refData.on('value', (snapshot) => {
-				data = snapshot.val();
-               
-                
-                if(document.getElementById("student_name"))
-                    document.getElementById("student_name").innerHTML=data.Name
-                
-                if(document.getElementById("username1")){
-                    document.getElementById("username1").innerHTML=data.Name
-                }
-                if(document.getElementById("username2")){
-                    document.getElementById("username2").innerHTML=data.Name
-                }
-                if(document.getElementById("username3")){
-                    document.getElementById("username3").innerHTML=data.Name
-                }
-                if(document.getElementById("username4")){
-                    document.getElementById("username4").innerHTML=data.Name
-                }
-                
-               
-                if(data.BasicprofileData && window.location.href.includes("edit")){
-                    if(data.BasicprofileData.basic){
-                        document.getElementById("student_name").innerHTML=data.BasicprofileData.basic.fname +" "+data.BasicprofileData.basic.lname
-                    }
-                }
-                window.localStorage.setItem("studentImage",data.photoUrl)
-                if(document.getElementById("blah")){
-                    if(data.photoUrl){
-                        window.localStorage.setItem("studentImage",data.photoUrl)
-                        document.getElementById("blah").src=data.photoUrl
-                    }
-                }
-                if(document.getElementById("imgSide")){
-                    if(data.photoUrl){
-                        document.getElementById("imgSide").src=data.photoUrl
-                    }
-                }
-                
-                if(data.photoUrl)
-                    document.getElementById("smallIcon").src=data.photoUrl
-                if(document.getElementById("sem"))
-                    document.getElementById("sem").innerHTML = data.sem
-                if(data.educationData && window.location.href.includes("edit")){
-                    if(data.educationData.education){
-                        document.getElementById("sem").innerHTML=data.educationData.education.semester
-                    }
-                }
-                if(document.getElementById("branch"))
-                    document.getElementById("branch").innerHTML = data.branch
-                if(data.educationData && window.location.href.includes("edit") ){
-                    if(data.educationData.education){
-                        document.getElementById("branch").innerHTML=data.educationData.education.branch
-                    }
-                }
-            
-				if(data.studentVerified ==true || data.studentVerified =="true"){
-					//Do Nothing
-				}else{
-                    if(!(window.location.href).includes("edit-profile-basic.html")
-                    && !(window.location.href).includes("edit-work-education.html") && !(window.location.href).includes("edit-interest.html") 
-                    && !(window.location.href).includes("edit-password.html"))
-					    window.location="edit-profile-basic.html"
-                        
-				}
-			});
-        let timelineData = firebase.database().ref('adminTimelineData')
-        timelineData.on('value',gotData,errData)
-
-        function gotData(data){
+        function showTimeline(){
             let uids = window.localStorage.getItem("user")
-            let sc= data.val()
-            let keys= Object.keys(sc)
-            let totView=0;
-            let totLike =0
-            let totComment=0
+        var sc =JSON.parse(window.localStorage.getItem("timelineData"))
+        copyData =JSON.parse(window.localStorage.getItem("studentData"))
+    
+        let keys= Object.keys(sc)
+       
+        let totView=0;
+        let totLike =0
+        let totComment=0
         if(document.getElementById("timelineData"))
             document.getElementById("timelineData").innerHTML=""
+  
             if(document.getElementById("timelineData"))
                 for(let i=keys.length-1;i>=0;i--){
+                 
                     let key = keys[i]
                     let type ="embed"
                     let color="gray"
                     if(!sc[key].dept){
                         sc[key].dept ="Training & Placement Department" 
                     }
+            
                     if(!sc[key].view){
                         totView =0
                     }else{
@@ -566,20 +499,18 @@ let newInterval = setInterval(function(){
                     }
                     if(!sc[key].like){
                         totLike =0
+                       
                     }else{
-                        totLike = sc[key].like.length
+                        totLike = sc[key].like.length        
                         let ar ;
                         ar =sc[key].like
-                        console.log("SDS-----"+uids)
-                        console.log(ar)
+      
                         if(ar.includes(uids)){
                             color = "orange"
                         }else{
                           
                         }
                     }
-                    
-  
                     if(sc[key].timelineUrl.includes("pdf") ||sc[key].timelineUrl.includes("xlsx")||sc[key].timelineUrl.includes("docx")){
                       
                         type="iframe"
@@ -677,13 +608,33 @@ let newInterval = setInterval(function(){
                                             </li>
                                         </ul>
                                     </div>
+                                    <div class="coment-area">
+											<ul class="we-comet" id="cmt`+key+`" style="max-height:150px;overflow-y:scroll">
+											
+												
+											</ul>
+									</div>
+                                    <div class="comet-avatar">
+                                            <img style="max-width:30px;;object-fit:cover" src="`+cmtImg+`" alt="">
+                                        
+                                        <div class="post-comt-box">
+                                           
+                                                <input type="text" style="width:90%;border:1px solid gray;border-radius:14px; padding:5px ;word-break: break-all;overflow-wrap: break-word" placeholder="Post your comment" id="cmtmsg`+key+`">
+                                                <div class="add-smiles" style="z-index:999;background:white">
+                                                    <span class="material-icons"    onclick=sendComment("`+key+`","`+uids+`")>
+                                                        send
+                                                    </span>
+                                                </div>
+                                           
+                                        </div>
+                                    </div>
                                    
                                 </div>
                             </div>
                            
                         </div>
                     </div>
-                    <div class="modal fade right" id="exampleModalPreview`+key+`" tabindex="-1" role="dialog" aria-labelledby="exampleModalPreviewLabel" aria-hidden="true">
+                    <div class="modal fade right" id="exampleModalPreview`+key+`" style="display:none" >
                             <div class="modal-dialog-full-width modal-dialog momodel modal-fluid" role="document">
                                 <div class="modal-content-full-width modal-content ">
                                     <div class=" modal-header-full-width   modal-header text-center">
@@ -703,61 +654,148 @@ let newInterval = setInterval(function(){
                                     </div>
                                     <div class="modal-body">
                                         <`+type+` src="`+sc[key].timelineUrl+`" alt="">
-                                        
-                                        <div class="coment-area">
-											<ul class="we-comet" id="cmt`+key+`">
+                                    
+                                        <ul class="we-comet" id="cmt2`+key+`" style="max-height:150px;overflow:scroll">
+											
 												
-												
-												
-											</ul>
-										</div>
+                                        </ul>
+                                       
                                     </div>
-                                    <div class="modal-footer-full-width  modal-footer" style="position:sticky;bottom:0;background:#fffff">
-                                     
-                                        <div class="comet-avatar">
-                                            <img style="max-width:30px;;object-fit:cover" src="`+cmtImg+`" alt="">
-                                        </div>
-                                        <div class="post-comt-box">
-                                           
-                                                <textarea placeholder="Post your comment" id="cmtmsg`+key+`"></textarea>
-                                                <div class="add-smiles">
-                                                    <span class="material-icons"  onclick=sendComment("`+key+`","`+uids+`")>
-                                                        send
-                                                    </span>
-                                                </div>
-                                           
-                                        </div>
-										
-                                    </div>
+                                   
                                 </div>
                             </div>
 					    </div>
                     `
-
+                     
                     if(sc[key].comments){
-                        let stdKey=(sc[key].comments[0]['user'])
+                         let stdKey=(sc[key].comments[0]['user'])
                         
-                        for(let j =0;j<sc[key].comments.length;j++){
-    
-                            document.getElementById("cmt"+key).innerHTML+=`
-                            <li>
+                        for(let j =sc[key].comments.length-1;j>=0;j--){
+                            
+                             document.getElementById("cmt"+key).innerHTML+=`
+                            
+                            <li style="margin-bottom:0 !important">
                                 <div class="comet-avatar">
-                                    <img src="`+copyData[sc[key].comments[0]['user']].photoUrl+`" alt="">
+                                    <img src="`+copyData[sc[key].comments[j]['user']].photoUrl+`" alt="" style="width:30px;height:30px;object-fit:cover">
                                 </div>
                                 <div class="we-comment">
                                     <div class="coment-head">
-                                        <h5><a href="time-line.html" title="">`+copyData[sc[key].comments[0]['user']].Name+`</a></h5>
+                                        <h5><a href="time-line.html" title="">`+copyData[sc[key].comments[j]['user']].Name+`</a></h5>
                                         <span>`+sc[key].comments[j]['time'].substring(0,24)+`</span>
                                     
                                     </div>
                                     <p>`+sc[key].comments[j]['Message']+`</p>
                                 </div>
                             </li>
-                            `
-                        }
+                             `
+                             document.getElementById("cmt2"+key).innerHTML+=`
+                            
+                            <li style="margin-bottom:0 !important">
+                                <div class="comet-avatar">
+                                    <img src="`+copyData[sc[key].comments[j]['user']].photoUrl+`" alt="" style="width:30px;height:30px;object-fit:cover">
+                                </div>
+                                <div class="we-comment">
+                                    <div class="coment-head">
+                                        <h5><a href="time-line.html" title="">`+copyData[sc[key].comments[j]['user']].Name+`</a></h5>
+                                        <span>`+sc[key].comments[j]['time'].substring(0,24)+`</span>
+                                    
+                                    </div>
+                                    <p>`+sc[key].comments[j]['Message']+`</p>
+                                </div>
+                            </li>
+                             `
+                            
+                       }
+                        
+                    }
+            
+               
+                }
+            }
+
+        refData.on('value', (snapshot) => {
+				data = snapshot.val();
+               
+                
+                if(document.getElementById("student_name"))
+                    document.getElementById("student_name").innerHTML=data.Name
+                
+                if(document.getElementById("username1")){
+                    document.getElementById("username1").innerHTML=data.Name
+                }
+                if(document.getElementById("username2")){
+                    document.getElementById("username2").innerHTML=data.Name
+                }
+                if(document.getElementById("username3")){
+                    document.getElementById("username3").innerHTML=data.Name
+                }
+                if(document.getElementById("username4")){
+                    document.getElementById("username4").innerHTML=data.Name
+                }
+                
+               
+                if(data.BasicprofileData && window.location.href.includes("edit")){
+                    if(data.BasicprofileData.basic){
+                        document.getElementById("student_name").innerHTML=data.BasicprofileData.basic.fname +" "+data.BasicprofileData.basic.lname
                     }
                 }
+                window.localStorage.setItem("studentImage",data.photoUrl)
+                if(document.getElementById("blah")){
+                    if(data.photoUrl){
+                        window.localStorage.setItem("studentImage",data.photoUrl)
+                        document.getElementById("blah").src=data.photoUrl
+                    }
+                }
+                if(document.getElementById("imgSide")){
+                    if(data.photoUrl){
+                        document.getElementById("imgSide").src=data.photoUrl
+                    }
+                }
+                
+                if(data.photoUrl)
+                    document.getElementById("smallIcon").src=data.photoUrl
+                if(document.getElementById("sem"))
+                    document.getElementById("sem").innerHTML = data.sem
+                if(data.educationData && window.location.href.includes("edit")){
+                    if(data.educationData.education){
+                        document.getElementById("sem").innerHTML=data.educationData.education.semester
+                    }
+                }
+                if(document.getElementById("branch"))
+                    document.getElementById("branch").innerHTML = data.branch
+                if(data.educationData && window.location.href.includes("edit") ){
+                    if(data.educationData.education){
+                        document.getElementById("branch").innerHTML=data.educationData.education.branch
+                    }
+                }
+            
+				if(data.studentVerified ==true || data.studentVerified =="true"){
+					//Do Nothing
+				}else{
+                    if(!(window.location.href).includes("edit-profile-basic.html")
+                    && !(window.location.href).includes("edit-work-education.html") && !(window.location.href).includes("edit-interest.html") 
+                    && !(window.location.href).includes("edit-password.html"))
+					    window.location="edit-profile-basic.html"
+                        
+				}
+			});
+        let timelineData = firebase.database().ref('adminTimelineData')
+        timelineData.on('value',gotData,errData)
+
+        function gotData(data){
+        
+            let nsc= data.val()
+            
+            window.localStorage.setItem("timelineData",JSON.stringify(nsc))
+            showTimeline()
+
         }
+        refData2.on('value', (snapshot) => {
+            let copyData = snapshot.val();
+            window.localStorage.setItem("studentData",JSON.stringify(copyData))
+        })
+       
+               
         function errData(error){
 
         }
@@ -779,12 +817,11 @@ function increaseView(postid,userid){
    
     refData2.on('value', (snapshot) => {
         data = snapshot.val();
-        console.log(data)
+        
         if(data.view){
-            console.log("camr")
-            console.log(data.view.length)
+         
             for(let i =0 ;i<data.view.length;i++){
-                console.log(data.view[i])
+        
                 arr.push(data.view[i])
             }
             
@@ -792,11 +829,14 @@ function increaseView(postid,userid){
     })
     
     if(arr.includes(userid)){
-
+        
+      
     }else{
         arr.push(userid)
     }
+   
     data={
+
         view :arr
     }
     
@@ -806,37 +846,45 @@ function increaseView(postid,userid){
 }
 
 function updateLike(postid,userid){
-
+   
+    let sc =JSON.parse(window.localStorage.getItem("timelineData"))
     var arr = []
     let refData2= firebase.database().ref('adminTimelineData').child(postid)
 
     refData2.on('value', (snapshot) => {
         data = snapshot.val();
-        console.log(data)
+       
         if(data.like){
-            console.log("camr")
-            console.log(data.like.length)
+
             for(let i =0 ;i<data.like.length;i++){
-                console.log(data.like[i])
+             
                 arr.push(data.like[i])
             }
             
         }
     })
-    console.log(arr)
-    console.log(userid + "----------")
+
     if(arr.includes(userid)){
-        
-        arr.pop(userid)
+        var snd = new Audio("unclick.mp3");
+        snd.play();
+        arr = arr.filter(function(item) {
+            return item !== userid
+        })
     
     }else{
-    
+        var snd = new Audio("click.mp3");
+        snd.play();
         arr.push(userid)
     }
-    console.log(arr +"After pop")
+  
     data={
         like :arr
     }
+
+    // sc[postid]['like']=arr
+    // console.log("--------------")
+    // console.log(sc)
+    // window.localStorage.setItem("timelineData",JSON.stringify(sc))
 
     firebase.database().ref('adminTimelineData').child(postid).update(data).then(function(){
         
@@ -852,11 +900,11 @@ let refData2= firebase.database().ref('adminTimelineData').child(postid)
 
 refData2.on('value', (snapshot) => {
     data = snapshot.val();
-    console.log(data)
+ 
     if(data.comments){
 
         for(let i =0 ;i<data.comments.length;i++){
-            console.log(data.comments[i])
+           
             arr.push(data.comments[i])
         }
         
@@ -992,7 +1040,7 @@ function step1Save(){
         }
     }
     let key=window.localStorage.getItem("user")
-    console.log(key)
+    
     firebase.database().ref('studentData').child(key).update(basicData).then(function(){
         
     });
@@ -1049,7 +1097,7 @@ function step2(){
         }
     }
     let key=window.localStorage.getItem("user")
-    console.log(key)
+   
     firebase.database().ref('studentData').child(key).update(basicData).then(function(){
         window.location="edit-interest.html"
     });
@@ -1104,7 +1152,7 @@ function step2Save(){
         }
     }
     let key=window.localStorage.getItem("user")
-    console.log(key)
+ 
     firebase.database().ref('studentData').child(key).update(basicData).then(function(){
         
     });
@@ -1139,7 +1187,7 @@ function step3(){
     }
     let key=window.localStorage.getItem("user")
     firebase.database().ref('studentData').child(key).update(basicData).then(function(){
-        console.log("done")
+       
     });
 }
 </script>
