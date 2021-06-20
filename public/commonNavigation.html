@@ -521,22 +521,78 @@
 	firebase.initializeApp(firebaseConfig);
 	firebase.analytics();
     var ref=firebase.database().ref('adminData')
+    var ref2=firebase.database().ref('quizData')
     if(window.localStorage.getItem("image"))
         document.getElementById("userImg").src=(window.localStorage.getItem("image"))
     
     document.getElementById("user_email").innerHTML=window.localStorage.getItem("email")
     if( document.getElementById("blah") && window.localStorage.getItem("image"))
         document.getElementById("blah").src=(window.localStorage.getItem("image"))
-    
+    var quizDta;
     firebase.auth().onAuthStateChanged(function(user) {
 		if(user){
-     
+            
 			let current_user=user;
             index=1;
+          
             window.localStorage.setItem("user",JSON.stringify(user))
             window.localStorage.setItem("userId",user.uid)
             ref.on('value',gotData,errData)
-         
+            ref2.on('value',gotQuizData,errData)
+            function gotQuizData(data){
+                let sc=(data.val())
+                window.localStorage.setItem("quizDatabase",JSON.stringify(sc))
+                quizDta =sc
+                let color ="green"
+                let key = Object.keys(sc)
+                if(window.location.href.includes("allQuiz.html")){
+                    document.getElementById("allQuiz").innerHTML=""
+                    for(let i =0; i<key.length;i++){
+                        let k = sc[key[i]]
+                            let quesTot = k.question ? k.question.length : "Not Added";
+                            if(k.status =="active" || k.status =="Active"){
+                                color = "green"
+                            }else{
+                                color = "red"
+                            }
+                            document.getElementById("allQuiz").innerHTML+=
+                            `
+                            <div class="col-lg-4 col-md-6 col-sm-12 mb-30">
+                                <div class="card card-box">
+                                    <img class="card-img-top" src="https://www.stpeters.wa.edu.au/wp-content/uploads/2019/05/Quiz.png" alt="Card image cap">
+                                    <div class="card-body">
+                                        <h5 class="card-title weight-500">`+k.info.title+` <span style="color:`+color+`;font-weight:700">(`+k.status+`)</span></h5>
+                                        <p class="card-text">
+                                            <ul>
+                                                <li>Scheduled On : `+k.info.date+`</li>
+                                                <b><li>Start At : `+k.info.startTime+`</li>
+                                                <li>End At : `+k.info.endTime+`</li></b>
+                                                <li>Total Marks : `+k.info.total+`</li>
+                                                <li>Total Questions : `+quesTot+`</li>
+                                            </ul>
+                                        </p>
+                                        <a href="#!" class="btn btn-primary" style="background:red;border:none" id="deactivate" onclick=deactivateQuiz("`+key[i]+`")>Deactivate</a>
+                                        <a href="#!" class="btn btn-primary" style="background:green;border:none;display:none" id="activate" onclick=activateQuiz("`+key[i]+`")>Activate</a>
+                                        <a href="#!" class="btn btn-primary" style="background:orange;border:none" onclick=updateQuiz("`+key[i]+`")>Edit</a>
+                                    </div>
+                                </div>
+					        </div>
+                            
+                            `
+                            if(k.status =="active" || k.status =="Active"){
+                                document.getElementById("deactivate").style.display="inline-block"
+                                document.getElementById("activate").style.display="none"
+                            
+                            }else{
+                                document.getElementById("deactivate").style.display="none"
+                                document.getElementById("activate").style.display="inline-block"
+                                
+                            }
+                            
+                    }  
+                }
+            }
+
             function gotData(data){
          
                 let sc=(data.val())
@@ -620,6 +676,29 @@
 
 	})
     },1000)
+    
+    function deactivateQuiz(key){
+        let data= {
+            "status" :"Inactive"
+        }
+        firebase.database().ref("quizData").child(key).update(data)
+
+    }
+    function activateQuiz(key){
+        let data= {
+            "status" :"active"
+        }
+        firebase.database().ref("quizData").child(key).update(data)
+
+    }
+    function updateQuiz(key){
+        let sc = JSON.parse(window.localStorage.getItem("quizDatabase"))
+        console.log(sc[key].info)
+        window.localStorage.setItem("QuizInfo",JSON.stringify(sc[key].info))
+        window.localStorage.setItem("QuizQuestion",JSON.stringify(sc[key].question))
+        window.localStorage.setItem("quizKey",key)
+        window.location="add-quiz.html"
+    }
     function deleteStaff(id,email,pass){
        	
 		firebase.auth().signInWithEmailAndPassword(email, pass).then(function(){

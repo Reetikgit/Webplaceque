@@ -5,6 +5,13 @@ jQuery(window).on("load",function() {
 		html: true
 	});
 });
+jQuery(window).on("load",function() {
+	"use strict";
+	// bootstrap wysihtml5
+	$('.textarea_editor2').wysihtml5({
+		html: true
+	});
+});
 jQuery(window).on("load resize", function () {
 	// custom scrollbar
 	$(".customscroll").mCustomScrollbar({

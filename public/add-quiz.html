@@ -29,6 +29,7 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script>
+		sessionStorage.clear();
 		window.dataLayer = window.dataLayer || [];
 		function gtag(){dataLayer.push(arguments);}
 		gtag('js', new Date());
@@ -52,36 +53,49 @@
     <script>
         var arrQuestion=[]
         let info
+		
         function sendQuestions(){
-        info = window.localStorage.getItem("QuizInfo")
-        console.log(info)
-        let question = document.querySelector("#question").value
-        let type = document.querySelector("#type").value
-        let point = document.querySelector("#points").value
-        let op1 =document.querySelector("#op1").value
-        let op2 =document.querySelector("#op2").value
-        let op3 =document.querySelector("#op3").value
-        let op4 =document.querySelector("#op4").value
-        let op5 =document.querySelector("#op5").value
-        let op6 =document.querySelector("#op6").value
-        
-        arrQuestion.push({
-            question : question,
-            type :type,
-            point:point,
-            op1 : op1,
-            op2 : op2,
-            op3 : op3,
-            op4 : op4,
-            op5 : op5,
-            op6 : op6
+			info = window.sessionStorage.getItem("QuizInfo")
+			console.log(info)
+			let question = document.querySelector("#question").value
+			let type = document.querySelector("#type").value
+			let point = document.querySelector("#points").value
+			let op1 =document.querySelector("#op1").value
+			let op2 =document.querySelector("#op2").value
+			let op3 =document.querySelector("#op3").value
+			let op4 =document.querySelector("#op4").value
+			let op5 =document.querySelector("#op5").value
+			let op6 =document.querySelector("#op6").value
+			let answer =document.querySelector("#answer").value
+	
+       
+			arrQuestion.push({
+				question : question,
+				type :type,
+				point:point,
+				op1 : op1,
+				op2 : op2,
+				op3 : op3,
+				op4 : op4,
+				op5 : op5,
+				op6 : op6,
+				answer:answer
 
-        })
+			})
         
-        
+  
+		
         window.localStorage.setItem("QuizQuestion",JSON.stringify(arrQuestion))
         let ques =JSON.parse(window.localStorage.getItem("QuizQuestion"))
         console.log(ques)
+		let quizkey = window.localStorage.getItem("quizKey")
+		
+		let quizData = {
+			
+			"question": ques
+		}
+		let refDb2 = firebase.database().ref("quizData").child(quizkey).update(quizData)
+
         document.getElementById("addedQuestion").innerHTML="";
         for(var index in ques ){
             let key=ques[index];
@@ -222,7 +236,11 @@
 									<div class="col-md-6">
 										<div class="form-group">
 											<label>Question :</label>
-											<textarea id="question" class="textarea_editor form-control border-radius-0" style="height: 17em !important;" placeholder="Satrt Typing here..."></textarea>
+											<textarea id="question" class="textarea_editor2 form-control border-radius-0" style="height: 17em !important;" placeholder="Satrt Typing here..."></textarea>
+										</div>
+										<div class="form-group">
+											<label>Answer :</label>
+											<input type="text"  id="answer" class="form-control">
 										</div>
 									</div>
                                     
@@ -314,11 +332,11 @@
 							<section>
 								<div class="row">
 									<div class="col-md-12">
-										<div class="form-group">
+										<div class="col-md-12">
 											<div class="form-group">
-                                                <h5 class="mb-1 h5">Add Description / Notes /Warnings About Quiz </h5>
-                                                <textarea class="textarea_editor form-control border-radius-0" style="height: 27em !important;" placeholder="Start Typing here..."></textarea>
-                                            </div>
+												<label>Instruction</label>
+												<textarea id="instruction" class="textarea_editor form-control border-radius-0" style="height: 17em !important;" placeholder="Satrt Typing here..."></textarea>
+											</div>
 										</div>
 									</div>
 									
