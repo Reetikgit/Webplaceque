@@ -10062,7 +10062,7 @@ aside.sidebar.full-style {
     margin-left: -2.7em;
     width: 5.4em;
     height: 5.4em;
-    background-color: #404456;
+    background-color: black;
   }
   
   @media only screen and (max-width:500px) {
@@ -10074,7 +10074,7 @@ aside.sidebar.full-style {
         margin-left: -2.7em;
         width: 5.4em;
         height: 5.4em;
-        background-color: #404456;
+        background-color: black;
       }
       .hide-small{
           display: none;
@@ -10089,7 +10089,7 @@ aside.sidebar.full-style {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color:#404456; /* Black background with opacity */
+    background-color:black; /* Black background with opacity */
     z-index: 999; /* Specify a stack order in case you're using a different order for other elements */
     cursor: pointer; /* Add a pointer on hover */
   }
@@ -10110,7 +10110,7 @@ aside.sidebar.full-style {
     width: 7.1em;
     height: 7.1em;
     left: 0;
-    background-color: #404456;
+    background-color:black;
   }
   
   #box {
