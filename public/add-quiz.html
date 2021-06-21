@@ -51,12 +51,34 @@
 
 	</script>
     <script>
-        var arrQuestion=[]
+        
         let info
 		
         function sendQuestions(){
-			info = window.sessionStorage.getItem("QuizInfo")
-			console.log(info)
+			var arrQuestion=[]
+			if(window.localStorage.getItem("QuizQuestion")){
+				let prevQuestion = JSON.parse(window.localStorage.getItem("QuizQuestion"))
+				if(prevQuestion){
+					for(let i =0 ;i<prevQuestion.length;i++){
+						arrQuestion.push(prevQuestion[i])
+					
+					}
+				}
+			}
+	
+			
+			
+			
+
+
+    // let skill = document.getElementById("newSkill").value
+    // if(skill !="" && skill !=undefined){
+    //     arr.push(skill)
+       
+    //     document.getElementById("newSkill").value=""
+    // }
+
+
 			let question = document.querySelector("#question").value
 			let type = document.querySelector("#type").value
 			let point = document.querySelector("#points").value

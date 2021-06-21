@@ -1,3 +1,36 @@
+
+if (performance.navigation.type == performance.navigation.TYPE_RELOAD) {
+
+	console.info( "This page is reloaded" );
+	window.localStorage.removeItem("quizKey")
+	window.localStorage.removeItem("QuizInfo")
+	window.localStorage.removeItem("QuizQuestion")
+	window.localStorage.removeItem("description")
+	
+  } else {
+	console.info( "This page is not reloaded");
+  }
+setTimeout(function(){
+	let info =JSON.parse(window.localStorage.getItem("QuizInfo"))
+	let description =(window.localStorage.getItem("description"))
+	if(info){
+		document.querySelector("#title").value=info.title
+		document.querySelector("#sttime").value=info.startTime
+		document.querySelector("#endtime").value=info.endTime
+		document.querySelector("#date").value=info.date
+		document.querySelector("#total").value=info.total
+		document.querySelector("#id").value=info.id
+		document.querySelector("#branch").value=info.selectedBranches
+		document.querySelector("#year").value=info.selectedYear
+		
+	}
+	if(description){
+		
+		document.querySelector("#instruction").value = description
+	}
+
+},1000)
+
 $(".tab-wizard").steps({
 	headerTag: "h5",
 	bodyTag: "section",
@@ -8,12 +41,7 @@ $(".tab-wizard").steps({
 	},
 	onStepChanged: function (event, currentIndex, priorIndex) {
 	if(currentIndex != 1 && currentIndex !=2 && currentIndex !=3){
-		let info =JSON.parse(window.localStorage.getItem("QuizInfo"))
-		document.querySelector("#title").value=info.title
-		document.querySelector("#sttime").value=info.startTime
-		document.querySelector("#endtime").value=info.endTime
-		document.querySelector("#date").value=info.date
-		document.querySelector("#total").value=info.total
+	
 
 	}
 	if(currentIndex == 1){
@@ -65,6 +93,7 @@ $(".tab-wizard").steps({
 		let endTime=document.querySelector("#endtime").value
 		let date=document.querySelector("#date").value
 		let total=document.querySelector("#total").value
+	
 		var selectedBranches = [];
 		for (var option of document.getElementById('branch').options)
 		{
@@ -115,6 +144,7 @@ $(".tab-wizard").steps({
 		let endTime=document.querySelector("#endtime").value
 		let date=document.querySelector("#date").value
 		let total=document.querySelector("#total").value
+		let id=document.querySelector("#id").value
 		var selectedBranches = [];
 		for (var option of document.getElementById('branch').options)
 		{
@@ -132,6 +162,7 @@ $(".tab-wizard").steps({
 		let quizkey = window.localStorage.getItem("quizKey")
 		let info ={
 			info :{
+				id:id,
 				title :title,
 				startTime : startTime,
 				endTime :endTime,
