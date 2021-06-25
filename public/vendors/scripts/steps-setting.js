@@ -25,8 +25,8 @@ setTimeout(function(){
 		
 	}
 	if(description){
-		
-		document.querySelector("#instruction").value = description
+		console.log(description)
+		document.querySelector("#instructions").value = description
 	}
 
 },1000)
