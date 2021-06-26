@@ -769,6 +769,8 @@ let newInterval = setInterval(function(){
                         document.getElementById("sem").innerHTML=data.educationData.education.semester
                     }
                 }
+                window.localStorage.setItem("branch", data.branch)
+                window.localStorage.setItem("sem", data.educationData.education.semester)
                 if(document.getElementById("branch"))
                     document.getElementById("branch").innerHTML = data.branch
                 if(data.educationData && window.location.href.includes("edit") ){

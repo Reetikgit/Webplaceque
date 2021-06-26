@@ -13,522 +13,77 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/color.css">
     <link rel="stylesheet" href="css/responsive.css">
-    <style>
-        body {
-     background-color: #BA68C8
- }
-
- .main-verification-input {
-     background: #fff;
-     padding: 0 120px 0 0;
-     border-radius: 1px;
-     margin-top: 6px
- }
-
- .fl-wrap {
-     float: left;
-     width: 100%;
-     position: relative;
-     border-radius: 4px
- }
-
- .main-verification-input:before {
-     content: '';
-     position: absolute;
-     bottom: -40px;
-     width: 50px;
-     height: 1px;
-     background: rgba(255, 255, 255, 0.41);
-     left: 50%;
-     margin-left: -25px
- }
-
- .main-verification-input-item {
-     float: left;
-     width: 100%;
-     box-sizing: border-box;
-     border-right: 1px solid #eee;
-     height: 50px;
-     position: relative
- }
-
- .main-verification-input-item input:first-child {
-     border-radius: 100%
- }
-
- .main-verification-input-item input {
-     float: left;
-     border: none;
-     width: 100%;
-     height: 50px;
-     padding-left: 20px
- }
-
- .main-verification-button {
-     background: #4DB7FE
- }
-
- .main-verification-button {
-     position: absolute;
-     right: 0px;
-     height: 50px;
-     width: 120px;
-     color: #fff;
-     top: 0;
-     border: none;
-     border-top-right-radius: 4px;
-     border-bottom-right-radius: 4px;
-     cursor: pointer
- }
-
- .main-verification-input-wrap {
-     max-width: 100%;
-     /* margin: 20px auto; */
-     position: relative;
-     /* margin-top: 90px;
-     margin-left:470px; */
-	 margin-left: auto;
-	 margin-right:auto;
-	 display:block;
-	 left:50%;
- }
-
- .main-verification-input-wrap ul {
-     background-color: #fff;
-     padding: 27px;
-     color: #757575;
-     border-radius: 4px
- }
-
- a {
-     text-decoration: none !important;
-     color: #9C27B0
- }
-
- :focus {
-     outline: 0
- }
-
- @media only screen and (max-width: 768px) {
-     .main-verification-input {
-         background: rgba(255, 255, 255, 0.2);
-         padding: 14px 20px 10px;
-         border-radius: 10px;
-         box-shadow: 0px 0px 0px 10px rgba(255, 255, 255, 0.0)
-     }
-
-     .main-verification-input-item {
-         width: 100%;
-         border: 1px solid #eee;
-         height: 50px;
-         border: none;
-         margin-bottom: 10px
-     }
-
-     .main-verification-input-item input {
-         border-radius: 6px !important;
-         background: #fff
-     }
-
-     .main-verification-button {
-         position: relative;
-         float: left;
-         width: 100%;
-         border-radius: 6px
-     }
- }
-    </style>
-
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://unpkg.com/placeholder-loading/dist/css/placeholder-loading.min.css">
 </head>
-<body>
+<style>
+	.modal-dialog-full-width {
+        width: 100% !important;
+        height: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        max-width:none !important;
+
+    }
+	body {
+    background-color: #a04c65
+}
+
+    .modal-content-full-width  {
+        height: auto !important;
+        min-height: 100% !important;
+        border-radius: 0 !important;
+        background-color: #ececec !important 
+    }
+
+    .modal-header-full-width  {
+        border-bottom: 1px solid #9ea2a2 !important;
+    }
+
+    .modal-footer-full-width  {
+        border-top: 1px solid #9ea2a2 !important;
+    }
+	
+</style>
+<script>
+		
+		$(document).ready(function(){
+		
+		$('#navigation').load("commonNavigation.html");
+
+ });
+</script>
+<body >
 <!--<div class="se-pre-con"></div>-->
 <div class="theme-layout">
-	
-	<div class="responsive-header">
-		<div class="mh-head first Sticky">
-			<span class="mh-btns-left">
-				<a class="" href="#menu"><i class="fa fa-align-justify"></i></a>
-			</span>
-			<span class="mh-text">
-				<a href="newsfeed.html" title=""><img src="images/loo2.png" alt=""></a>
-			</span>
-			<span class="mh-btns-right">
-				<a class="fa fa-sliders" href="#shoppingbag"></a>
-			</span>
-		</div>
-		<div class="mh-head second">
-			<form class="mh-form">
-				<input placeholder="search" />
-				<a href="#/" class="fa fa-search"></a>
-			</form>
-		</div>
-		<nav id="menu" class="res-menu">
-			<ul>
-				<li><span>Home</span>
-					<ul>
-						<li><a href="index-2.html" title="">Home Social</a></li>
-						<li><a href="index2.html" title="">Home Social 2</a></li>
-						<li><a href="index-company.html" title="">Home Company</a></li>
-						<li><a href="landing.html" title="">Login page</a></li>
-						<li><a href="logout.html" title="">Logout Page</a></li>
-						<li><a href="newsfeed.html" title="">news feed</a></li>
-					</ul>
-				</li>
-				<li><span>Time Line</span>
-					<ul>
-						<li><a href="time-line.html" title="">timeline</a></li>
-						<li><a href="timeline-friends.html" title="">timeline friends</a></li>
-						<li><a href="timeline-groups.html" title="">timeline groups</a></li>
-						<li><a href="timeline-pages.html" title="">timeline pages</a></li>
-						<li><a href="timeline-photos.html" title="">timeline photos</a></li>
-						<li><a href="timeline-videos.html" title="">timeline videos</a></li>
-						<li><a href="fav-page.html" title="">favourit page</a></li>
-						<li><a href="groups.html" title="">groups page</a></li>
-						<li><a href="page-likers.html" title="">Likes page</a></li>
-						<li><a href="people-nearby.html" title="">people nearby</a></li>
-						
-						
-					</ul>
-				</li>
-				<li><span>Account Setting</span>
-					<ul>
-						<li><a href="create-fav-page.html" title="">create fav page</a></li>
-						<li><a href="edit-account-setting.html" title="">edit account setting</a></li>
-						<li><a href="edit-interest.html" title="">edit-interest</a></li>
-						<li><a href="edit-password.html" title="">edit-password</a></li>
-						<li><a href="edit-profile-basic.html" title="">edit profile basics</a></li>
-						<li><a href="edit-work-education.html" title="">edit work educations</a></li>
-						<li><a href="messages.html" title="">message box</a></li>
-						<li><a href="inbox.html" title="">Inbox</a></li>
-						<li><a href="notifications.html" title="">notifications page</a></li>
-					</ul>
-				</li>
-				<li><span>forum</span>
-					<ul>
-						<li><a href="forum.html" title="">Forum Page</a></li>
-						<li><a href="forums-category.html" title="">Fourm Category</a></li>
-						<li><a href="forum-open-topic.html" title="">Forum Open Topic</a></li>
-						<li><a href="forum-create-topic.html" title="">Forum Create Topic</a></li>
-					</ul>
-				</li>
-				<li><span>Our Shop</span>
-					<ul>
-						<li><a href="shop.html" title="">Shop Products</a></li>
-						<li><a href="shop-masonry.html" title="">Shop Masonry Products</a></li>
-						<li><a href="shop-single.html" title="">Shop Detail Page</a></li>
-						<li><a href="shop-cart.html" title="">Shop Product Cart</a></li>
-						<li><a href="shop-checkout.html" title="">Product Checkout</a></li>
-					</ul>
-				</li>
-				<li><span>Our Blog</span>
-					<ul>
-						<li><a href="blog-grid-wo-sidebar.html" title="">Our Blog</a></li>
-						<li><a href="blog-grid-right-sidebar.html" title="">Blog with R-Sidebar</a></li>
-						<li><a href="blog-grid-left-sidebar.html" title="">Blog with L-Sidebar</a></li>
-						<li><a href="blog-masonry.html" title="">Blog Masonry Style</a></li>
-						<li><a href="blog-list-wo-sidebar.html" title="">Blog List Style</a></li>
-						<li><a href="blog-list-right-sidebar.html" title="">Blog List with R-Sidebar</a></li>
-						<li><a href="blog-list-left-sidebar.html" title="">Blog List with L-Sidebar</a></li>
-						<li><a href="blog-detail.html" title="">Blog Post Detail</a></li>
-					</ul>
-				</li>
-				<li><span>Portfolio</span>
-					<ul>
-						<li><a href="portfolio-2colm.html" title="">Portfolio 2col</a></li>
-						<li><a href="portfolio-3colm.html" title="">Portfolio 3col</a></li>
-						<li><a href="portfolio-4colm.html" title="">Portfolio 4col</a></li>
-					</ul>
-				</li>
-				<li><span>Support & Help</span>
-					<ul>
-						<li><a href="support-and-help.html" title="">Support & Help</a></li>
-						<li><a href="support-and-help-detail.html" title="">Support & Help Detail</a></li>
-						<li><a href="support-and-help-search-result.html" title="">Support & Help Search Result</a></li>
-					</ul>
-				</li>
-				<li><span>More pages</span>
-					<ul>
-						<li><a href="careers.html" title="">Careers</a></li>
-						<li><a href="career-detail.html" title="">Career Detail</a></li>
-						<li><a href="404.html" title="">404 error page</a></li>
-						<li><a href="404-2.html" title="">404 Style2</a></li>
-						<li><a href="faq.html" title="">faq's page</a></li>
-						<li><a href="insights.html" title="">insights</a></li>
-						<li><a href="knowledge-base.html" title="">knowledge base</a></li>
-					</ul>
-				</li>
-				<li><span>Exams</span></li>
-				<li><a href="about.html" title="">about</a></li>
-				<li><a href="about-company.html" title="">About Us2</a></li>
-				<li><a href="contact.html" title="">contact</a></li>
-				<li><a href="contact-branches.html" title="">Contact Us2</a></li>
-				<li><a href="widgets.html" title="">Widgts</a></li>
-			</ul>
-		</nav>
-		
-	</div><!-- responsive header -->
-	
-	<div class="topbar stick">
-		<div class="logo">
-			<a title="" href="newsfeed.html"><img src="images/loo.png" alt="">placeQue</a>
-		</div>
-		
-		<div class="top-area">
-			<ul class="main-menu">
-				<li>
-					<a href="#" title="">Home</a>
-					<ul>
-						<li><a href="index-2.html" title="">Home Social</a></li>
-						<li><a href="index2.html" title="">Home Social 2</a></li>
-						<li><a href="index-company.html" title="">Home Company</a></li>
-						<li><a href="landing.html" title="">Login page</a></li>
-						<li><a href="logout.html" title="">Logout Page</a></li>
-						<li><a href="newsfeed.html" title="">news feed</a></li>
-					</ul>
-				</li>
-				<li>
-					<a href="#" title="">timeline</a>
-					<ul>
-						<li><a href="time-line.html" title="">timeline</a></li>
-						<li><a href="timeline-friends.html" title="">timeline friends</a></li>
-						<li><a href="timeline-groups.html" title="">timeline groups</a></li>
-						<li><a href="timeline-pages.html" title="">timeline pages</a></li>
-						<li><a href="timeline-photos.html" title="">timeline photos</a></li>
-						<li><a href="timeline-videos.html" title="">timeline videos</a></li>
-						<li><a href="fav-page.html" title="">favourit page</a></li>
-						<li><a href="groups.html" title="">groups page</a></li>
-						<li><a href="page-likers.html" title="">Likes page</a></li>
-						<li><a href="people-nearby.html" title="">people nearby</a></li>
-					</ul>
-				</li>
-				<li>
-					<a href="#" title="">account settings</a>
-					<ul>
-						<li><a href="create-fav-page.html" title="">create fav page</a></li>
-						<li><a href="edit-account-setting.html" title="">edit account setting</a></li>
-						<li><a href="edit-interest.html" title="">edit-interest</a></li>
-						<li><a href="edit-password.html" title="">edit-password</a></li>
-						<li><a href="edit-profile-basic.html" title="">edit profile basics</a></li>
-						<li><a href="edit-work-education.html" title="">edit work educations</a></li>
-						<li><a href="messages.html" title="">message box</a></li>
-						<li><a href="inbox.html" title="">Inbox</a></li>
-						<li><a href="notifications.html" title="">notifications page</a></li>
-					</ul>
-				</li>
-				<li>
-					<a href="#" title="">more pages</a>
-					<ul>
-						<li><a href="404.html" title="">404 error page</a></li>
-						<li><a href="about.html" title="">about</a></li>
-						<li><a href="contact.html" title="">contact</a></li>
-						<li><a href="faq.html" title="">faq's page</a></li>
-						<li><a href="insights.html" title="">insights</a></li>
-						<li><a href="knowledge-base.html" title="">knowledge base</a></li>
-						<li><a href="widgets.html" title="">Widgts</a></li>
-					</ul>
-				</li>
-				<li>
-					<a href="#" title="">Career Quiz's</a>
-					<ul>
-						<li><a href="takequiz.html" title="">Take Quiz</a></li>
-						<li><a href="about.html" title="">Check Results</a></li>
-						<li><a href="contact.html" title="">Upcoming Quiz</a></li>
-				
-					</ul>
-				</li>
-		
-			</ul>
-			<ul class="setting-area">
-				<li>
-					<a href="#" title="Home" data-ripple=""><i class="ti-search"></i></a>
-					<div class="searched">
-						<form method="post" class="form-search">
-							<input type="text" placeholder="Search Friend">
-							<button data-ripple><i class="ti-search"></i></button>
-						</form>
-					</div>
-				</li>
-				<li><a href="newsfeed.html" title="Home" data-ripple=""><i class="ti-home"></i></a></li>
-				<li>
-					<a href="#" title="Notification" data-ripple="">
-						<i class="ti-bell"></i><span>20</span>
-					</a>
-					<div class="dropdowns">
-						<span>4 New Notifications</span>
-						<ul class="drops-menu">
-							<li>
-								<a href="notifications.html" title="">
-									<img src="images/resources/thumb-1.jpg" alt="">
-									<div class="mesg-meta">
-										<h6>sarah Loren</h6>
-										<span>Hi, how r u dear ...?</span>
-										<i>2 min ago</i>
-									</div>
-								</a>
-								<span class="tag green">New</span>
-							</li>
-							<li>
-								<a href="notifications.html" title="">
-									<img src="images/resources/thumb-2.jpg" alt="">
-									<div class="mesg-meta">
-										<h6>Jhon doe</h6>
-										<span>Hi, how r u dear ...?</span>
-										<i>2 min ago</i>
-									</div>
-								</a>
-								<span class="tag red">Reply</span>
-							</li>
-							<li>
-								<a href="notifications.html" title="">
-									<img src="images/resources/thumb-3.jpg" alt="">
-									<div class="mesg-meta">
-										<h6>Andrew</h6>
-										<span>Hi, how r u dear ...?</span>
-										<i>2 min ago</i>
-									</div>
-								</a>
-								<span class="tag blue">Unseen</span>
-							</li>
-							<li>
-								<a href="notifications.html" title="">
-									<img src="images/resources/thumb-4.jpg" alt="">
-									<div class="mesg-meta">
-										<h6>Tom cruse</h6>
-										<span>Hi, how r u dear ...?</span>
-										<i>2 min ago</i>
-									</div>
-								</a>
-								<span class="tag">New</span>
-							</li>
-							<li>
-								<a href="notifications.html" title="">
-									<img src="images/resources/thumb-5.jpg" alt="">
-									<div class="mesg-meta">
-										<h6>Amy</h6>
-										<span>Hi, how r u dear ...?</span>
-										<i>2 min ago</i>
-									</div>
-								</a>
-								<span class="tag">New</span>
-							</li>
-						</ul>
-						<a href="notifications.html" title="" class="more-mesg">view more</a>
-					</div>
-				</li>
-				<li>
-					<a href="#" title="Messages" data-ripple=""><i class="ti-comment"></i><span>12</span></a>
-					<div class="dropdowns">
-						<span>5 New Messages</span>
-						<ul class="drops-menu">
-							<li>
-								<a href="notifications.html" title="">
-									<img src="images/resources/thumb-1.jpg" alt="">
-									<div class="mesg-meta">
-										<h6>sarah Loren</h6>
-										<span>Hi, how r u dear ...?</span>
-										<i>2 min ago</i>
-									</div>
-								</a>
-								<span class="tag green">New</span>
-							</li>
-							<li>
-								<a href="notifications.html" title="">
-									<img src="images/resources/thumb-2.jpg" alt="">
-									<div class="mesg-meta">
-										<h6>Jhon doe</h6>
-										<span>Hi, how r u dear ...?</span>
-										<i>2 min ago</i>
-									</div>
-								</a>
-								<span class="tag red">Reply</span>
-							</li>
-							<li>
-								<a href="notifications.html" title="">
-									<img src="images/resources/thumb-3.jpg" alt="">
-									<div class="mesg-meta">
-										<h6>Andrew</h6>
-										<span>Hi, how r u dear ...?</span>
-										<i>2 min ago</i>
-									</div>
-								</a>
-								<span class="tag blue">Unseen</span>
-							</li>
-							<li>
-								<a href="notifications.html" title="">
-									<img src="images/resources/thumb-4.jpg" alt="">
-									<div class="mesg-meta">
-										<h6>Tom cruse</h6>
-										<span>Hi, how r u dear ...?</span>
-										<i>2 min ago</i>
-									</div>
-								</a>
-								<span class="tag">New</span>
-							</li>
-							<li>
-								<a href="notifications.html" title="">
-									<img src="images/resources/thumb-5.jpg" alt="">
-									<div class="mesg-meta">
-										<h6>Amy</h6>
-										<span>Hi, how r u dear ...?</span>
-										<i>2 min ago</i>
-									</div>
-								</a>
-								<span class="tag">New</span>
-							</li>
-						</ul>
-						<a href="messages.html" title="" class="more-mesg">view more</a>
-					</div>
-				</li>
-				
-			</ul>
-			<div class="user-img">
-				<img src="images/resources/admin.jpg" alt="">
-				<span class="status f-online"></span>
-				<div class="user-setting">
-					<a href="#" title=""><span class="status f-online"></span>online</a>
-					<a href="#" title=""><span class="status f-away"></span>away</a>
-					<a href="#" title=""><span class="status f-off"></span>offline</a>
-					<a href="#" title=""><i class="ti-user"></i> view profile</a>
-					<a href="#" title=""><i class="ti-pencil-alt"></i>edit profile</a>
-					<a href="#" title=""><i class="ti-target"></i>activity log</a>
-					<a href="#" title=""><i class="ti-settings"></i>account setting</a>
-					<a href="#" title=""><i class="ti-power-off"></i>log out</a>
-				</div>
-			</div>
-			<span class="ti-menu main-menu" data-ripple=""></span>
-		</div>
-	</div><!-- topbar -->
-		
+	<div id="navigation"></div>
 	<section>
-		<div class="gap gray-bg">
-			<div class="container-fluid">
+		<div class="">
+			<div class="">
 				<div class="row">
 					<div class="col-lg-12">
-						<h3 style="text-align: center;padding:30px">Verify Your Quiz</h3>
-						<div class="row" id="page-contents">
-                         
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="main-verification-input-wrap">
-                                        <ul>
-                                            <li>Enter the Quiz code recieved from the placement department . Enter that code below.</li>
-                                            <li>If somehow, you did not recieve the code then   <a href="#">contact to placement department </a>for the same</li>
-                                        </ul>
-                                        <div class="main-verification-input fl-wrap">
-                                            <div class="main-verification-input-item"> <input type="text" value="" placeholder="Enter the verification code"> </div> <a href="instructionquiz.html"><button class="main-verification-button" >Submit</button></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-							
-				
-						</div>	
+						<div class="row">
+							<div class="col-md-12">
+								<div class="main-verification-input-wrap">
+									<ul>
+										<li>You will recieve a verification code on your mail after you registered. Enter that code below.</li>
+										<li>If somehow, you did not recieve the verification email then <a href="#">resend the verification email</a></li>
+									</ul>
+									<div class="main-verification-input fl-wrap">
+										<div class="main-verification-input-item"> <input type="text" id="code" value="" placeholder="Enter the verification code"> </div> <button class="main-verification-button" id="verify"  onclick="verifyCode()">Verify Now</button>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>	
-	</section>
+		<br>
+	<br>
 
+	</section>
+	
 	<footer>
 		<div class="container">
 			<div class="row">
@@ -536,7 +91,7 @@
 					<div class="widget">
 						<div class="foot-logo">
 							<div class="logo">
-								<a href="index-2.html" title=""><img src="images/logo.png" alt=""></a>
+								<!-- <a href="index-2.html" title=""><img src="images/logo.png" alt=""></a> -->
 							</div>	
 							<p>
 								The trio took this simple idea and built it into the world’s leading carpooling platform.
@@ -678,11 +233,77 @@
 			</form>
 		</div><!-- side panel -->		
 	
-	<script data-cfasync="false" src="../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="js/main.min.js"></script>
-	<script src="js/script.js"></script>
-	<script src="js/map-init.js"></script>
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA8c55_YHLvDHGACkQscgbGLtLRdxBDCfI"></script>
+	<!-- <script src="js/main.min.js"></script>
+	<script src="js/script.js"></script> -->
+	
+
 
 </body>	
+<!-- <script src="js/main.min.js"></script>
+<script src="js/script.js"></script> -->
 
+<script>
+	function verifyCode(){
+		let code=document.getElementById("code").value
+		let quizData = firebase.database().ref('quizData')
+       	quizData.on('value',gotData,errData)
+
+        function gotData(data){
+			let year= "0"
+            let sc= data.val()
+			let flag=undefined
+			let keys=Object.keys(sc)
+			for(let i =0;i<keys.length;i++){
+				let key = keys[i]
+				console.log(sc[key].info.id)
+				if(code == sc[key].info.id){
+					flag  = key
+					break;
+				}
+			}
+			if(window.localStorage.getItem("sem")==1 || window.localStorage.getItem("sem")==2){
+				year="1"
+			}else if (window.localStorage.getItem("sem")==3 || window.localStorage.getItem("sem")==4){
+				year="2"
+			}else if(window.localStorage.getItem("sem")==5 || window.localStorage.getItem("sem")==6){
+				year="3"
+			}else{
+				year="4"
+			}
+			if(flag){
+				console.log(sc[flag].info.selectedYear)
+				if((sc[flag].info.selectedBranches).includes(window.localStorage.getItem("branch")) && (sc[flag].info.selectedYear).includes(year) ){
+					window.localStorage.setItem("quizKey",flag)
+					window.localStorage.setItem("quizInstruction",sc[flag].instruction)
+					window.localStorage.setItem("quizDetails",JSON.stringify(sc))
+					window.location="instructionquiz.html"
+				}else{
+					document.getElementById("verify").style.backgroundColor="red"
+
+					document.getElementById("verify").innerHTML="Invalid Code"
+					setTimeout(function(){
+						document.getElementById("verify").style.backgroundColor="#4DB7FE"
+
+						document.getElementById("verify").innerHTML="Verify"
+					},3000)
+				}
+			}else{
+				document.getElementById("verify").style.backgroundColor="red"
+
+					document.getElementById("verify").innerHTML="Invalid Code"
+					setTimeout(function(){
+						document.getElementById("verify").style.backgroundColor="#4DB7FE"
+
+						document.getElementById("verify").innerHTML="Verify"
+					},3000)
+			}
+			
+			
+
+        }
+		function errData(){
+
+		}
+	}
+</script>
 </html>

@@ -13,574 +13,93 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/color.css">
     <link rel="stylesheet" href="css/responsive.css">
-    <style>
-        body {
-     background-color: #BA68C8
- }
-
- .main-verification-input {
-     background: #fff;
-     padding: 0 120px 0 0;
-     border-radius: 1px;
-     margin-top: 6px
- }
-
- .fl-wrap {
-     float: left;
-     width: 100%;
-     position: relative;
-     border-radius: 4px
- }
-
- .main-verification-input:before {
-     content: '';
-     position: absolute;
-     bottom: -40px;
-     width: 50px;
-     height: 1px;
-     background: rgba(255, 255, 255, 0.41);
-     left: 50%;
-     margin-left: -25px
- }
-
- .main-verification-input-item {
-     float: left;
-     width: 100%;
-     box-sizing: border-box;
-     border-right: 1px solid #eee;
-     height: 50px;
-     position: relative
- }
-
- .main-verification-input-item input:first-child {
-     border-radius: 100%
- }
-
- .main-verification-input-item input {
-     float: left;
-     border: none;
-     width: 100%;
-     height: 50px;
-     padding-left: 20px
- }
-
- .main-verification-button {
-     background: #4DB7FE
- }
-
- .main-verification-button {
-     position: absolute;
-     right: 0px;
-     height: 50px;
-     width: 120px;
-     color: #fff;
-     top: 0;
-     border: none;
-     border-top-right-radius: 4px;
-     border-bottom-right-radius: 4px;
-     cursor: pointer
- }
-
- .main-verification-input-wrap {
-     max-width: 500px;
-     margin: 20px auto;
-     position: relative;
-     margin-top: 90px;
-     margin-left:470px;
- }
-
- .main-verification-input-wrap ul {
-     background-color: #fff;
-     padding: 27px;
-     color: #757575;
-     border-radius: 4px
- }
-
- a {
-     text-decoration: none !important;
-     color: #9C27B0
- }
-
- :focus {
-     outline: 0
- }
-
- @media only screen and (max-width: 768px) {
-     .main-verification-input {
-         background: rgba(255, 255, 255, 0.2);
-         padding: 14px 20px 10px;
-         border-radius: 10px;
-         box-shadow: 0px 0px 0px 10px rgba(255, 255, 255, 0.0)
-     }
-
-     .main-verification-input-item {
-         width: 100%;
-         border: 1px solid #eee;
-         height: 50px;
-         border: none;
-         margin-bottom: 10px
-     }
-
-     .main-verification-input-item input {
-         border-radius: 6px !important;
-         background: #fff
-     }
-
-     .main-verification-button {
-         position: relative;
-         float: left;
-         width: 100%;
-         border-radius: 6px
-     }
- }
-    </style>
-
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://unpkg.com/placeholder-loading/dist/css/placeholder-loading.min.css">
 </head>
-<body>
+<style>
+	.modal-dialog-full-width {
+        width: 100% !important;
+        height: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        max-width:none !important;
+
+    }
+
+
+    .modal-content-full-width  {
+        height: auto !important;
+        min-height: 100% !important;
+        border-radius: 0 !important;
+        background-color: #ececec !important 
+    }
+
+    .modal-header-full-width  {
+        border-bottom: 1px solid #9ea2a2 !important;
+    }
+
+    .modal-footer-full-width  {
+        border-top: 1px solid #9ea2a2 !important;
+    }
+	
+</style>
+<script>
+		
+		$(document).ready(function(){
+		
+		$('#navigation').load("commonNavigation.html");
+
+ });
+</script>
+<body >
 <!--<div class="se-pre-con"></div>-->
 <div class="theme-layout">
-	
-	<div class="responsive-header">
-		<div class="mh-head first Sticky">
-			<span class="mh-btns-left">
-				<a class="" href="#menu"><i class="fa fa-align-justify"></i></a>
-			</span>
-			<span class="mh-text">
-				<a href="newsfeed.html" title=""><img src="images/loo2.png" alt=""></a>
-			</span>
-			<span class="mh-btns-right">
-				<a class="fa fa-sliders" href="#shoppingbag"></a>
-			</span>
-		</div>
-		<div class="mh-head second">
-			<form class="mh-form">
-				<input placeholder="search" />
-				<a href="#/" class="fa fa-search"></a>
-			</form>
-		</div>
-		<nav id="menu" class="res-menu">
-			<ul>
-				<li><span>Home</span>
-					<ul>
-						<li><a href="index-2.html" title="">Home Social</a></li>
-						<li><a href="index2.html" title="">Home Social 2</a></li>
-						<li><a href="index-company.html" title="">Home Company</a></li>
-						<li><a href="landing.html" title="">Login page</a></li>
-						<li><a href="logout.html" title="">Logout Page</a></li>
-						<li><a href="newsfeed.html" title="">news feed</a></li>
-					</ul>
-				</li>
-				<li><span>Time Line</span>
-					<ul>
-						<li><a href="time-line.html" title="">timeline</a></li>
-						<li><a href="timeline-friends.html" title="">timeline friends</a></li>
-						<li><a href="timeline-groups.html" title="">timeline groups</a></li>
-						<li><a href="timeline-pages.html" title="">timeline pages</a></li>
-						<li><a href="timeline-photos.html" title="">timeline photos</a></li>
-						<li><a href="timeline-videos.html" title="">timeline videos</a></li>
-						<li><a href="fav-page.html" title="">favourit page</a></li>
-						<li><a href="groups.html" title="">groups page</a></li>
-						<li><a href="page-likers.html" title="">Likes page</a></li>
-						<li><a href="people-nearby.html" title="">people nearby</a></li>
-						
-						
-					</ul>
-				</li>
-				<li><span>Account Setting</span>
-					<ul>
-						<li><a href="create-fav-page.html" title="">create fav page</a></li>
-						<li><a href="edit-account-setting.html" title="">edit account setting</a></li>
-						<li><a href="edit-interest.html" title="">edit-interest</a></li>
-						<li><a href="edit-password.html" title="">edit-password</a></li>
-						<li><a href="edit-profile-basic.html" title="">edit profile basics</a></li>
-						<li><a href="edit-work-education.html" title="">edit work educations</a></li>
-						<li><a href="messages.html" title="">message box</a></li>
-						<li><a href="inbox.html" title="">Inbox</a></li>
-						<li><a href="notifications.html" title="">notifications page</a></li>
-					</ul>
-				</li>
-				<li><span>forum</span>
-					<ul>
-						<li><a href="forum.html" title="">Forum Page</a></li>
-						<li><a href="forums-category.html" title="">Fourm Category</a></li>
-						<li><a href="forum-open-topic.html" title="">Forum Open Topic</a></li>
-						<li><a href="forum-create-topic.html" title="">Forum Create Topic</a></li>
-					</ul>
-				</li>
-				<li><span>Our Shop</span>
-					<ul>
-						<li><a href="shop.html" title="">Shop Products</a></li>
-						<li><a href="shop-masonry.html" title="">Shop Masonry Products</a></li>
-						<li><a href="shop-single.html" title="">Shop Detail Page</a></li>
-						<li><a href="shop-cart.html" title="">Shop Product Cart</a></li>
-						<li><a href="shop-checkout.html" title="">Product Checkout</a></li>
-					</ul>
-				</li>
-				<li><span>Our Blog</span>
-					<ul>
-						<li><a href="blog-grid-wo-sidebar.html" title="">Our Blog</a></li>
-						<li><a href="blog-grid-right-sidebar.html" title="">Blog with R-Sidebar</a></li>
-						<li><a href="blog-grid-left-sidebar.html" title="">Blog with L-Sidebar</a></li>
-						<li><a href="blog-masonry.html" title="">Blog Masonry Style</a></li>
-						<li><a href="blog-list-wo-sidebar.html" title="">Blog List Style</a></li>
-						<li><a href="blog-list-right-sidebar.html" title="">Blog List with R-Sidebar</a></li>
-						<li><a href="blog-list-left-sidebar.html" title="">Blog List with L-Sidebar</a></li>
-						<li><a href="blog-detail.html" title="">Blog Post Detail</a></li>
-					</ul>
-				</li>
-				<li><span>Portfolio</span>
-					<ul>
-						<li><a href="portfolio-2colm.html" title="">Portfolio 2col</a></li>
-						<li><a href="portfolio-3colm.html" title="">Portfolio 3col</a></li>
-						<li><a href="portfolio-4colm.html" title="">Portfolio 4col</a></li>
-					</ul>
-				</li>
-				<li><span>Support & Help</span>
-					<ul>
-						<li><a href="support-and-help.html" title="">Support & Help</a></li>
-						<li><a href="support-and-help-detail.html" title="">Support & Help Detail</a></li>
-						<li><a href="support-and-help-search-result.html" title="">Support & Help Search Result</a></li>
-					</ul>
-				</li>
-				<li><span>More pages</span>
-					<ul>
-						<li><a href="careers.html" title="">Careers</a></li>
-						<li><a href="career-detail.html" title="">Career Detail</a></li>
-						<li><a href="404.html" title="">404 error page</a></li>
-						<li><a href="404-2.html" title="">404 Style2</a></li>
-						<li><a href="faq.html" title="">faq's page</a></li>
-						<li><a href="insights.html" title="">insights</a></li>
-						<li><a href="knowledge-base.html" title="">knowledge base</a></li>
-					</ul>
-				</li>
-				<li><span>Exams</span></li>
-				<li><a href="about.html" title="">about</a></li>
-				<li><a href="about-company.html" title="">About Us2</a></li>
-				<li><a href="contact.html" title="">contact</a></li>
-				<li><a href="contact-branches.html" title="">Contact Us2</a></li>
-				<li><a href="widgets.html" title="">Widgts</a></li>
-			</ul>
-		</nav>
-		
-	</div><!-- responsive header -->
-	
-	<div class="topbar stick">
-		<div class="logo">
-			<a title="" href="newsfeed.html"><img src="images/loo.png" alt="">placeQue</a>
-		</div>
-		
-		<div class="top-area">
-			<ul class="main-menu">
-				<li>
-					<a href="#" title="">Home</a>
-					<ul>
-						<li><a href="index-2.html" title="">Home Social</a></li>
-						<li><a href="index2.html" title="">Home Social 2</a></li>
-						<li><a href="index-company.html" title="">Home Company</a></li>
-						<li><a href="landing.html" title="">Login page</a></li>
-						<li><a href="logout.html" title="">Logout Page</a></li>
-						<li><a href="newsfeed.html" title="">news feed</a></li>
-					</ul>
-				</li>
-				<li>
-					<a href="#" title="">timeline</a>
-					<ul>
-						<li><a href="time-line.html" title="">timeline</a></li>
-						<li><a href="timeline-friends.html" title="">timeline friends</a></li>
-						<li><a href="timeline-groups.html" title="">timeline groups</a></li>
-						<li><a href="timeline-pages.html" title="">timeline pages</a></li>
-						<li><a href="timeline-photos.html" title="">timeline photos</a></li>
-						<li><a href="timeline-videos.html" title="">timeline videos</a></li>
-						<li><a href="fav-page.html" title="">favourit page</a></li>
-						<li><a href="groups.html" title="">groups page</a></li>
-						<li><a href="page-likers.html" title="">Likes page</a></li>
-						<li><a href="people-nearby.html" title="">people nearby</a></li>
-					</ul>
-				</li>
-				<li>
-					<a href="#" title="">account settings</a>
-					<ul>
-						<li><a href="create-fav-page.html" title="">create fav page</a></li>
-						<li><a href="edit-account-setting.html" title="">edit account setting</a></li>
-						<li><a href="edit-interest.html" title="">edit-interest</a></li>
-						<li><a href="edit-password.html" title="">edit-password</a></li>
-						<li><a href="edit-profile-basic.html" title="">edit profile basics</a></li>
-						<li><a href="edit-work-education.html" title="">edit work educations</a></li>
-						<li><a href="messages.html" title="">message box</a></li>
-						<li><a href="inbox.html" title="">Inbox</a></li>
-						<li><a href="notifications.html" title="">notifications page</a></li>
-					</ul>
-				</li>
-				<li>
-					<a href="#" title="">more pages</a>
-					<ul>
-						<li><a href="404.html" title="">404 error page</a></li>
-						<li><a href="about.html" title="">about</a></li>
-						<li><a href="contact.html" title="">contact</a></li>
-						<li><a href="faq.html" title="">faq's page</a></li>
-						<li><a href="insights.html" title="">insights</a></li>
-						<li><a href="knowledge-base.html" title="">knowledge base</a></li>
-						<li><a href="widgets.html" title="">Widgts</a></li>
-					</ul>
-				</li>
-				<li>
-					<a href="#" title="">Career Quiz's</a>
-					<ul>
-						<li><a href="takequiz.html" title="">Take Quiz</a></li>
-						<li><a href="about.html" title="">Check Results</a></li>
-						<li><a href="contact.html" title="">Upcoming Quiz</a></li>
-				
-					</ul>
-				</li>
-		
-			</ul>
-			<ul class="setting-area">
-				<li>
-					<a href="#" title="Home" data-ripple=""><i class="ti-search"></i></a>
-					<div class="searched">
-						<form method="post" class="form-search">
-							<input type="text" placeholder="Search Friend">
-							<button data-ripple><i class="ti-search"></i></button>
-						</form>
-					</div>
-				</li>
-				<li><a href="newsfeed.html" title="Home" data-ripple=""><i class="ti-home"></i></a></li>
-				<li>
-					<a href="#" title="Notification" data-ripple="">
-						<i class="ti-bell"></i><span>20</span>
-					</a>
-					<div class="dropdowns">
-						<span>4 New Notifications</span>
-						<ul class="drops-menu">
-							<li>
-								<a href="notifications.html" title="">
-									<img src="images/resources/thumb-1.jpg" alt="">
-									<div class="mesg-meta">
-										<h6>sarah Loren</h6>
-										<span>Hi, how r u dear ...?</span>
-										<i>2 min ago</i>
-									</div>
-								</a>
-								<span class="tag green">New</span>
-							</li>
-							<li>
-								<a href="notifications.html" title="">
-									<img src="images/resources/thumb-2.jpg" alt="">
-									<div class="mesg-meta">
-										<h6>Jhon doe</h6>
-										<span>Hi, how r u dear ...?</span>
-										<i>2 min ago</i>
-									</div>
-								</a>
-								<span class="tag red">Reply</span>
-							</li>
-							<li>
-								<a href="notifications.html" title="">
-									<img src="images/resources/thumb-3.jpg" alt="">
-									<div class="mesg-meta">
-										<h6>Andrew</h6>
-										<span>Hi, how r u dear ...?</span>
-										<i>2 min ago</i>
-									</div>
-								</a>
-								<span class="tag blue">Unseen</span>
-							</li>
-							<li>
-								<a href="notifications.html" title="">
-									<img src="images/resources/thumb-4.jpg" alt="">
-									<div class="mesg-meta">
-										<h6>Tom cruse</h6>
-										<span>Hi, how r u dear ...?</span>
-										<i>2 min ago</i>
-									</div>
-								</a>
-								<span class="tag">New</span>
-							</li>
-							<li>
-								<a href="notifications.html" title="">
-									<img src="images/resources/thumb-5.jpg" alt="">
-									<div class="mesg-meta">
-										<h6>Amy</h6>
-										<span>Hi, how r u dear ...?</span>
-										<i>2 min ago</i>
-									</div>
-								</a>
-								<span class="tag">New</span>
-							</li>
-						</ul>
-						<a href="notifications.html" title="" class="more-mesg">view more</a>
-					</div>
-				</li>
-				<li>
-					<a href="#" title="Messages" data-ripple=""><i class="ti-comment"></i><span>12</span></a>
-					<div class="dropdowns">
-						<span>5 New Messages</span>
-						<ul class="drops-menu">
-							<li>
-								<a href="notifications.html" title="">
-									<img src="images/resources/thumb-1.jpg" alt="">
-									<div class="mesg-meta">
-										<h6>sarah Loren</h6>
-										<span>Hi, how r u dear ...?</span>
-										<i>2 min ago</i>
-									</div>
-								</a>
-								<span class="tag green">New</span>
-							</li>
-							<li>
-								<a href="notifications.html" title="">
-									<img src="images/resources/thumb-2.jpg" alt="">
-									<div class="mesg-meta">
-										<h6>Jhon doe</h6>
-										<span>Hi, how r u dear ...?</span>
-										<i>2 min ago</i>
-									</div>
-								</a>
-								<span class="tag red">Reply</span>
-							</li>
-							<li>
-								<a href="notifications.html" title="">
-									<img src="images/resources/thumb-3.jpg" alt="">
-									<div class="mesg-meta">
-										<h6>Andrew</h6>
-										<span>Hi, how r u dear ...?</span>
-										<i>2 min ago</i>
-									</div>
-								</a>
-								<span class="tag blue">Unseen</span>
-							</li>
-							<li>
-								<a href="notifications.html" title="">
-									<img src="images/resources/thumb-4.jpg" alt="">
-									<div class="mesg-meta">
-										<h6>Tom cruse</h6>
-										<span>Hi, how r u dear ...?</span>
-										<i>2 min ago</i>
-									</div>
-								</a>
-								<span class="tag">New</span>
-							</li>
-							<li>
-								<a href="notifications.html" title="">
-									<img src="images/resources/thumb-5.jpg" alt="">
-									<div class="mesg-meta">
-										<h6>Amy</h6>
-										<span>Hi, how r u dear ...?</span>
-										<i>2 min ago</i>
-									</div>
-								</a>
-								<span class="tag">New</span>
-							</li>
-						</ul>
-						<a href="messages.html" title="" class="more-mesg">view more</a>
-					</div>
-				</li>
-				
-			</ul>
-			<div class="user-img">
-				<img src="images/resources/admin.jpg" alt="">
-				<span class="status f-online"></span>
-				<div class="user-setting">
-					<a href="#" title=""><span class="status f-online"></span>online</a>
-					<a href="#" title=""><span class="status f-away"></span>away</a>
-					<a href="#" title=""><span class="status f-off"></span>offline</a>
-					<a href="#" title=""><i class="ti-user"></i> view profile</a>
-					<a href="#" title=""><i class="ti-pencil-alt"></i>edit profile</a>
-					<a href="#" title=""><i class="ti-target"></i>activity log</a>
-					<a href="#" title=""><i class="ti-settings"></i>account setting</a>
-					<a href="#" title=""><i class="ti-power-off"></i>log out</a>
-				</div>
-			</div>
-			<span class="ti-menu main-menu" data-ripple=""></span>
-		</div>
-	</div><!-- topbar -->
-		
+	<div id="navigation"></div>
+
 	<section>
 		<div class="gap gray-bg">
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-lg-12">
 						<div class="row" id="page-contents">
-                     
+					 
 								<div class="container">
 									<div class="row">
-										<div class="col-md-6 col-sm-6 col-xs-12">
+										<div class="col-md-12 col-sm-6 col-xs-12">
 											<div class="aboutus">
 												<h2 class="aboutus-title">Instructions to Quiz</h2>
-												<li>If you are using your personal laptop, please make sure that you have installed the necessary software and programs before the examination day.  It is important that your laptop fulfils the system requirements of the programme.
-													You must bring your own power supply for use during the examination.
-													If failure to comply with these recommendations results in technical problems that cause a delay in your examination, you cannot expect to be granted extended time.</li>
-												<li>Make sure that you write your name and student ID correctly. Otherwise, the system can't record your grades.</li>
-												<li>The given time for this quiz is 45 minutes. After that, the form will be closed for you.</li>
-												<li>Students who will not submit their answers in time will receive 0.</li>
-												<li>You can only submit your answers once. If you wish to pause the the quiz, please use the Save and Continue Later button.</li>
-												<li>Each question has its own grading points. After you submit your answers, we will evaluate your answers and let you know your grades later.
-												<li>If you have any technical problem during the quiz, please take a screenshot or screen recording and send us.</li>
+												<div id="instruction">
+
+												</div>
+												
 								   
 											</div>
+											<div class="main-verification-input fl-wrap">
+												<a href="#!"><button class="main-verification-button" onclick="startTest()">Start Test</button></a>
+										   </div>
 										</div>
 								
-										<div class="col-md-6 col-sm-6 col-xs-12">
-											<div class="feature">
-												<div class="feature-box">
-													<div class="clearfix">
-														<div class="iconset">
-															<span class="glyphicon glyphicon-cog icon"></span>
-														</div>
-														<div class="feature-content">
-															<h4>During the Quiz</h4>
-															<p>If anything in the examination question paper is unclear, you can contact the lecturer visiting the venue. Such contact is facilitated by the head invigilator at the venue.
-																Law: The student representatives do not represent the faculty, but if anything in the examination question paper is unclear the student representative at the venue can pass on the query to the right person(s) in charge.
-																Papers and computer/laptop are to be covered when you leave your place.
-																If you experience technical problems during a digital examination, you must immediately contact one of the invigilators. The invigilator will call for technical support. Failure to report such technical problems might be treated as cheating or an attempt to cheat.                                     </p>
-														</div>
-													</div>
-												</div>
-												<div class="feature-box">
-													<div class="clearfix">
-														<div class="iconset">
-															<span class="glyphicon glyphicon-cog icon"></span>
-														</div>
-														<div class="feature-content">
-															<h4>Withdrawing from an examination</h4>
-															<p>You can withdraw from an examination, at the earliest, one hour after the examination has started. Contact the head invigilator and complete a withdrawal form. Withdrawals during an examination will be treated as an examination attempt. You have to contact the head invigilator before you close down the examination programme at digital examination.</p>
-														</div>
-													</div>
-												</div>
-												<div class="feature-box">
-													<div class="clearfix">
-														<div class="iconset">
-															<span class="glyphicon glyphicon-cog icon"></span>
-														</div>
-														
-													</div>
-												</div>
-											</div>
-										</ul>
-                                        <div class="main-verification-input fl-wrap">
-                                             <a href="takequiz.html"><button class="main-verification-button" >Start Test</button></a>
-                                        </div>
-										</div>
+								
 									</div>
 								</div>
 					
-                            <!-- <div class="row">
-                                <div class="col-md-12">
-                                    <div class="main-verification-input-wrap">
-                                        <ul>
-                                            <li>You will recieve a verification code on your mail after you registered. Enter that code below.</li>
-                                            <li>If somehow, you did not recieve the verification email then <a href="#">resend the verification email</a></li>
-                                            <li>Make sure that you write your name and student ID correctly. Otherwise, the system can't record your grades.</li>
-                                            <li>The given time for this quiz is 45 minutes. After that, the form will be closed for you.</li>
-                                            <li>Students who will not submit their answers in time will receive 0.</li>
-                                            <li>You can only submit your answers once. If you wish to pause the the quiz, please use the Save and Continue Later button.</li>
-                                            <li>Each question has its own grading points. After you submit your answers, we will evaluate your answers and let you know your grades later.
-                                            <li>If you have any technical problem during the quiz, please take a screenshot or screen recording and send us.</li>
-                               
-                                        
-                                    </div>
-                                </div>
-                            </div> -->
+							<!-- <div class="row">
+								<div class="col-md-12">
+									<div class="main-verification-input-wrap">
+										<ul>
+											<li>You will recieve a verification code on your mail after you registered. Enter that code below.</li>
+											<li>If somehow, you did not recieve the verification email then <a href="#">resend the verification email</a></li>
+											<li>Make sure that you write your name and student ID correctly. Otherwise, the system can't record your grades.</li>
+											<li>The given time for this quiz is 45 minutes. After that, the form will be closed for you.</li>
+											<li>Students who will not submit their answers in time will receive 0.</li>
+											<li>You can only submit your answers once. If you wish to pause the the quiz, please use the Save and Continue Later button.</li>
+											<li>Each question has its own grading points. After you submit your answers, we will evaluate your answers and let you know your grades later.
+											<li>If you have any technical problem during the quiz, please take a screenshot or screen recording and send us.</li>
+							   
+										
+									</div>
+								</div>
+							</div> -->
 							
 				
 						</div>	
@@ -588,8 +107,8 @@
 				</div>
 			</div>
 		</div>	
-	</section>
-
+		</section>
+	
 	<footer>
 		<div class="container">
 			<div class="row">
@@ -597,7 +116,7 @@
 					<div class="widget">
 						<div class="foot-logo">
 							<div class="logo">
-								<a href="index-2.html" title=""><img src="images/logo.png" alt=""></a>
+								<!-- <a href="index-2.html" title=""><img src="images/logo.png" alt=""></a> -->
 							</div>	
 							<p>
 								The trio took this simple idea and built it into the world’s leading carpooling platform.
@@ -739,11 +258,22 @@
 			</form>
 		</div><!-- side panel -->		
 	
-	<script data-cfasync="false" src="../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="js/main.min.js"></script>
-	<script src="js/script.js"></script>
-	<script src="js/map-init.js"></script>
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA8c55_YHLvDHGACkQscgbGLtLRdxBDCfI"></script>
+	<!-- <script src="js/main.min.js"></script>
+	<script src="js/script.js"></script> -->
+	
+
 
 </body>	
+<!-- <script src="js/main.min.js"></script>
+<script src="js/script.js"></script> -->
 
+<script>
+
+	let ins=window.localStorage.getItem("quizInstruction")
+	document.getElementById("instruction").innerHTML=ins
+	function startTest(){
+		window.location="takequiz.html"
+		
+	}
+</script>
 </html>
