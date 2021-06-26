@@ -271,16 +271,35 @@
 				year="4"
 			}
 			if(flag){
-				console.log(sc[flag].info.selectedYear)
-				if((sc[flag].info.selectedBranches).includes(window.localStorage.getItem("branch")) && (sc[flag].info.selectedYear).includes(year) ){
-					window.localStorage.setItem("quizKey",flag)
-					window.localStorage.setItem("quizInstruction",sc[flag].instruction)
-					window.localStorage.setItem("quizDetails",JSON.stringify(sc))
-					window.location="instructionquiz.html"
+				let startTime =sc[flag].info.date + " "+(sc[flag].info.startTime).substring(0,5)
+				
+				var countDownDate = new Date(startTime).getTime();
+		
+				var now = new Date().getTime();
+				
+				var timeleft = countDownDate - now;
+			
+				if(timeleft <=0 ){
+
+					if((sc[flag].info.selectedBranches).includes(window.localStorage.getItem("branch")) && (sc[flag].info.selectedYear).includes(year) ){
+						window.localStorage.setItem("quizKey",flag)
+						window.localStorage.setItem("quizInstruction",sc[flag].instruction)
+						window.localStorage.setItem("quizDetails",JSON.stringify(sc))
+						window.location="instructionquiz.html"
+					}else{
+						document.getElementById("verify").style.backgroundColor="red"
+
+						document.getElementById("verify").innerHTML="Invalid Code"
+						setTimeout(function(){
+							document.getElementById("verify").style.backgroundColor="#4DB7FE"
+
+							document.getElementById("verify").innerHTML="Verify"
+						},3000)
+					}
 				}else{
 					document.getElementById("verify").style.backgroundColor="red"
 
-					document.getElementById("verify").innerHTML="Invalid Code"
+					document.getElementById("verify").innerHTML="Quiz Yet To Start"
 					setTimeout(function(){
 						document.getElementById("verify").style.backgroundColor="#4DB7FE"
 

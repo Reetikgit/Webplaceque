@@ -72,36 +72,15 @@
 									<div class="border">
 										<div class="question bg-white p-3 border-bottom" style="">
 											<div class="d-flex flex-row justify-content-between align-items-center mcq">
-												<h4>MCQ Quiz</h4><span>(5 of 20)</span>
+												<h4>MCQ Quiz</h4><span id="totQues"></span> <span id ="timeLeft" style="color: green;font-weight: 700;font-size: 24px;">12</span>
 											</div>
 										</div>
 										<div class="question bg-white p-3 border-bottom" id="questions" style="height: 600px;overflow: scroll;">
 
-											
-											<!-- <div class="ans ml-2">
-												<label class="radio"> <input type="radio" name="brazil"	 value="brazil"> <span>Brazil</span>
-												</label>
-											</div>
-											<div class="ans ml-2">
-												<label class="radio"> <input type="radio" name="brazil" value="Germany"> <span>Germany</span>
-												</label>
-											</div>
-											<div class="ans ml-2">
-												<label class="radio"> <input type="radio" name="brazil" value="Indonesia"> <span>Indonesia</span>
-												</label>
-											</div>
-											<div class="ans ml-2">
-												<label class="radio"> <input type="radio" name="brazil" value="Russia"> <span>Russia</span>
-												</label>
-											</div> -->
 										</div>
-										<div class="d-flex flex-row justify-content-between align-items-center p-3 bg-white"><button class="btn btn-primary d-flex align-items-center btn-danger" type="button"><i class="fa fa-angle-left mt-1 mr-1"></i>&nbsp;previous</button><button class="btn btn-primary border-success align-items-center btn-success" type="button">Next<i class="fa fa-angle-right ml-2"></i></button></div>
+										<div class="d-flex flex-row justify-content-between align-items-center p-3 bg-white"><button class="btn btn-primary d-flex align-items-center btn-danger" type="button"><i class="fa fa-angle-left mt-1 mr-1"></i>&nbsp;previous</button><button class="btn btn-primary border-success align-items-center btn-success" type="button" onclick="submitQuiz()">Submit<i class="fa fa-angle-right ml-2"></i></button></div>
 									</div>
 								</div>
-							
-		
-							
-				
 						</div>	
 					</div>
 				</div>
@@ -268,11 +247,47 @@
 <script src="js/script.js"></script> -->
 
 <script>
-
+	
 	let sc =JSON.parse(window.localStorage.getItem("quizDetails"))
 	console.log(sc)
 	let ques = sc[window.localStorage.getItem("quizKey")].question
+
+	let endTime =sc[window.localStorage.getItem("quizKey")].info.date + " "+(sc[window.localStorage.getItem("quizKey")].info.endTime).substring(0,5)
+	console.log(endTime)
 	console.log(ques)
+	document.getElementById("totQues").innerHTML = "Total Questions :"+ ques.length
+	var countDownDate = new Date(endTime).getTime();
+	var myfunc = setInterval(function() {
+	// code goes here
+	var now = new Date().getTime();
+	var timeleft = countDownDate - now;
+		
+	var days = Math.floor(timeleft / (1000 * 60 * 60 * 24));
+	var hours = Math.floor((timeleft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+	var minutes = Math.floor((timeleft % (1000 * 60 * 60)) / (1000 * 60));
+	var seconds = Math.floor((timeleft % (1000 * 60)) / 1000);
+	var totTime = hours + ":" +minutes + ":"+seconds  
+	document.getElementById("timeLeft").innerHTML = totTime
+	// document.getElementById("mins").innerHTML = minutes + "m " 
+	// document.getElementById("secs").innerHTML = seconds + "s"
+
+	if (timeleft < 0) {
+		clearInterval(myfunc);
+	
+		document.getElementById("timeLeft").innerHTML = " "
+		window.localStorage.clear("quizInstruction")
+		window.localStorage.clear("quizKey")
+		window.localStorage.clear("quizDetails")
+		alert("Quiz Over")
+	}
+
+	if (timeleft < 500000) {
+		
+	
+		document.getElementById("timeLeft").style.color="red"
+
+	}
+	}, 1000)
 
 	for(let i = 0;i<ques.length;i++){
 		document.getElementById("questions").innerHTML +=
@@ -283,7 +298,7 @@
 			<h5 class="mt-1 ml-2">`+ques[i].question+`</h5>
 			
 			</div>
-			<h6 class="mt-1 ml-2" style="float:right">P(`+ques[i].point+`)</h6>
+			
 		</div>
 		<div id="opt`+i+`"></div>
 		
@@ -292,36 +307,63 @@
 		console.log(ques[i].type)
 		if(ques[i].op1){
 			document.getElementById("opt"+i).innerHTML += `<div class="ans ml-2">
-				<label class="radio"><input type="`+ques[i].type+`" id="`+ques[i].op1+i+`" name="`+ques[i]+`" value="`+ques[i].op1+`"> <span>`+ques[i].op1+`</span>
+				<label class="radio"><input class="set_`+ques[i].type+`" type="`+ques[i].type+`" id="`+ques[i].op1+i+`" name="`+ques[i].question+`" value="`+ques[i].op1+`" point="`+ques[i].point+`"> <span>`+ques[i].op1+`</span>
 				</label>
 			</div>`
 		}
+
 		if(ques[i].op2){
 			document.getElementById("opt"+i).innerHTML += `<div class="ans ml-2">
-				<label class="radio"><input type="`+ques[i].type+`" id="`+ques[i].op2+i+`" name="`+ques[i]+`" value="`+ques[i].op2+`"> <span>`+ques[i].op2+`</span>
+				<label class="radio"><input class="set_`+ques[i].type+`" type="`+ques[i].type+`" id="`+ques[i].op2+i+`" name="`+ques[i].question+`" value="`+ques[i].op2+`" point="`+ques[i].point+`"> <span>`+ques[i].op2+`</span>
 				</label>
 			</div>`
 		}
 		if(ques[i].op3){
 			document.getElementById("opt"+i).innerHTML += `<div class="ans ml-2">
-				<label class="radio"><input type="`+ques[i].type+`" id="`+ques[i].op3+i+`" name="`+ques[i]+`" value="`+ques[i].op3+`"> <span>`+ques[i].op3+`</span>
+				<label class="radio"><input class="set_`+ques[i].type+`" type="`+ques[i].type+`" id="`+ques[i].op3+i+`" name="`+ques[i].question+`" value="`+ques[i].op3+`" point="`+ques[i].point+`"> <span>`+ques[i].op3+`</span>
 				</label>
 			</div>`
 		}
 		if(ques[i].op4){
 			document.getElementById("opt"+i).innerHTML += `<div class="ans ml-2">
-				<label class="radio"><input type="`+ques[i].type+`" id="`+ques[i].op4+i+`" name="`+ques[i]+`" value="`+ques[i].op4+`"> <span>`+ques[i].op4+`</span>
+				<label class="radio"><input class="set_`+ques[i].type+`" type="`+ques[i].type+`" id="`+ques[i].op4+i+`" name="`+ques[i].question+`" value="`+ques[i].op4+`" point="`+ques[i].point+`"> <span>`+ques[i].op4+`</span>
 				</label>
 			</div>`
 		}
 		if(ques[i].op5){
 			document.getElementById("opt"+i).innerHTML += `<div class="ans ml-2">
-				<label class="radio"><input type="`+ques[i].type+`" id="`+ques[i].op5+i+`" name="`+ques[i]+`" value="`+ques[i].op5+`"> <span>`+ques[i].op5+`</span>
+				<label class="radio1"><input class="`+ques[i].type+`" type="`+ques[i].type+`" id="`+ques[i].op5+i+`" name="`+ques[i].question+`" value="`+ques[i].op5+`" point="`+ques[i].point+`"> <span>`+ques[i].op5+`</span>
 				</label>
 			</div>`
 		}
 			
 	}
+
+
+
+	function submitQuiz(){
+		var total = 0
+     //$('.set_radio')
+
+	 $('.set_radio').each(function() {
+		 if ($(this).is(':checked') == true) {
+			total = total + parseInt($(this).attr('point'));
+		 }
+	 })
+
+	 console.log(total)
+
+	}
+
+
+
+
+
+
+
+
+
+
 	function verifyCode(){
 		let code=document.getElementById("code").value
 		let quizData = firebase.database().ref('quizData')
@@ -384,6 +426,9 @@
 		function errData(){
 
 		}
+
+
+
 	}
 </script>
 </html>
