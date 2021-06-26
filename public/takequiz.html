@@ -346,32 +346,19 @@
 		var total = 0
 		var tempObj = {}
 
-	for(let i = 0;i<ques.length;i++){ 
-		if (ques[i].type == 'checkbox') {
+		for(let i = 0;i<ques.length;i++){ 
 			tempObj[ques[i].quesId] = []
-		} 
-		
-		$("."+ques[i].quesId).each(function() {
-			if($(this).attr('type') == 'checkbox') {
+			
+			$("."+ques[i].quesId).each(function() {
 				if ($(this).is(':checked') == true) {
 					tempObj[ques[i].quesId].push($(this).val())
 				}
-				
-			} else if ($(this).attr('type') == 'radio') {				
-				if (($(this).is(':checked') == true && $(this).val() == (ques[i].answer))) {
-					total = total + parseInt($(this).attr('point'));
-				}
+			});
+			
+			if(tempObj[ques[i].quesId].join(',') === ques[i].answer ) {
+				total = total + parseInt(ques[i].point)
 			}
-		});
-		
-		if(ques[i].type == 'checkbox' && tempObj[ques[i].quesId].join(',') === ques[i].answer ) {
-			total = total + parseInt(ques[i].point)
 		}
-
-	}
-
-	 console.log(total)
-
 	}
 
 
