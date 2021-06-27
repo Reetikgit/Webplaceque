@@ -24,10 +24,20 @@ setTimeout(function(){
 		document.querySelector("#year").value=info.selectedYear
 		
 	}
+
+	// if(description){
+	// 	console.log(description)
+
+	// 	document.querySelector("#instructions").value = description
+	// }
+		
 	if(description){
-		console.log(description)
-		document.querySelector("#instructions").value = description
+		
+		document.getElementById("instructions").value = description
+		$("#instructions").data("wysihtml5").editor.setValue(description)
+		// $('#instructions').text('It was a dark and stormy night…');
 	}
+
 
 },1000)
 
@@ -71,7 +81,7 @@ $(".tab-wizard").steps({
 	}
 	if(currentIndex == 3){
 		let quizkey = window.localStorage.getItem("quizKey")
-		let instruction =document.querySelector("#instruction").value
+		let instruction= $("#instructions").data("wysihtml5").editor.getValue()
 		if(instruction !=""){
 			let ins ={
 				"instruction" :instruction
@@ -87,13 +97,13 @@ $(".tab-wizard").steps({
 
 	if(QuizInfo == undefined ){
 	
-	
+		alert(8)
 		let title=document.querySelector("#title").value
 		let startTime=document.querySelector("#sttime").value
 		let endTime=document.querySelector("#endtime").value
 		let date=document.querySelector("#date").value
 		let total=document.querySelector("#total").value
-	
+		
 		var selectedBranches = [];
 		for (var option of document.getElementById('branch').options)
 		{
@@ -109,7 +119,7 @@ $(".tab-wizard").steps({
 			}
 		}
 		let id=title.substring(0,2)+Math.floor(Math.random() * 1000) + 1;
-		
+		document.querySelector("#id").value=id
 		let info ={
 			id:id,
 			title :title,
@@ -139,6 +149,7 @@ $(".tab-wizard").steps({
 			
 		})
 	}else{
+		
 		let title=document.querySelector("#title").value
 		let startTime=document.querySelector("#sttime").value
 		let endTime=document.querySelector("#endtime").value
@@ -146,6 +157,8 @@ $(".tab-wizard").steps({
 		let total=document.querySelector("#total").value
 		let id=document.querySelector("#id").value
 		var selectedBranches = [];
+		let description =window.localStorage.getItem("description")
+
 		for (var option of document.getElementById('branch').options)
 		{
 			if (option.selected) {
