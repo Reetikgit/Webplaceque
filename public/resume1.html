@@ -15,6 +15,12 @@
     <link rel="stylesheet" href="css/responsive.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<link rel="stylesheet" href="https://unpkg.com/placeholder-loading/dist/css/placeholder-loading.min.css">
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
 </head>
 <style>
 	.modal-dialog-full-width {
@@ -25,7 +31,9 @@
         max-width:none !important;
 
     }
-
+    body{
+      background-color:lightcoral;
+    }
 
     .modal-content-full-width  {
         height: auto !important;
@@ -40,6 +48,82 @@
 
     .modal-footer-full-width  {
         border-top: 1px solid #9ea2a2 !important;
+    }
+    .profile 
+{
+    min-height: 355px;
+    display: inline-block;
+    }
+figcaption.ratings
+{
+    margin-top:20px;
+    }
+figcaption.ratings a
+{
+    color:#f1c40f;
+    font-size:11px;
+    }
+figcaption.ratings a:hover
+{
+    color:#f39c12;
+    text-decoration:none;
+    }
+.divider 
+{
+    border-top:1px solid rgba(0,0,0,0.1);
+    }
+.emphasis 
+{
+    border-top: 4px solid transparent;
+    }
+.emphasis:hover 
+{
+    border-top: 4px solid #1abc9c;
+    }
+.emphasis h2
+{
+    margin-bottom:0;
+    }
+span.tags 
+{
+    background: #1abc9c;
+    border-radius: 2px;
+    color: #f5f5f5;
+    font-weight: bold;
+    padding: 2px 4px;
+    }
+.dropdown-menu 
+{
+    background-color: #34495e;    
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    width: 250px;
+    margin-left: -125px;
+    left: 50%;
+    }
+.dropdown-menu .divider 
+{
+    background:none;    
+    }
+.dropdown-menu>li>a
+{
+    color:#f5f5f5;
+    }
+.dropup .dropdown-menu 
+{
+    margin-bottom:10px;
+    }
+.dropup .dropdown-menu:before 
+{
+    content: "";
+    border-top: 10px solid #34495e;
+    border-right: 10px solid transparent;
+    border-left: 10px solid transparent;
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    margin-left: -10px;
+    z-index: 10;
     }
 	
 </style>
@@ -58,54 +142,69 @@
 
 	<section>
 		<div class="gap gray-bg">
-			<div class="container-fluid">
-				<div class="row">
-					<div class="col-lg-12">
-						<div class="row" id="page-contents">
-					 
-								<div class="container">
-									<div class="row">
-										<div class="col-md-12 col-sm-6 col-xs-12">
-											<div class="aboutus">
-												<h2 class="aboutus-title">Instructions to Quiz</h2>
-												<div id="instruction">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-8">
+            <div id="editor"></div>
+             <div class="well profile" id="content">
+                  <div class="col-sm-12">
+                      <div class="col-xs-12 col-sm-8">
+                          <h2 id="name"></h2>
+                          <p><strong>Address: </strong ><span id="add">Behind Scount Press ganfhi nagar basti UP </p></span> 
+                          <p><strong>Phone: </strong > <span id="phone"> 9450021817 </p></span>
+                          <p><strong>Email: </strong > <span id="email"> reetikchitragupt@gmail.com </span> </p>
+                         
+                      </div>             
+                      <div class="col-xs-12 col-sm-4 text-center">
+                          <figure>
+                              <img id="image" style="width: 100px;object-fit: contain;" src="https://image.shutterstock.com/image-vector/default-avatar-profile-icon-social-260nw-1677509740.jpg" alt="" class="img-circle img-responsive">
+                             
+                          </figure>
+                      </div>
+                  </div>   
+                  
+                  <div class="col-xs-12 divider ">
+                    <p class="text-center"><strong style="font-weight: 600;color:black;font-size: 18px;">Career Objective </strong></p>
+                      <p>Seeking an entry-level position to begin my career in a high-level professional environment     
+                      </p>
 
-												</div>
-												
-								   
-											</div>
-											<div class="main-verification-input fl-wrap">
-												<a href="#!"><button class="main-verification-button" id="verify" onclick="startTest()">Start Test</button></a>
-										   </div>
-										</div>
-								
-								
-									</div>
-								</div>
-					
-							<!-- <div class="row">
-								<div class="col-md-12">
-									<div class="main-verification-input-wrap">
-										<ul>
-											<li>You will recieve a verification code on your mail after you registered. Enter that code below.</li>
-											<li>If somehow, you did not recieve the verification email then <a href="#">resend the verification email</a></li>
-											<li>Make sure that you write your name and student ID correctly. Otherwise, the system can't record your grades.</li>
-											<li>The given time for this quiz is 45 minutes. After that, the form will be closed for you.</li>
-											<li>Students who will not submit their answers in time will receive 0.</li>
-											<li>You can only submit your answers once. If you wish to pause the the quiz, please use the Save and Continue Later button.</li>
-											<li>Each question has its own grading points. After you submit your answers, we will evaluate your answers and let you know your grades later.
-											<li>If you have any technical problem during the quiz, please take a screenshot or screen recording and send us.</li>
-							   
-										
-									</div>
-								</div>
-							</div> -->
-							
-				
-						</div>	
-					</div>
-				</div>
-			</div>
+                  </div>   
+                  <div class="col-xs-12 divider ">
+                    <p class="text-center"><strong style="font-weight: 600;color:black;font-size: 18px;">Education </strong></p>
+                      <p>Bachelor of Engineering in Information science <strong style="float: right;"> (2017 -2021) </strong><br>   
+                        <span>Sai Vidya Institute of Technology</span><br>
+                        <span>8.8 </span>
+                      </p>
+                      <p>Bachelor of Engineering in Information science <strong style="float: right;"> (2017 -2021) </strong><br>   
+                        <span>Sai Vidya Institute of Technology</span><br>
+                        <span>8.8 </span>
+                      </p>
+                      <p>Bachelor of Engineering in Information science <strong style="float: right;"> (2017 -2021) </strong><br>   
+                        <span>Sai Vidya Institute of Technology</span><br>
+                        <span>8.8 </span>
+                      </p>
+                 
+                
+                  </div>
+                  <div class="col-xs-12 divider ">
+                    <p class="text-center"><strong style="font-weight: 600;color:black;font-size: 18px;">Skills</strong></p>
+                      <p>Bachelor of Engineering in Information science <strong> (2017 -2021) </strong><br>   
+                        <span> c , c++ ,JAva , HTML</span>
+                       
+                      </p>
+                  </div>
+
+                  <div class="col-xs-12 divider ">
+                    <p class="text-center"><strong style="font-weight: 600;color:black;font-size: 18px;">Declaration</strong></p>
+                      <p>I hereby declare that all the information and facts given above are true to best of my knowledge and belief.
+                      </p>
+
+                  </div>  
+             </div>
+             <button id="cmd">Download</button>                 
+          </div>
+        </div>
+      </div>
 		</div>	
 		</section>
 	
@@ -266,36 +365,36 @@
 </body>	
 <!-- <script src="js/main.min.js"></script>
 <script src="js/script.js"></script> -->
-
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+<!-- <script type="text/javascript" src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script> -->
 <script>
-	var sc =JSON.parse(window.localStorage.getItem("quizDetails"))
-	if(!sc){
-		window.location= "verifyQuiz.html"
-	}
-	let ins=window.localStorage.getItem("quizInstruction")
-	document.getElementById("instruction").innerHTML=ins
-	function startTest(){
 
-		let startTime =sc[window.localStorage.getItem("quizKey")].info.date + " "+(sc[window.localStorage.getItem("quizKey")].info.startTime).substring(0,5)
-				
-		var countDownDate = new Date(startTime).getTime();
 
-		var now = new Date().getTime();
-		
-		var timeleft = countDownDate - now;
-		if(timeleft <=0 ){
-			window.location="takequiz.html"
-		}else{
-			document.getElementById("verify").style.backgroundColor="red"
+var doc = new jsPDF();
+var specialElementHandlers = {
+    '#editor': function (element, renderer) {
+        return true;
+    }
+};
 
-			document.getElementById("verify").innerHTML="Quiz Yet To Start"
-			setTimeout(function(){
-				document.getElementById("verify").style.backgroundColor="#4DB7FE"
+$('#cmd').click(function () {
+    doc.fromHTML($('#content').html(), 15, 15, {
+        'width': 170,
+            'elementHandlers': specialElementHandlers
+    });
+    doc.save('sample-file.pdf');
+});
 
-				document.getElementById("verify").innerHTML="Verify"
-			},3000)
-		}
-		
-	}
+let userImage = window.localStorage.getItem("studentImage")
+document.getElementById("image").src=userImage 
+
+let sc =  JSON.parse(window.localStorage.getItem("studentData"))
+let user =  window.localStorage.getItem("user")
+console.log(sc[user].BasicprofileData.basic.day)
+document.getElementById("name").innerHTML = sc[user].Name
+document.getElementById("add").innerHTML = sc[user].BasicprofileData.basic.day
+document.getElementById("phone").innerHTML = sc[user].Name
+document.getElementById("email").innerHTML = sc[user].email
+
 </script>
 </html>

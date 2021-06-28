@@ -236,7 +236,28 @@
 				</div>
 			</form>
 		</div><!-- side panel -->		
-	
+		<div class="modal fade" id="quizCompleted" tabindex="-1" role="dialog" aria-labelledby="quizCompletedTitle" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+			  <div class="modal-content">
+				<div class="modal-header">
+				  <h5 class="modal-title" id="exampleModalLongTitle">Quiz Submitted</h5>
+				  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				  </button>
+				</div>
+				<div class="modal-body">
+				  Your quiz is submitted successfully . 
+				  The results can be viewed under quiz result section. 
+
+					<br>
+					Thankyou for taking up the test.
+				</div>
+				<div class="modal-footer">
+					<p> Please wait redirecting .......</p>
+				</div>
+			  </div>
+			</div>
+		  </div>
 	<!-- <script src="js/main.min.js"></script>
 	<script src="js/script.js"></script> -->
 	
@@ -248,8 +269,12 @@
 
 <script>
 	
-	let sc =JSON.parse(window.localStorage.getItem("quizDetails"))
-	console.log(sc)
+	var sc =JSON.parse(window.localStorage.getItem("quizDetails"))
+	if(!sc){
+		window.location= "verifyQuiz.html"
+	}
+	var key =window.localStorage.getItem("user")
+	
 	let ques = sc[window.localStorage.getItem("quizKey")].question
 
 	let endTime =sc[window.localStorage.getItem("quizKey")].info.date + " "+(sc[window.localStorage.getItem("quizKey")].info.endTime).substring(0,5)
@@ -278,7 +303,7 @@
 		window.localStorage.clear("quizInstruction")
 		window.localStorage.clear("quizKey")
 		window.localStorage.clear("quizDetails")
-		alert("Quiz Over")
+		
 		submitQuiz()
 	}
 
@@ -359,6 +384,25 @@
 				total = total + parseInt(ques[i].point)
 			}
 		}
+		console.log(total)
+		let quizData ={
+			quizScores : {
+				"details" :sc,
+				"score" : total
+			}
+		}
+	
+		firebase.database().ref("studentData").child(key).update(quizData).then(function(){
+			$('#quizCompleted').modal('show');
+			setTimeout(function(){
+				window.localStorage.clear("quizInstruction")
+				window.localStorage.clear("quizKey")
+				window.localStorage.clear("quizDetails")
+				window.location= "verifyQuiz.html"
+			},6000)
+		})
+		
+
 	}
 
 

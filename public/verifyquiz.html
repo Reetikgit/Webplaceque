@@ -246,6 +246,10 @@
 	function verifyCode(){
 		let code=document.getElementById("code").value
 		let quizData = firebase.database().ref('quizData')
+		let studentData = JSON.parse(window.localStorage.getItem("studentData"))
+		let user =window.localStorage.getItem("user")
+		console.log(studentData[user].quizScores)
+		console.log(studentData)
        	quizData.on('value',gotData,errData)
 
         function gotData(data){
@@ -255,8 +259,14 @@
 			let keys=Object.keys(sc)
 			for(let i =0;i<keys.length;i++){
 				let key = keys[i]
-				console.log(sc[key].info.id)
-				if(code == sc[key].info.id){
+			
+				if(studentData[user].quizScores){
+					if(studentData[user].quizScores.details[key]){
+						flag =undefined
+						break;
+					}
+				}
+				if(code == sc[key].info.id ){
 					flag  = key
 					break;
 				}
@@ -272,14 +282,17 @@
 			}
 			if(flag){
 				let startTime =sc[flag].info.date + " "+(sc[flag].info.startTime).substring(0,5)
-				
+				let endTime =sc[flag].info.date + " "+(sc[flag].info.endTime).substring(0,5)
+				console.log(endTime)
 				var countDownDate = new Date(startTime).getTime();
-		
+				var endTiming = new Date(endTime).getTime();
 				var now = new Date().getTime();
 				
 				var timeleft = countDownDate - now;
-			
-				if(timeleft <=0 ){
+				var isEnded = endTiming -now;
+		
+				if(isEnded > 0){
+				
 
 					if((sc[flag].info.selectedBranches).includes(window.localStorage.getItem("branch")) && (sc[flag].info.selectedYear).includes(year) ){
 						window.localStorage.setItem("quizKey",flag)
@@ -297,15 +310,17 @@
 						},3000)
 					}
 				}else{
+				
 					document.getElementById("verify").style.backgroundColor="red"
 
-					document.getElementById("verify").innerHTML="Quiz Yet To Start"
+					document.getElementById("verify").innerHTML="Invalid Code"
 					setTimeout(function(){
 						document.getElementById("verify").style.backgroundColor="#4DB7FE"
 
 						document.getElementById("verify").innerHTML="Verify"
 					},3000)
 				}
+				
 			}else{
 				document.getElementById("verify").style.backgroundColor="red"
 
