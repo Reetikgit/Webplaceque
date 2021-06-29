@@ -237,8 +237,14 @@
 		data={
 			studentVerified : "rejected"
 		}
-		if(res)
+		data2={
+			lastDetailsUpdated : false
+		}
+		if(res){
 			firebase.database().ref("studentData").child(id).update(data)
+			firebase.database().ref("studentData").child(id).update(data2)
+		}
+			
 	}
 	function openModel(k){
 	
