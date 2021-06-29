@@ -105,15 +105,35 @@
 									</div><!-- Shortcuts -->
 									<div class="widget">
 										<h4 class="widget-title">Upcomming Drives</h4>
-										<ul class="activitiez">
-											<li>
-												<div class="activity-meta">
-													<i>10 hours Ago</i>
-													<span><a href="#" title="">Epam india drive is scheduled on may 1st  </a></span>
-													<h6>All registred student must attend the drive</h6>
+										<ul class="activitiez" id="drives">
+											<div>
+												<div class="ph-row">
+												  <div class="ph-col-12"></div>
+												  <div class="ph-col-2"></div>
+												  <div class="ph-col-10 empty"></div>
+												  <div class="ph-col-8 big"></div>
+												  <div class="ph-col-4 big empty"></div>
 												</div>
-											</li>
-											<li>
+											  </div>
+											  <div>
+												<div class="ph-row">
+												  <div class="ph-col-12"></div>
+												  <div class="ph-col-2"></div>
+												  <div class="ph-col-10 empty"></div>
+												  <div class="ph-col-8 big"></div>
+												  <div class="ph-col-4 big empty"></div>
+												</div>
+											  </div>
+											  <div>
+												<div class="ph-row">
+												  <div class="ph-col-12"></div>
+												  <div class="ph-col-2"></div>
+												  <div class="ph-col-10 empty"></div>
+												  <div class="ph-col-8 big"></div>
+												  <div class="ph-col-4 big empty"></div>
+												</div>
+											  </div>
+											<!-- <li>
 												<div class="activity-meta">
 													<i>2 Days Ago</i>
 													<span><a href="#" title="">All students must register for C2TC traning program</a></span>
@@ -125,7 +145,7 @@
 													<span><a href="#" title="">Capgemeni drive is scheduled on may 3rd </a></span>
 													<h6>"All registered student shuold take the test without fail</h6>
 												</div>
-											</li>
+											</li> -->
 										</ul>
 									</div><!-- recent activites -->
 									<div class="widget stick-widget">
@@ -751,3 +771,37 @@
 <!-- <script src="js/main.min.js"></script>
 <script src="js/script.js"></script> -->
 </html>
+<script>
+	setTimeout(function(){
+
+		let ref3 = firebase.database().ref('driveData')
+		ref3.on('value',gotDrive,errData) 
+		function gotDrive(data){
+			let dc = data.val()
+			let keys = Object.keys(dc)
+			document.getElementById("drives").innerHTML =""
+			for(let i =0 ;i<keys.length;i++){
+				let key = keys[i]
+				document.getElementById("drives").innerHTML += `
+				<li>
+					<div class="activity-meta">
+						<i>`+dc[key].time.substring(0,23)+`</i>
+						<span> <img src=`+dc[key].Driveinfo.photoUrl+` style="width:30px;object-fit:contain"> <a href="#!" onclick=openDrive("`+key+`") title="">`+dc[key].Driveinfo.name+` </a></span>
+						<h6>`+dc[key].Driveinfo.comments+`</h6>
+					</div>
+				</li>
+				`
+			}
+		}
+		function errData(){
+
+		}
+
+	
+
+	},2000)
+	function openDrive(key){
+			window.localStorage.setItem("driveKey",key)
+			window.location="detailCompany.html"
+		}
+</script>

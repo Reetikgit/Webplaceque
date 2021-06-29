@@ -469,262 +469,270 @@ let newInterval = setInterval(function(){
             });
             clearInterval(newInterval)
         }
+    
         var copyData;
         let refData2= firebase.database().ref('studentData')
         let refData= firebase.database().ref('studentData').child(user.uid)
+        if(window.location.href.includes("home.html")){
+            let timelineData = firebase.database().ref('adminTimelineData')
+            timelineData.on('value',gotData,errData)
+        }
+   
+        
+            
         function showTimeline(){
             let uids = window.localStorage.getItem("user")
-        var sc =JSON.parse(window.localStorage.getItem("timelineData"))
-        copyData =JSON.parse(window.localStorage.getItem("studentData"))
-    
-        let keys= Object.keys(sc)
-       
-        let totView=0;
-        let totLike =0
-        let totComment=0
-        if(document.getElementById("timelineData"))
-            document.getElementById("timelineData").innerHTML=""
-  
+            var sc =JSON.parse(window.localStorage.getItem("timelineData"))
+            copyData =JSON.parse(window.localStorage.getItem("studentData"))
+        
+            let keys= Object.keys(sc)
+        
+            let totView=0;
+            let totLike =0
+            let totComment=0
+
             if(document.getElementById("timelineData"))
-                for(let i=keys.length-1;i>=0;i--){
-                 
-                    let key = keys[i]
-                    let type ="embed"
-                    let color="gray"
-                    if(!sc[key].dept){
-                        sc[key].dept ="Training & Placement Department" 
-                    }
-            
-                    if(!sc[key].view){
-                        totView =0
-                    }else{
-                        totView = sc[key].view.length
-                    }
-                    if(!sc[key].comments){
-                        totComment =0
-                    }else{
-                        totComment= sc[key].comments.length
-                    }
-                    if(!sc[key].like){
-                        totLike =0
+                document.getElementById("timelineData").innerHTML=""
+    
+                if(document.getElementById("timelineData"))
+                    for(let i=keys.length-1;i>=0;i--){
                        
-                    }else{
-                        totLike = sc[key].like.length        
-                        let ar ;
-                        ar =sc[key].like
-      
-                        if(ar.includes(uids)){
-                            color = "orange"
-                        }else{
-                          
+                        let key = keys[i]
+                        let type ="embed"
+                        let color="gray"
+                        if(!sc[key].dept){
+                            sc[key].dept ="Training & Placement Department" 
                         }
-                    }
-                    if(sc[key].timelineUrl.includes("pdf") ||sc[key].timelineUrl.includes("xlsx")||sc[key].timelineUrl.includes("docx")){
-                      
-                        type="iframe"
-                    }
-                    let cmtImg =window.localStorage.getItem("studentImage")
-                  
-                    document.getElementById("timelineData").innerHTML+=`
+                
+                        if(!sc[key].view){
+                            totView =0
+                        }else{
+                            totView = sc[key].view.length
+                        }
+                        if(!sc[key].comments){
+                            totComment =0
+                        }else{
+                            totComment= sc[key].comments.length
+                        }
+                        if(!sc[key].like){
+                            totLike =0
+                        
+                        }else{
+                            totLike = sc[key].like.length        
+                            let ar ;
+                            ar =sc[key].like
+        
+                            if(ar.includes(uids)){
+                                color = "orange"
+                            }else{
+                            
+                            }
+                        }
+                        if(sc[key].timelineUrl.includes("pdf") ||sc[key].timelineUrl.includes("xlsx")||sc[key].timelineUrl.includes("docx")){
+                        
+                            type="iframe"
+                        }
+                        let cmtImg =window.localStorage.getItem("studentImage")
+                    
+                        document.getElementById("timelineData").innerHTML+=`
 
-                    <div class="central-meta item" >
-                        <div class="user-post"  onmouseover=increaseView("`+key+`","`+uids+`")>
-                            <div class="friend-info" >
-                                <figure >
-                                   
-                                    <img src="`+sc[key].authorImage+`"  alt="" style="height:50px;object-fit:cover;margin-left:4%">
+                        <div class="central-meta item" >
+                            <div class="user-post"  onmouseover=increaseView("`+key+`","`+uids+`")>
+                                <div class="friend-info" >
+                                    <figure >
                                     
-                                </figure>
-                                <div class="friend-name">
-                                    <ins><a href="time-line.html" title="">`+sc[key].author+`</a></ins>
-                                    <span>Posted on <span>`+sc[key].timeOfPost.substring(0,24)+`</span></span>
-                                    <span><span>`+sc[key].dept+`</span></span>
-                                </div>
-                                <div class="description">
+                                        <img src="`+sc[key].authorImage+`"  alt="" style="height:50px;object-fit:cover;margin-left:4%">
                                         
-                                    <p style="font-weight:600;padding-left:4px;color:black">
-                                        `+sc[key].timelineText+`
-                                    </p>
-                                </div>
-                                <div class="post-meta">
-                                    <`+type+` src="`+sc[key].timelineUrl+`" data-toggle="modal" data-target="#exampleModalPreview`+key+`" alt="">
-                                    
-                                    <div class="we-video-info">
-                                        <hr>
-                                        <ul>
-                                            <li>
-                                                <span class="views" data-toggle="tooltip" title="views">
-                                                    <span class="material-icons">
-                                                     visibility
-                                                    </span>
+                                    </figure>
+                                    <div class="friend-name">
+                                        <ins><a href="time-line.html" title="">`+sc[key].author+`</a></ins>
+                                        <span>Posted on <span>`+sc[key].timeOfPost.substring(0,24)+`</span></span>
+                                        <span><span>`+sc[key].dept+`</span></span>
+                                    </div>
+                                    <div class="description">
+                                            
+                                        <p style="font-weight:600;padding-left:4px;color:black">
+                                            `+sc[key].timelineText+`
+                                        </p>
+                                    </div>
+                                    <div class="post-meta">
+                                        <`+type+` src="`+sc[key].timelineUrl+`" data-toggle="modal" data-target="#exampleModalPreview`+key+`" alt="">
+                                        
+                                        <div class="we-video-info">
+                                            <hr>
+                                            <ul>
+                                                <li>
+                                                    <span class="views" data-toggle="tooltip" title="views">
+                                                        <span class="material-icons">
+                                                        visibility
+                                                        </span>
 
-                                                    <ins>`+ totView+`</ins>
-                                                </span>
-                                            </li>
-                                            <li>
-                                                <span class="comment" data-toggle="tooltip" title="Comments">
+                                                        <ins>`+ totView+`</ins>
+                                                    </span>
+                                                </li>
+                                                <li>
+                                                    <span class="comment" data-toggle="tooltip" title="Comments">
+                                                    
+                                                        <span class="material-icons" data-toggle="modal" data-target="#exampleModalPreview`+key+`" style="cursor:pointer">
+                                                            question_answer
+                                                        </span>
+                                                        <ins>`+totComment+`</ins>
+
+                                                    </span>
+                                                </li>
+                                                <li>
+                                                    <span class="like" data-toggle="tooltip" title="like">
+                                                        <span id="likeColor" class="material-icons" onclick=updateLike("`+key+`","`+uids+`") style="color:`+color+`" >
+                                                        thumb_up
+                                                        </span>
+
+                                                        <ins>`+totLike+`</ins>
+                                                    </span>
+                                                </li>
                                                 
-                                                    <span class="material-icons" data-toggle="modal" data-target="#exampleModalPreview`+key+`" style="cursor:pointer">
-                                                        question_answer
-                                                    </span>
-                                                    <ins>`+totComment+`</ins>
-
-                                                </span>
-                                            </li>
-                                            <li>
-                                                <span class="like" data-toggle="tooltip" title="like">
-                                                    <span id="likeColor" class="material-icons" onclick=updateLike("`+key+`","`+uids+`") style="color:`+color+`" >
-                                                    thumb_up
-                                                    </span>
-
-                                                    <ins>`+totLike+`</ins>
-                                                </span>
-                                            </li>
-                                            
-                                            <li class="social-media">
-                                                <div class="menu">
-                                                <div class="btn trigger"><i class="fa fa-share-alt"></i></div>
-                                                <div class="rotater">
-                                                    <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-html5"></i></a></div>
-                                                </div>
-                                                <div class="rotater">
-                                                    <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-facebook"></i></a></div>
-                                                </div>
-                                                <div class="rotater">
-                                                    <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-google-plus"></i></a></div>
-                                                </div>
-                                                <div class="rotater">
-                                                    <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-twitter"></i></a></div>
-                                                </div>
-                                                <div class="rotater">
-                                                    <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-css3"></i></a></div>
-                                                </div>
-                                                <div class="rotater">
-                                                    <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-instagram"></i></a>
-                                                    </div>
-                                                </div>
+                                                <li class="social-media">
+                                                    <div class="menu">
+                                                    <div class="btn trigger"><i class="fa fa-share-alt"></i></div>
                                                     <div class="rotater">
-                                                    <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-dribbble"></i></a>
+                                                        <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-html5"></i></a></div>
                                                     </div>
-                                                </div>
-                                                <div class="rotater">
-                                                    <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-pinterest"></i></a>
+                                                    <div class="rotater">
+                                                        <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-facebook"></i></a></div>
                                                     </div>
-                                                </div>
+                                                    <div class="rotater">
+                                                        <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-google-plus"></i></a></div>
+                                                    </div>
+                                                    <div class="rotater">
+                                                        <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-twitter"></i></a></div>
+                                                    </div>
+                                                    <div class="rotater">
+                                                        <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-css3"></i></a></div>
+                                                    </div>
+                                                    <div class="rotater">
+                                                        <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-instagram"></i></a>
+                                                        </div>
+                                                    </div>
+                                                        <div class="rotater">
+                                                        <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-dribbble"></i></a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="rotater">
+                                                        <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-pinterest"></i></a>
+                                                        </div>
+                                                    </div>
 
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="coment-area">
-											<ul class="we-comet" id="cmt`+key+`" style="max-height:150px;overflow-y:scroll">
-											
-												
-											</ul>
-									</div>
-                                    <div class="comet-avatar">
-                                            <img style="max-width:30px;;object-fit:cover" src="`+cmtImg+`" alt="">
-                                        
-                                        <div class="post-comt-box">
-                                           
-                                                <input type="text" style="width:90%;border:1px solid gray;border-radius:14px; padding:5px ;word-break: break-all;overflow-wrap: break-word" placeholder="Post your comment" id="cmtmsg`+key+`">
-                                                <div class="add-smiles" style="z-index:999;background:white">
-                                                    <span class="material-icons"    onclick=sendComment("`+key+`","`+uids+`")>
-                                                        send
-                                                    </span>
-                                                </div>
-                                           
+                                                    </div>
+                                                </li>
+                                            </ul>
                                         </div>
-                                    </div>
-                                   
-                                </div>
-                            </div>
-                           
-                        </div>
-                    </div>
-                    <div class="modal fade right" id="exampleModalPreview`+key+`" style="display:none" >
-                            <div class="modal-dialog-full-width modal-dialog momodel modal-fluid" role="document">
-                                <div class="modal-content-full-width modal-content ">
-                                    <div class=" modal-header-full-width   modal-header text-center">
-                                        <figure>
+                                        <div class="coment-area">
+                                                <ul class="we-comet" id="cmt`+key+`" style="max-height:150px;overflow-y:scroll">
+                                                
+                                                    
+                                                </ul>
+                                        </div>
+                                        <div class="comet-avatar">
+                                                <img style="max-width:30px;;object-fit:cover" src="`+cmtImg+`" alt="">
                                             
-                                             <img src="`+sc[key].authorImage+`" alt="" style="height:50px;object-fit:cover;margin-left:4%">
-                                   
-                                        </figure>
-                                        <div class="friend-name">
-                                            <ins><a href="time-line.html" title="">`+sc[key].author+`</a></ins>
-                                            <span>Posted on <span>`+sc[key].timeOfPost.substring(0,24)+`</span></span>
-                                            <span><span>`+sc[key].dept+`</span></span>
+                                            <div class="post-comt-box">
+                                            
+                                                    <input type="text" style="width:90%;border:1px solid gray;border-radius:14px; padding:5px ;word-break: break-all;overflow-wrap: break-word" placeholder="Post your comment" id="cmtmsg`+key+`">
+                                                    <div class="add-smiles" style="z-index:999;background:white">
+                                                        <span class="material-icons"    onclick=sendComment("`+key+`","`+uids+`")>
+                                                            send
+                                                        </span>
+                                                    </div>
+                                            
+                                            </div>
                                         </div>
-                                        <button type="button" class="close " data-dismiss="modal" aria-label="Close">
-                                            <span style="font-size: 1.3em;" aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <`+type+` src="`+sc[key].timelineUrl+`" alt="">
                                     
-                                        <ul class="we-comet" id="cmt2`+key+`" style="max-height:150px;overflow:scroll">
-											
-												
-                                        </ul>
-                                       
                                     </div>
-                                   
+                                </div>
+                            
+                            </div>
+                        </div>
+                        <div class="modal fade right" id="exampleModalPreview`+key+`" style="display:none" >
+                                <div class="modal-dialog-full-width modal-dialog momodel modal-fluid" role="document">
+                                    <div class="modal-content-full-width modal-content ">
+                                        <div class=" modal-header-full-width   modal-header text-center">
+                                            <figure>
+                                                
+                                                <img src="`+sc[key].authorImage+`" alt="" style="height:50px;object-fit:cover;margin-left:4%">
+                                    
+                                            </figure>
+                                            <div class="friend-name">
+                                                <ins><a href="time-line.html" title="">`+sc[key].author+`</a></ins>
+                                                <span>Posted on <span>`+sc[key].timeOfPost.substring(0,24)+`</span></span>
+                                                <span><span>`+sc[key].dept+`</span></span>
+                                            </div>
+                                            <button type="button" class="close " data-dismiss="modal" aria-label="Close">
+                                                <span style="font-size: 1.3em;" aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <`+type+` src="`+sc[key].timelineUrl+`" alt="">
+                                        
+                                            <ul class="we-comet" id="cmt2`+key+`" style="max-height:150px;overflow:scroll">
+                                                
+                                                    
+                                            </ul>
+                                        
+                                        </div>
+                                    
+                                    </div>
                                 </div>
                             </div>
-					    </div>
-                    `
-                     
-                    if(sc[key].comments){
-                         let stdKey=(sc[key].comments[0]['user'])
+                        `
                         
-                        for(let j =sc[key].comments.length-1;j>=0;j--){
+                        if(sc[key].comments){
+                            let stdKey=(sc[key].comments[0]['user'])
                             
-                             document.getElementById("cmt"+key).innerHTML+=`
-                            
-                            <li style="margin-bottom:0 !important">
-                                <div class="comet-avatar">
-                                    <img src="`+copyData[sc[key].comments[j]['user']].photoUrl+`" alt="" style="width:30px;height:30px;object-fit:cover">
-                                </div>
-                                <div class="we-comment">
-                                    <div class="coment-head">
-                                        <h5><a href="time-line.html" title="">`+copyData[sc[key].comments[j]['user']].Name+`</a></h5>
-                                        <span>`+sc[key].comments[j]['time'].substring(0,24)+`</span>
-                                    
+                            for(let j =sc[key].comments.length-1;j>=0;j--){
+                                
+                                document.getElementById("cmt"+key).innerHTML+=`
+                                
+                                <li style="margin-bottom:0 !important">
+                                    <div class="comet-avatar">
+                                        <img src="`+copyData[sc[key].comments[j]['user']].photoUrl+`" alt="" style="width:30px;height:30px;object-fit:cover">
                                     </div>
-                                    <p>`+sc[key].comments[j]['Message']+`</p>
-                                </div>
-                            </li>
-                             `
-                             document.getElementById("cmt2"+key).innerHTML+=`
-                            
-                            <li style="margin-bottom:0 !important">
-                                <div class="comet-avatar">
-                                    <img src="`+copyData[sc[key].comments[j]['user']].photoUrl+`" alt="" style="width:30px;height:30px;object-fit:cover">
-                                </div>
-                                <div class="we-comment">
-                                    <div class="coment-head">
-                                        <h5><a href="time-line.html" title="">`+copyData[sc[key].comments[j]['user']].Name+`</a></h5>
-                                        <span>`+sc[key].comments[j]['time'].substring(0,24)+`</span>
-                                    
+                                    <div class="we-comment">
+                                        <div class="coment-head">
+                                            <h5><a href="time-line.html" title="">`+copyData[sc[key].comments[j]['user']].Name+`</a></h5>
+                                            <span>`+sc[key].comments[j]['time'].substring(0,24)+`</span>
+                                        
+                                        </div>
+                                        <p>`+sc[key].comments[j]['Message']+`</p>
                                     </div>
-                                    <p>`+sc[key].comments[j]['Message']+`</p>
-                                </div>
-                            </li>
-                             `
+                                </li>
+                                `
+                                document.getElementById("cmt2"+key).innerHTML+=`
+                                
+                                <li style="margin-bottom:0 !important">
+                                    <div class="comet-avatar">
+                                        <img src="`+copyData[sc[key].comments[j]['user']].photoUrl+`" alt="" style="width:30px;height:30px;object-fit:cover">
+                                    </div>
+                                    <div class="we-comment">
+                                        <div class="coment-head">
+                                            <h5><a href="time-line.html" title="">`+copyData[sc[key].comments[j]['user']].Name+`</a></h5>
+                                            <span>`+sc[key].comments[j]['time'].substring(0,24)+`</span>
+                                        
+                                        </div>
+                                        <p>`+sc[key].comments[j]['Message']+`</p>
+                                    </div>
+                                </li>
+                                `
+                                
+                        }
                             
-                       }
-                        
+                        }
+                
+                
                     }
-            
-               
-                }
             }
 
         refData.on('value', (snapshot) => {
 				data = snapshot.val();
-               
-                
+             
                 if(document.getElementById("student_name"))
                     document.getElementById("student_name").innerHTML=data.Name
                 
@@ -789,14 +797,14 @@ let newInterval = setInterval(function(){
                         
 				}
 			});
-        let timelineData = firebase.database().ref('adminTimelineData')
-        timelineData.on('value',gotData,errData)
+      
 
         function gotData(data){
-        
-            let nsc= data.val()
             
+            let nsc= data.val()
+            console.log(nsc)
             window.localStorage.setItem("timelineData",JSON.stringify(nsc))
+            
             showTimeline()
 
         }
