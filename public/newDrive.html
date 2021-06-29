@@ -81,20 +81,20 @@
 					
 					</div>
 					<div class="wizard-content">
-						<form class="tab-wizard wizard-circle wizard vertical">
+						<form class="tab-wizard2 wizard-circle wizard vertical">
 							<h5>Personal Info</h5>
 							<section>
 								<div class="row">
 									<div class="col-md-6">
 										<div class="form-group">
 											<label >Company Name</label>
-											<input type="text" class="form-control">
+											<input type="text" class="form-control" id="name">
 										</div>
 									</div>
 									<div class="col-md-6">
 										<div class="form-group">
 											<label >Website url</label>
-											<input type="text" class="form-control">
+											<input type="text" class="form-control" id="url">
 										</div>
 									</div>
 								</div>
@@ -103,7 +103,10 @@
 									<div class="col-md-6">
                                         <div class="form-group">
                                             <label>Company Logo</label>
-                                            <input type="file" class="form-control-file form-control height-auto">
+											<input type="file" name="" id="selectFile" onchange="readURL(this)" style="visibility:hidden;" accept="images/*">
+											<label for="selectFile" class="edit-avatar"><i class="fa fa-pencil" style="cursor: pointer;"></i></label>
+											<img src="https://images.static-collegedunia.com/public/college_data/images/logos/1460356989Sai_Vidya_Institute_of_Technology_Logo.jpg" id="blah" alt="" class="avatar-photo" style="width: 100px;height: 100px; object-fit: cover;" >
+                                           
                                         </div>
 									</div>
 								</div>
@@ -111,16 +114,16 @@
 									<div class="col-md-6">
 										<div class="form-group">
                                             <label>Select Branch/Branches</label>
-                                            <select class="custom-select2 form-control" multiple="multiple" style="width: 100%;">
-                                                <optgroup label="IT Branches">
-                                                    <option value="AK">ISE</option>
-                                                    <option value="HI">CSE</option>
+                                            <select class="custom-select2 form-control" multiple="multiple" style="width: 100%;" id="branch">
+                                                <optgroup label="IT Branches" >
+                                                    <option value="ISE">ISE</option>
+                                                    <option value="CSE">CSE</option>
                                                 </optgroup>
                                                 <optgroup label="Non-IT Branches">
-                                                    <option value="CA">MECH</option>
-                                                    <option value="NV">CIVIL</option>
-                                                    <option value="OR">EEE</option>
-                                                    <option value="WA">ECE</option>
+                                                    <option value="MECH">MECH</option>
+                                                    <option value="CIVIL">CIVIL</option>
+                                                    <option value="EEE">EEE</option>
+                                                    <option value="ECE">ECE</option>
                                                 </optgroup>
                                                
                                             </select>
@@ -129,12 +132,12 @@
 									<div class="col-md-6">
                                         <div class="form-group">
                                             <label>Select Year </label>
-                                            <select class="custom-select2 form-control" multiple="multiple" style="width: 100%;">
-                                                <optgroup label="YOP">
-                                                    <option value="AK">1st Year</option>
-                                                    <option value="HI">2nd Year</option>
-                                                    <option value="HI">3rd Year</option>
-                                                    <option value="HI">4th Year</option>
+                                            <select class="custom-select2 form-control" multiple="multiple" style="width: 100%;" id="year">
+                                                <optgroup label="YOP"></optgroup>
+                                                    <option value="1">1st Year</option>
+                                                    <option value="2">2nd Year</option>
+                                                    <option value="3">3rd Year</option>
+                                                    <option value="4">4th Year</option>
                                                 </optgroup>
                                          
                                             </select>
@@ -149,19 +152,19 @@
 									<div class="col-md-6">
 										<div class="form-group">
 											<label>Job Title :</label>
-											<input type="text" class="form-control">
+											<input type="text" class="form-control" id="jobTitle">
 										</div>
 									</div>
 									<div class="col-md-6">
 										<div class="form-group">
 											<label>Package Offered (Optional) :</label>
-											<input type="text" class="form-control">
+											<input type="text" class="form-control" id="package">
 										</div>
 									</div>
 									<div class="col-md-12">
 										<div class="form-group">
 											<label>Job Description :</label>
-											<textarea class="form-control"></textarea>
+											<textarea class="textarea_editor form-control" id="description" style="height: 40em;"></textarea>
 										</div>
 									</div>
 								</div>
@@ -173,11 +176,11 @@
 									<div class="col-md-6">
 										<div class="form-group">
 											<label>Drive Application Link :</label>
-											<input type="text" class="form-control">
+											<input type="text" class="form-control" id="application">
 										</div>
 										<div class="form-group">
 											<label>Drive Type :</label>
-											<select class="form-control">
+											<select class="form-control" id="driveType">
 												<option>Normal</option>
 												<option>Dream Job</option>
 												<option>1st Time in campus</option>
@@ -187,11 +190,11 @@
 									<div class="col-md-6">
 										<div class="form-group">
 											<label>Registration Deadline Date :</label>
-											<input type="text" class="form-control date-picker" placeholder="Select Date">
+											<input type="text" class="form-control date-picker" placeholder="Select Date" id="date">
 										</div>
 										<div class="form-group">
 											<label>Registration Deadline Time :</label>
-											<input class="form-control time-picker" placeholder="Select time" type="text">
+											<input class="form-control time-picker" placeholder="Select time" type="text" id="time">
 										</div>
 									</div>
 								</div>
@@ -204,7 +207,7 @@
 									<div class="col-md-12">
 										<div class="form-group">
 											<label>Any Comments</label>
-											<textarea class="form-control"></textarea>
+											<textarea class="form-control" id="comments"></textarea>
 										</div>
 									</div>
 								</div>

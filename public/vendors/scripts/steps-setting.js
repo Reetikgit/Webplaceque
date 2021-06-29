@@ -1,4 +1,19 @@
-
+var selectedFile;
+function readURL(input) {
+				
+	if (input.files && input.files[0]) {
+	
+	var reader = new FileReader();
+	reader.onload = function (e) {
+		$('#blah')
+		.attr('src', e.target.result);
+	};
+	
+	selectedFile=input.files[0];
+	reader.readAsDataURL(input.files[0]);
+	 
+	}
+}
 if (performance.navigation.type == performance.navigation.TYPE_RELOAD) {
 
 	console.info( "This page is reloaded" );
@@ -97,7 +112,7 @@ $(".tab-wizard").steps({
 
 	if(QuizInfo == undefined ){
 	
-		alert(8)
+	
 		let title=document.querySelector("#title").value
 		let startTime=document.querySelector("#sttime").value
 		let endTime=document.querySelector("#endtime").value
@@ -218,10 +233,121 @@ $(".tab-wizard2").steps({
 		previous: "Previous",
 	},
 	onStepChanged: function(event, currentIndex, priorIndex) {
+		
 		$('.steps .current').prevAll().addClass('disabled');
+	
+		
+
+
 	},
 	onFinished: function(event, currentIndex) {
 		$('#success-modal-btn').trigger('click');
+		uploadFile()
+		var urls2;
+		function uploadFile(){
+			
+	
+			var storageService = firebase.storage();
+		
+			var uploadTask=storageService.ref(`/DriveImages/${selectedFile.name}`).put(selectedFile);
+			uploadTask.on('state_changed', function(snapshot){
+				var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+				progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+	
+				// document.getElementById("uploadNow").innerHTML = progress;
+					switch (snapshot.state) {
+					case firebase.storage.TaskState.PAUSED: // or 'paused'
+					// document.getElementById("uploadNow").innerHTML = "Upload Paused";
+					console.log('Upload is paused');
+					break;
+					case firebase.storage.TaskState.RUNNING: // or 'running'
+					// document.getElementById("uploadNow").innerHTML = progress+"%";
+	
+					break;
+					}
+					  },function(error){
+						  console.log(error);
+							// Handle unsuccessful uploads
+						  }, function() {
+					//   document.getElementById("uploadNow").innerHTML = "Uploaded"+ " "+progress+"%";
+	
+						 uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+					  
+							urls2 = downloadURL;
+						
+							let name=document.querySelector("#name").value
+							let url=document.querySelector("#url").value
+							let jobTitle=document.querySelector("#jobTitle").value
+							
+							let description= $("#description").data("wysihtml5").editor.getValue()
+							let package=document.querySelector("#package").value
+							let application=document.querySelector("#application").value
+							let comments=document.querySelector("#comments").value
+							let date=document.querySelector("#date").value
+							let time=document.querySelector("#time").value
+							
+							var selectedBranches = [];
+							for (var option of document.getElementById('branch').options)
+							{
+								if (option.selected) {
+									selectedBranches.push(option.value);
+								}
+							}
+							var selectedYear = [];
+							for (var option of document.getElementById('year').options)
+							{
+								if (option.selected) {
+									selectedYear.push(option.value);
+								}
+							}
+							var driveType = [];
+							for (var option of document.getElementById('driveType').options)
+							{
+								if (option.selected) {
+									driveType.push(option.value);
+								}
+							}
+							let id=name.substring(0,2)+Math.floor(Math.random() * 1000) + 1;
+							
+							let Driveinfo ={
+								id:id,
+								name :name,
+								url : url,
+								jobTitle :jobTitle,
+								date :date,
+								time :time,
+								selectedBranches :selectedBranches,
+								selectedYear:selectedYear,
+								driveType :driveType,
+								application :application,
+								package :package,
+								description:description,
+								comments : comments,
+								photoUrl :urls2
+
+							}
+							let refDb = firebase.database().ref("driveData")
+							let form = refDb.push()
+
+							let newForm = form.set({
+								Driveinfo,
+								"key" : form.key
+								
+							}).then(function(){
+								console.log("Done")
+								$('#success-modal').modal('show');
+								setTimeout(function(){
+									window.location.reload()
+								},3000)
+						
+							})
+					
+						
+	
+					});
+				})
+		}
+		
 	
 	}
 });

@@ -248,7 +248,7 @@
 	}
 	function openModel(k){
 	
-	
+					document.getElementById("details").innerHTML= " "
 					 var Name=sc[k].BasicprofileData.basic.fname
 					 var Branch=sc[k].branch
 					 var Sem=sc[k].educationData.education.semester
@@ -274,12 +274,15 @@
 					 var boe10=sc[k].educationData.education.BOE10
 					 var boe12=sc[k].educationData.education.BOE12
 					 var profileimage=sc[k].photoUrl
-					 
 					 document.getElementById("details").innerHTML+=
-					 `<li>
-										<form>
-											<h3>Personal Details</h3>
-											<img src=`+profileimage+` alt="" width="200" height="40" borderradius:100px style="float:right;border-radius:10px; ">
+					`<li>
+					   <form>
+						   <h3 style="color: orange ">Personal Details</h3>
+							<br><br>
+						   <div class="row">
+								<div class="col-lg-12">
+									<div class="row">
+										<div class="col-lg-5">
 											<div class="form-group row">
 												<label class="col-md-8">Student Name - `+Name+`</label>
 											</div>
@@ -299,6 +302,21 @@
 												<label class="col-md-8">Gender - `+Gender+`</label>
 												
 											</div>
+											
+											<div class="form-group row">
+												<label class="col-md-8">Present location - `+presentaddr+`</label>
+												
+											</div>
+											<div class="form-group row">
+												<label class="col-md-8">Permanent location- `+permanentaddr+`</label>
+												
+											</div>
+										</div>
+
+										<div class="col-lg-5">
+											
+						   
+						   
 											<div class="form-group row">
 												<label class="col-md-8">Father Name - `+fathername+` </label>
 												
@@ -312,31 +330,39 @@
 												
 											</div>
 											<div class="form-group row">
-												<label class="col-md-8">official Email id- `+officialemailid+`</label>
-												
-											</div>
-											<div class="form-group row">
-												<label class="col-md-8">Personal Email id - `+personalemailid+`</label>
-												
-											</div>
-											<div class="form-group row">
 												<label class="col-md-8">Date of birth - `+date+`/`+Month+`/`+Year+`</label>
 												
 											</div>
 											<div class="form-group row">
-												<label class="col-md-8">Present location - `+presentaddr+`</label>
+												<label class="col-md-8">Official Email id- `+officialemailid+`</label>
 												
 											</div>
 											<div class="form-group row">
-												<label class="col-md-8">Permanent location- `+permanentaddr+`</label>
+												<label class="col-md-8">Per. Email id - `+personalemailid+`</label>
 												
 											</div>
-										</form>
-									</li>
-									<li>
-										<a href="javascript:;" class="remove-task"  data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Remove Task"><i class="ion-minus-circled"></i></a>
-										<form>
-											<h3>Education Details</h3>
+											
+										</div>
+										<div class="col-lg-2">
+											<img src=`+profileimage+` alt="" width="200" height="40" borderradius:100px style="float:right;border-radius:10px; ">
+										</div>
+									</div>
+								</div>
+							</div>
+						  
+					   </form>
+				   </li>
+				   <li>
+					   <a href="javascript:;" class="remove-task"  data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Remove Task"></a>
+					   <form>
+						   <h3 style="color: orange ">Education Details</h3>
+						   <br><br>
+						   <div class="row">
+								<div class="col-lg-12">
+									<div class="row">
+										<div class="col-lg-4">
+											<h4>College Details</h4>
+											<br>
 											<div class="form-group row">
 												<label class="col-md-8">Highset Qualification- BE</label>
 												
@@ -362,57 +388,71 @@
 												<label class="col-md-8">College Name - `+collegename+`</label>
 												
 											</div>
-											
+										</div>
+										<div class="col-lg-4">
 											<h4>12th/Diploma</h4>
-											<div class="form-group row">
-												<label class="col-md-8">12th/Deploma</label>
+											<br>
+												<div class="form-group row">
+													<label class="col-md-8">12th/Deploma</label>
+													
+												</div>
+												<div class="form-group row">
+													<label class="col-md-8">College Name - `+Collegename12+`</label>
+													
+												</div>
+												<div class="form-group row">
+													<label class="col-md-8">Enter a board of education - `+boe10+`</label>
+													
+												</div>
+												<div class="form-group row">
+													<label class="col-md-8">Percentage - `+percentage12+`</label>
+													
+												</div>
+												<div class="form-group row">
+													<label class="col-md-8">Year of Pass - `+yearofpass12+`</label>
+													
+												</div>
+
 												
-											</div>
-											<div class="form-group row">
-												<label class="col-md-8">College Name - `+Collegename12+`</label>
-												
-											</div>
-											<div class="form-group row">
-												<label class="col-md-8">Enter a board of education - `+boe10+`</label>
-												
-											</div>
-											<div class="form-group row">
-												<label class="col-md-8">Percentage - `+percentage12+`</label>
-												
-											</div>
-											<div class="form-group row">
-												<label class="col-md-8">Year of Pass - `+yearofpass12+`</label>
-												
-											</div>
+										</div>
+										<div class="col-lg-4">
 											<h4>10th class</h4>
-											
-											<div class="form-group row">
-												<label class="col-md-8">School Name - `+schoolname+`</label>
-												
-											</div>
-											<div class="form-group row">
-												<label class="col-md-8">Enter a board of education - `+boe12+`</label>
-												
-											</div>
-											<div class="form-group row">
-												<label class="col-md-8">Percentage - `+schoolmarks+`</label>
-												
-											</div>
-											<div class="form-group row">
-												<label class="col-md-8">Year of Pass -`+yearofpass10+`</label>
-												
-											</div>
+												<br>
+												<div class="form-group row">
+													<label class="col-md-8">School Name - `+schoolname+`</label>
+													
+												</div>
+												<div class="form-group row">
+													<label class="col-md-8">Enter a board of education - `+boe12+`</label>
+													
+												</div>
+												<div class="form-group row">
+													<label class="col-md-8">Percentage - `+schoolmarks+`</label>
+													
+												</div>
+												<div class="form-group row">
+													<label class="col-md-8">Year of Pass -`+yearofpass10+`</label>
+													
+												</div>
 
-
-										</form>
-									</li>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-primary" onclick=acceptStudent("`+k+`") style="background-color:green">Accept</button>
-										<button type="button" class="btn btn-primary" onclick=RejectStudent("`+k+`") style="background-color:red">Reject</button>
-										
-										<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+										</div>
 									</div>
-									`
+								</div>
+							</div>
+						   
+						   
+						   
+						  
+
+					   </form>
+				   </li>
+				   <div class="modal-footer">
+						<button type="button" class="btn btn-primary" onclick=acceptStudent("`+k+`") style="background-color:green">Accept</button>
+						<button type="button" class="btn btn-primary" onclick=RejectStudent("`+k+`") style="background-color:red">Reject</button>
+						
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					</div>
+				   `
 
 
 			 
