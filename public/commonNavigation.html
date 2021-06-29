@@ -996,9 +996,16 @@ function step1(){
             }
         }
     }
+
+    let data2 = {
+        lastDetailsUpdated :true
+    }
     let key=window.localStorage.getItem("user")
   
     firebase.database().ref('studentData').child(key).update(basicData).then(function(){
+        window.location="edit-work-education.html"
+    });
+    firebase.database().ref('studentData').child(key).update(data2).then(function(){
         window.location="edit-work-education.html"
     });
 
@@ -1049,10 +1056,16 @@ function step1Save(){
             }
         }
     }
+    let data2 = {
+        lastDetailsUpdated :true
+    }
     let key=window.localStorage.getItem("user")
-    
+  
     firebase.database().ref('studentData').child(key).update(basicData).then(function(){
         
+    });
+    firebase.database().ref('studentData').child(key).update(data2).then(function(){
+       
     });
 
 }

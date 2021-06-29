@@ -72,6 +72,33 @@ setTimeout(function(){
                     document.getElementById("alert1").style.backgroundColor = "lightgreen"
                     document.getElementById("alert1").style.color="black"
                 }
+                if(data.BasicprofileData  && data.educationData && data.skills && data.studentVerified == true){
+                    document.getElementById("alert2").style.display="none"
+                    document.getElementById("alert1").style.display = "none"
+ 
+                }
+                if(data.BasicprofileData  && data.educationData && data.skills){
+                    document.getElementById("alert2").style.display="none"
+                    document.getElementById("alert1").innerHTML = "Congratulations !! You have successfully updated your profile. Please wait while the placeque Team will verify your details"
+                    document.getElementById("alert1").style.backgroundColor = "lightgreen"
+                    document.getElementById("alert1").style.color="black"
+                }
+  
+                if(data.BasicprofileData  && data.educationData && data.skills && (data.studentVerified == "rejected") && data.lastDetailsUpdated == false){
+
+                    document.getElementById("alert2").style.display="none"
+                    document.getElementById("alert1").innerHTML = "Your profile has been rejected by the admin . PLease cross check the details and upload again"
+                    document.getElementById("alert1").style.backgroundColor = "red"
+                    document.getElementById("alert1").style.color="black"
+ 
+                }
+                if(data.BasicprofileData  && data.educationData && data.skills && data.studentVerified == "rejected" && data.lastDetailsUpdated == true){
+                    document.getElementById("alert2").style.display="none"
+                    document.getElementById("alert1").innerHTML = "Congratulations !! You have successfully updated your profile again . Please wait while the placeque Team will reverify your details"
+                    document.getElementById("alert1").style.backgroundColor = "lightgreen"
+                    document.getElementById("alert1").style.color="black"
+ 
+                }
                 if(data.BasicprofileData){ 
                     let basic =data.BasicprofileData.basic
                     if( data.BasicprofileData.basic){
