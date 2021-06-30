@@ -21,6 +21,8 @@ if (performance.navigation.type == performance.navigation.TYPE_RELOAD) {
 	window.localStorage.removeItem("QuizInfo")
 	window.localStorage.removeItem("QuizQuestion")
 	window.localStorage.removeItem("description")
+	window.localStorage.removeItem("DriveKey")
+	window.localStorage.removeItem("Driveinfo")
 	
   } else {
 	console.info( "This page is not reloaded");
@@ -53,6 +55,27 @@ setTimeout(function(){
 		// $('#instructions').text('It was a dark and stormy night…');
 	}
 
+
+},1000)
+
+setTimeout(function(){
+	let Driveinfo =JSON.parse(window.localStorage.getItem("Driveinfo"))
+	if(Driveinfo){
+		document.querySelector("#name").value = Driveinfo.name
+			document.querySelector("#url").value = Driveinfo.url
+			document.querySelector("#jobTitle").value =Driveinfo.jobTitle
+		
+			document.querySelector("#package").value=Driveinfo.package
+			document.querySelector("#application").value =Driveinfo.application
+			document.querySelector("#comments").value = Driveinfo.comments
+			document.querySelector("#date").value = Driveinfo.date
+			document.querySelector("#time").value = Driveinfo.time
+			document.getElementById("blah").src=Driveinfo.photoUrl
+			document.getElementById("description").value = Driveinfo.description
+			$("#description").data("wysihtml5").editor.setValue(Driveinfo.description)
+							
+		
+	}
 
 },1000)
 
@@ -223,6 +246,9 @@ $(".tab-wizard").steps({
 });
 
 $(".tab-wizard2").steps({
+
+
+	
 	headerTag: "h5",
 	bodyTag: "section",
 	transitionEffect: "fade",
@@ -286,6 +312,7 @@ $(".tab-wizard2").steps({
 							let date=document.querySelector("#date").value
 							let time=document.querySelector("#time").value
 							
+							
 							var selectedBranches = [];
 							for (var option of document.getElementById('branch').options)
 							{
@@ -327,20 +354,34 @@ $(".tab-wizard2").steps({
 
 							}
 							let refDb = firebase.database().ref("driveData")
-							let form = refDb.push()
+							let Driveinfo2 =JSON.parse(window.localStorage.getItem("Driveinfo"))
+							if(Driveinfo2 !=undefined){
+								let DriveKey=window.localStorage.getItem("DriveKey")
+								let dd ={
+									Driveinfo
+								}
+								firebase.database().ref("driveData").child(DriveKey).update(dd)
+								console.log("done")
+								window.location="upcomingDrive.html"
+							}else{
+								let form = refDb.push()
 
-							let newForm = form.set({
-								Driveinfo,
-								"key" : form.key
-								
-							}).then(function(){
-								console.log("Done")
-								$('#success-modal').modal('show');
-								setTimeout(function(){
-									window.location.reload()
-								},3000)
-						
-							})
+								let newForm = form.set({
+									Driveinfo,
+									"key" : form.key,
+									time : new Date(),
+									status :"active"
+									
+								}).then(function(){
+									console.log("Done")
+									$('#success-modal').modal('show');
+									setTimeout(function(){
+										window.location.reload()
+									},3000)
+							
+								})
+							}
+							
 					
 						
 	

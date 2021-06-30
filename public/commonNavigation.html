@@ -528,6 +528,7 @@
 	firebase.analytics();
     var ref=firebase.database().ref('adminData')
     var ref2=firebase.database().ref('quizData')
+    var ref3 = firebase.database().ref('driveData')
     if(window.localStorage.getItem("image"))
         document.getElementById("userImg").src=(window.localStorage.getItem("image"))
     
@@ -545,6 +546,66 @@
             window.localStorage.setItem("userId",user.uid)
             ref.on('value',gotData,errData)
             ref2.on('value',gotQuizData,errData)
+            if(window.location.href.includes("upcomingDrive.html"))
+                ref3.on('value',gotDriveData,errData)
+
+            function gotDriveData(data){
+                let sc=(data.val())
+                window.localStorage.setItem("driveDatabase",JSON.stringify(sc))
+                quizDta =sc
+                let color ="green"
+                let key = Object.keys(sc)
+                if(window.location.href.includes("upcomingDrive.html")){
+                    document.getElementById("allDrives").innerHTML=""
+                    for(let i =0; i<key.length;i++){
+                        let k = sc[key[i]]                           
+                            if(k.status =="active" || k.status =="Active"){
+                                color = "green"
+                            }else{
+                                color = "red"
+                            }
+                            document.getElementById("allDrives").innerHTML+=
+                            `
+                            <div class="col-lg-4 col-md-6 col-sm-12 mb-30">
+                                <div class="card card-box">
+                                    <img class="card-img-top" style="height:200px;objec-fit:contain" src="`+k.Driveinfo.photoUrl+`" alt="Card image cap">
+                                    <div class="card-body">
+                                        <h5 class="card-title weight-500">`+k.Driveinfo.name+` <span style="color:`+color+`;font-weight:700">(`+k.status+`)</span></h5>
+                                        <p class="card-text">
+                                            <ul>
+                                                <li style="color:orange;font-weight:bolder">ID : `+k.Driveinfo.id+`</li>
+                                                <li>Deadline Date : `+k.Driveinfo.date+`</li>
+                                                <b><li>Deadline Time: `+k.Driveinfo.time+`</li>
+                                                <li>Job Title : `+k.Driveinfo.jobTitle+`</li></b>
+                                               <a href="`+k.Driveinfo.application+`" ><li>Application Link: `+k.Driveinfo.application+`</li></a>
+                                                <li>Package : `+k.Driveinfo.package+`</li>
+                                                <li>Drive Type : `+k.Driveinfo.driveType[0]+`</li>
+                                            </ul>
+                                        </p>
+                                        <a href="#!" class="btn btn-primary" style="background:red;border:none" id="deactivate`+key[i]+`" onclick=deactivateDrive("`+key[i]+`")>Deactivate</a>
+                                        <a href="#!" class="btn btn-primary" style="background:green;border:none;display:none" id="activate`+key[i]+`" onclick=activateDrive("`+key[i]+`")>Activate</a>
+                                        <a href="#!" class="btn btn-primary" style="background:orange;border:none" onclick=updateDrive("`+key[i]+`")>Edit</a>
+                                    </div>
+                                </div>
+					        </div>
+                            
+                            `
+                          
+                            if(k.status =="active" || k.status =="Active"){
+                           
+                                 document.getElementById("deactivate"+key[i]).style.display="inline-block"
+                                 document.getElementById("activate"+key[i]).style.display="none"
+                            
+                            }else{
+                            
+                                document.getElementById("deactivate"+key[i]).style.display="none"
+                                document.getElementById("activate"+key[i]).style.display="inline-block"
+                                
+                            }
+                            
+                    }  
+                }
+            }
             function gotQuizData(data){
                 let sc=(data.val())
                 window.localStorage.setItem("quizDatabase",JSON.stringify(sc))
@@ -702,18 +763,42 @@
         firebase.database().ref("quizData").child(key).update(data)
 
     }
-    function updateQuiz(key){
-        let sc = JSON.parse(window.localStorage.getItem("quizDatabase"))
-     
-        if(sc[key].info)
-            window.localStorage.setItem("QuizInfo",JSON.stringify(sc[key].info))
-        if(sc[key].question)
-            window.localStorage.setItem("QuizQuestion",JSON.stringify(sc[key].question))
-        window.localStorage.setItem("quizKey",key)
-        if(sc[key].instruction)
-            window.localStorage.setItem("description",sc[key].instruction)
-        window.location="add-quiz.html"
-    }
+    function deactivateDrive(key){
+
+        let data= {
+            "status" :"Inactive"
+        }
+        firebase.database().ref("driveData").child(key).update(data)
+
+        }
+        function activateDrive(key){
+        let data= {
+            "status" :"active"
+        }
+        firebase.database().ref("driveData").child(key).update(data)
+
+        }
+        function updateQuiz(key){
+            let sc = JSON.parse(window.localStorage.getItem("quizDatabase"))
+        
+            if(sc[key].info)
+                window.localStorage.setItem("QuizInfo",JSON.stringify(sc[key].info))
+            if(sc[key].question)
+                window.localStorage.setItem("QuizQuestion",JSON.stringify(sc[key].question))
+            window.localStorage.setItem("quizKey",key)
+            if(sc[key].instruction)
+                window.localStorage.setItem("description",sc[key].instruction)
+            window.location="add-quiz.html"
+        }
+        function updateDrive(key){
+            let sc = JSON.parse(window.localStorage.getItem("driveDatabase"))
+        
+            if(sc[key].Driveinfo)
+                window.localStorage.setItem("Driveinfo",JSON.stringify(sc[key].Driveinfo))
+                window.localStorage.setItem("DriveKey",key)
+
+            window.location="newDrive.html"
+        }
     function deleteStaff(id,email,pass){
        	
 		firebase.auth().signInWithEmailAndPassword(email, pass).then(function(){
