@@ -8,6 +8,44 @@
 
 <style>
 
+@media only screen and (max-width:500px){
+    .hide-small2{
+        display: block;
+    }
+}
+@media only screen and (min-width:501px){
+    .hide-small2{
+        display: none !important;
+    }
+}
+.mobile-bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  will-change: transform;
+  transform: translateZ(0);
+  display: flex;
+  height: 50px;
+  box-shadow: 0 1px 5px -2px #333;
+  background-color: #fff;
+}
+.mobile-bottom-nav__item {
+  flex-grow: 1;
+  text-align: center;
+  font-size: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.mobile-bottom-nav__item--active {
+  color: orange;
+}
+.mobile-bottom-nav__item-content {
+  display: flex;
+  flex-direction: column;
+}
 </style>
 
 <div id="overlay" style="z-index: 999;">
@@ -396,7 +434,38 @@
         </div>
         </div>
     </div>
-
+    <nav class="mobile-bottom-nav hide-small2">
+        <div class="mobile-bottom-nav__item " id="mainHome" onclick="goTo('home.html')"
+            <div class="mobile-bottom-nav__item-content">
+                <i class="material-icons">home</i>
+                Home
+            </div>		
+        </div>
+        <div class="mobile-bottom-nav__item">		
+            <div class="mobile-bottom-nav__item-content" id="quizNav" onclick="goTo('verifyquiz.html')">
+                <i class="material-icons">quiz</i>
+                Quiz
+            </div>
+        </div>
+        <div class="mobile-bottom-nav__item">
+            <div class="mobile-bottom-nav__item-content" id="profileNav" onclick="goTo('about.html')">
+                <i class="material-icons">person</i>
+                Profile
+            </div>		
+        </div>
+        <div class="mobile-bottom-nav__item">
+            <div class="mobile-bottom-nav__item-content" id="driveNav" onclick="goTo('allDrives.html')"> 
+                <i class="material-icons">article</i>
+                Drives
+            </div>		
+        </div>
+        <div class="mobile-bottom-nav__item">
+            <div class="mobile-bottom-nav__item-content" id="helpNav" onclick="goTo('verifyquiz.html')">
+                <i class="material-icons">support</i>
+                Help
+            </div>		
+        </div>
+    </nav>
 
 <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase.js"></script>
@@ -411,10 +480,30 @@
 <script>
 let index=0;
 
+if(window.location.href.includes("home.html")){
+    let v = document.getElementById("mainHome");
+    v.classList.add("mobile-bottom-nav__item--active");
+}else if(window.location.href.includes("verifyquiz.html") || window.location.href.includes("takequiz.html") ||window.location.href.includes("instructionquiz.html")) {
+    let v = document.getElementById("quizNav");
+    v.classList.add("mobile-bottom-nav__item--active");
+    let v2 = document.getElementById("mainHome");
+    v2.classList.remove("mobile-bottom-nav__item--active");
+}
+else if(window.location.href.includes("about.html") || window.location.href.includes("edit-profile-basic.html") ||window.location.href.includes("edit-work-education.html")
+||window.location.href.includes("edit-interest.html") ||window.location.href.includes("edit-password.html")) {
+    let v = document.getElementById("profileNav");
+    v.classList.add("mobile-bottom-nav__item--active");
+
+}else if(window.location.href.includes("allDrives.html") || window.location.href.includes("detailCompany.html")) {
+    let v = document.getElementById("driveNav");
+    v.classList.add("mobile-bottom-nav__item--active");
+
+}
+
 setTimeout(function(){
     document.getElementById("overlay").style.display="none"
     document.getElementById("loader").style.display="none"
-},2500)
+},300)
 var globalUser
 
 
@@ -1220,5 +1309,19 @@ function step3(){
     firebase.database().ref('studentData').child(key).update(basicData).then(function(){
        
     });
+
+    var navItems = document.querySelectorAll(".mobile-bottom-nav__item");
+        navItems.forEach(function(e, i) {
+            e.addEventListener("click", function(e) {
+                navItems.forEach(function(e2, i2) {
+                    e2.classList.remove("mobile-bottom-nav__item--active");
+                })
+                this.classList.add("mobile-bottom-nav__item--active");
+            });
+        });
+}
+
+function goTo(place){
+    window.location=place
 }
 </script>
