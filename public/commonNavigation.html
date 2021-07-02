@@ -82,16 +82,31 @@
     <nav id="menu" class="res-menu">
         <ul>
             <li> <a href="home.html"><span>Home</span>
-                <!-- <ul>
-                    <li><a href="index-2.html" title="">Home Social</a></li>
-                    <li><a href="index2.html" title="">Home Social 2</a></li>
-                    <li><a href="index-company.html" title="">Home Company</a></li>
-                    <li><a href="landing.html" title="">Login page</a></li>
-                    <li><a href="logout.html" title="">Logout Page</a></li>
-                    <li><a href="newsfeed.html" title="">news feed</a></li>
-                </ul> -->
+               
             </li></a>
-            <li><span>Time Line</span>
+            <li> <a href="verifyquiz.html"><span>Take Quiz</span>
+               
+            </li></a>
+            <li> <a href="classStudents.html"><span>Class Students</span>
+               
+            </li></a>
+            <li> <a href="otherStudents.html"><span>Other Students</span>
+               
+            </li></a>
+            <li> <a href="allDrives.html"><span>All Drives</span>
+               
+            </li></a>
+            <li> <a href="resume1.html"><span>Your Resume</span>
+               
+            </li></a>
+            <li> <a href="home.html"><span>Raise a query</span>
+               
+            </li></a>
+            <li> <a href="edit-profile-basic.html"><span>Your Profile</span>
+               
+            </li></a>
+            
+            <!-- <li><span>Time Line</span>
                 <ul>
                     <li><a href="time-line.html" title="">timeline</a></li>
                     <li><a href="timeline-friends.html" title="">timeline friends</a></li>
@@ -179,7 +194,7 @@
             <li><a href="about-company.html" title="">About Us2</a></li>
             <li><a href="contact.html" title="">contact</a></li>
             <li><a href="contact-branches.html" title="">Contact Us2</a></li>
-            <li><a href="widgets.html" title="">Widgts</a></li>
+            <li><a href="widgets.html" title="">Widgts</a></li> -->
 
             <li><span onclick="logout()">Logout</span></li>
         </ul>
@@ -532,6 +547,7 @@ let newInterval = setInterval(function(){
     if(user){
         globalUser=user;
         window.localStorage.setItem("user",user.uid)
+        window.localStorage.setItem("userId",user.uid)
         let current_user=user;
         index=1;
         if(index == 1){
@@ -565,9 +581,111 @@ let newInterval = setInterval(function(){
         if(window.location.href.includes("home.html")){
             let timelineData = firebase.database().ref('adminTimelineData')
             timelineData.on('value',gotData,errData)
+
+            let allstds =JSON.parse(window.localStorage.getItem("studentData"))
+
+            let kys=Object.keys(allstds)
+            document.getElementById("people-list").innerHTML=""
+            for(let i=0;i<kys.length;i++){
+                let key=kys[i];
+                if(allstds[key].educationData &&allstds[key].BasicprofileData ){
+               
+                if(allstds[key].educationData.education.semester == window.localStorage.getItem("sem") && allstds[key].educationData.education.branch ==window.localStorage.getItem("branch")  ){
+                    if(!allstds[key].photoUrl){
+                        allstds[key].photoUrl="https://img.icons8.com/bubbles/2x/user-male.png"
+                    }
+                    document.getElementById("people-list").innerHTML+=`
+                    <li>								
+                        <figure>
+                            <img style="width:30px;height:30px;object-fit:cover" src="`+allstds[key].photoUrl+`" alt="">
+                            <span class="status f-online"></span>
+                        </figure>
+                        <div class="friendz-meta">
+                            <a href="time-line.html">`+allstds[key].BasicprofileData.basic.fname+`</a>
+                            <i>`+allstds[key].educationData.education.usn+`</i>
+                        </div>
+                    </li>
+                    `
+                }else{
+                    if(!allstds[key].photoUrl){
+                        allstds[key].photoUrl="https://img.icons8.com/bubbles/2x/user-male.png"
+                    }
+                    document.getElementById("other-list").innerHTML+=`
+                    <li>								
+                        <figure>
+                            <img style="width:30px;height:30px;object-fit:cover" src="`+allstds[key].photoUrl+`" alt="">
+                            <span class="status f-online"></span>
+                        </figure>
+                        <div class="friendz-meta">
+                            <a href="time-line.html">`+allstds[key].BasicprofileData.basic.fname+`</a>
+                            <i>`+allstds[key].educationData.education.usn+`</i>
+                        </div>
+                    </li>
+                    ` 
+                }
+            }
+            }
         }
-   
-        
+        if(window.location.href.includes("classStudents.html")){
+           
+            let allstds =JSON.parse(window.localStorage.getItem("studentData"))
+
+            let kys=Object.keys(allstds)
+            document.getElementById("people-list").innerHTML=""
+            for(let i=0;i<kys.length;i++){
+                let key=kys[i];
+                if(allstds[key].educationData &&allstds[key].BasicprofileData ){
+               
+                    if(allstds[key].educationData.education.semester == window.localStorage.getItem("sem") && allstds[key].educationData.education.branch ==window.localStorage.getItem("branch")  ){
+                        if(!allstds[key].photoUrl){
+                            allstds[key].photoUrl="https://img.icons8.com/bubbles/2x/user-male.png"
+                        }
+                        document.getElementById("people-list").innerHTML+=`
+                        <li>								
+                            <figure>
+                                <img style="width:30px;height:30px;object-fit:cover" src="`+allstds[key].photoUrl+`" alt="">
+                                <span class="status f-online"></span>
+                            </figure>
+                            <div class="friendz-meta">
+                                <a href="time-line.html">`+allstds[key].BasicprofileData.basic.fname+`</a>
+                                <i>`+allstds[key].educationData.education.usn+`</i>
+                            </div>
+                        </li>
+                        `
+                    }
+                }
+            }
+        }
+        if(window.location.href.includes("otherStudents.html")){
+          
+           let allstds =JSON.parse(window.localStorage.getItem("studentData"))
+
+           let kys=Object.keys(allstds)
+           document.getElementById("other-list").innerHTML=""
+           for(let i=0;i<kys.length;i++){
+               let key=kys[i];
+               if(allstds[key].educationData &&allstds[key].BasicprofileData ){
+               
+                   if(allstds[key].educationData.education.semester != window.localStorage.getItem("sem") && allstds[key].educationData.education.branch != window.localStorage.getItem("branch")  ){
+                       if(!allstds[key].photoUrl){
+                           allstds[key].photoUrl="https://img.icons8.com/bubbles/2x/user-male.png"
+                       }
+                       document.getElementById("other-list").innerHTML+=`
+                       <li>								
+                           <figure>
+                               <img style="width:30px;height:30px;object-fit:cover" src="`+allstds[key].photoUrl+`" alt="">
+                               <span class="status f-online"></span>
+                           </figure>
+                           <div class="friendz-meta">
+                               <a href="time-line.html">`+allstds[key].BasicprofileData.basic.fname+`</a>
+                               <i>`+allstds[key].educationData.education.usn+`</i>
+                           </div>
+                       </li>
+                       `
+                   }
+               }
+           }
+       }
             
         function showTimeline(){
             let uids = window.localStorage.getItem("user")
@@ -630,7 +748,7 @@ let newInterval = setInterval(function(){
                                 <div class="friend-info" >
                                     <figure >
                                     
-                                        <img src="`+sc[key].authorImage+`"  alt="" style="height:50px;object-fit:cover;margin-left:4%">
+                                        <img src="`+sc[key].authorImage+`"  alt="" style="height:30px;height:30px;object-fit:cover;margin-left:4%">
                                         
                                     </figure>
                                     <div class="friend-name">
@@ -844,6 +962,7 @@ let newInterval = setInterval(function(){
                         document.getElementById("student_name").innerHTML=data.BasicprofileData.basic.fname +" "+data.BasicprofileData.basic.lname
                     }
                 }
+            
                 window.localStorage.setItem("studentImage",data.photoUrl)
                 if(document.getElementById("blah")){
                     if(data.photoUrl){
@@ -864,10 +983,13 @@ let newInterval = setInterval(function(){
                 if(data.educationData && window.location.href.includes("edit")){
                     if(data.educationData.education){
                         document.getElementById("sem").innerHTML=data.educationData.education.semester
+               
+                         window.localStorage.setItem("branch", data.educationData.education.branch)
+                         window.localStorage.setItem("sem", data.educationData.education.semester)
                     }
                 }
-                window.localStorage.setItem("branch", data.branch)
-                window.localStorage.setItem("sem", data.educationData.education.semester)
+                
+               
                 if(document.getElementById("branch"))
                     document.getElementById("branch").innerHTML = data.branch
                 if(data.educationData && window.location.href.includes("edit") ){
@@ -875,9 +997,10 @@ let newInterval = setInterval(function(){
                         document.getElementById("branch").innerHTML=data.educationData.education.branch
                     }
                 }
-            
+               
 				if(data.studentVerified ==true || data.studentVerified =="true"){
 					//Do Nothing
+
 				}else{
                     if(!(window.location.href).includes("edit-profile-basic.html")
                     && !(window.location.href).includes("edit-work-education.html") && !(window.location.href).includes("edit-interest.html") 
@@ -1040,7 +1163,8 @@ if(message!=""){
 function logout(){
     firebase.auth().signOut().then(function() {
         // Sign-out successful.
-      
+        window.localStorage.removeItem("user")
+        window.localStorage.removeItem("userId")
          window.location="index.html"
         }).catch(function(error) {
         // An error happened.
@@ -1175,6 +1299,7 @@ function step2(){
     let collegeCity = document.querySelector("#collegeCity").value
     let branch = document.querySelector("#branch2").value
     let semester = document.getElementById("semester2").value
+    let usn=document.getElementById("usn").value
 
     let Xname =document.querySelector("#Xname").value
     let Xfrom =document.querySelector("#Xfrom").value
@@ -1201,6 +1326,7 @@ function step2(){
                 branch:branch,
                 semester:semester,
                 Xname:Xname,
+                usn:usn,
                 Xfrom :Xfrom,
                 Xto:Xto,
                 Xmarks :Xmarks,
@@ -1230,6 +1356,7 @@ function step2Save(){
     let collegeCity = document.querySelector("#collegeCity").value
     let branch = document.querySelector("#branch2").value
     let semester = document.getElementById("semester2").value
+    let usn=document.getElementById("usn").value
 
     let Xname =document.querySelector("#Xname").value
     let Xfrom =document.querySelector("#Xfrom").value
@@ -1256,6 +1383,7 @@ function step2Save(){
                 branch:branch,
                 semester:semester,  
                 Xname:Xname,
+                usn:usn,
                 Xfrom :Xfrom,
                 BOE10 :BOE10,
                 BOE12 :BOE12,

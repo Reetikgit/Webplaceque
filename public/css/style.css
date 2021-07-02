@@ -1990,6 +1990,17 @@ li.post-comment .comet-avatar {
     padding: 0 20px;
 }
 
+#searchDir2 .filterinput {
+    border: 1px solid #eaeaea;
+    color: #575757;
+    font-size: 14px;
+    padding: 5px 10px;
+    width: 100%;
+}
+
+#searchDir2 {
+    padding: 0 20px;
+}
 #people-list {
     margin-top: 20px;
     max-height: 450px;

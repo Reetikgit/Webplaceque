@@ -87,6 +87,7 @@ $('.notification-box > ul li > i.del').on("click", function(){
 //search friends widget
 	$(function () {
 	  listFilter($("#searchDir"), $("#people-list"));
+	  listFilter($("#searchDir2"), $("#other-list"));
 	});
 	}(jQuery));	
 
