@@ -207,7 +207,7 @@
 
 <div class="topbar stick">
     <div class="logo">
-        <a title="" href="newsfeed.html"><img src="" alt="">placeQue</a>
+        <a title="" href="home.html"><img src="" alt="">placeQue</a>
     </div>
     
     <div class="top-area">
@@ -580,8 +580,17 @@ let newInterval = setInterval(function(){
     
         var copyData;
         let refData2= firebase.database().ref('studentData')
-        let refData= firebase.database().ref('studentData').child(user.uid)
-        if(window.location.href.includes("home.html")){
+        refData2.on('value', (snapshot) => {
+            let copyData = snapshot.val();
+            window.localStorage.setItem("studentData",JSON.stringify(copyData))
+            let data=JSON.parse(window.localStorage.getItem("studentData"))
+            let user =window.localStorage.getItem("userId")
+            console.log(data)
+            if(data[user].educationData){
+                window.localStorage.setItem("branch", data[user].educationData.education.branch)
+                window.localStorage.setItem("sem", data[user].educationData.education.semester)
+            }
+            if(window.location.href.includes("home.html")){
             let timelineData = firebase.database().ref('adminTimelineData')
             timelineData.on('value',gotData,errData)
 
@@ -691,6 +700,10 @@ let newInterval = setInterval(function(){
             }
             }
         }
+		
+        })
+        let refData= firebase.database().ref('studentData').child(user.uid)
+        
         if(window.location.href.includes("classStudents.html")||window.location.href.includes("about.html")){
            
             let allstds =JSON.parse(window.localStorage.getItem("studentData"))
@@ -1017,8 +1030,9 @@ let newInterval = setInterval(function(){
                                 </div>
                             </div>
                         `
-                        
+                     
                         if(sc[key].comments){
+                  
                             let stdKey=(sc[key].comments[0]['user'])
                             
                             for(let j =sc[key].comments.length-1;j>=0;j--){
@@ -1039,6 +1053,7 @@ let newInterval = setInterval(function(){
                                     </div>
                                 </li>
                                 `
+                               
                                 document.getElementById("cmt2"+key).innerHTML+=`
                                 
                                 <li style="margin-bottom:0 !important">
@@ -1056,7 +1071,9 @@ let newInterval = setInterval(function(){
                                 </li>
                                 `
                                 
-                        }
+                            }
+                            
+                        }else{
                             
                         }
                 
@@ -1142,15 +1159,13 @@ let newInterval = setInterval(function(){
             
             let nsc= data.val()
             console.log(nsc)
+          
             window.localStorage.setItem("timelineData",JSON.stringify(nsc))
             
             showTimeline()
 
         }
-        refData2.on('value', (snapshot) => {
-            let copyData = snapshot.val();
-            window.localStorage.setItem("studentData",JSON.stringify(copyData))
-        })
+        
        
                
         function errData(error){

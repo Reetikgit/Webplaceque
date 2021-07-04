@@ -601,10 +601,8 @@
 	setTimeout(function(){
 
 		let ref3 = firebase.database().ref('driveData')
-		let data=JSON.parse(window.localStorage.getItem("studentData"))
-		let user =window.localStorage.getItem("userId")
-		window.localStorage.setItem("branch", data[user].educationData.education.branch)
-        window.localStorage.setItem("sem", data[user].educationData.education.semester)
+	
+       
 		ref3.on('value',gotDrive,errData) 
 		function gotDrive(data){
 			let dc = data.val()
@@ -630,7 +628,7 @@
 
 	
 
-	},2000)
+	},2500)
 	function openDrive(key){
 			window.localStorage.setItem("driveKey",key)
 			window.location="detailCompany.html"
