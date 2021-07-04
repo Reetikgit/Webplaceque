@@ -201,8 +201,12 @@ span.tags
 
                   </div>  
              </div>
-             <button id="cmd">Download</button>                 
+             <button style="border:none;border-radius:5px;padding:10px;background-color: #f1c40f;" id="cmd">Download</button>      
+			
+			 <button onclick="secure()" style="border:none;border-radius:5px;padding:10px;background-color: #f1c40f;">One tap secure resume</button>              
+			 <h4 id="passtxt" style="font-weight: bolder;">Pass key is <span style="color: red;" id="passkey"></span></h4>
           </div>
+	
         </div>
       </div>
 		</div>	
@@ -390,11 +394,25 @@ document.getElementById("image").src=userImage
 
 let sc =  JSON.parse(window.localStorage.getItem("studentData"))
 let user =  window.localStorage.getItem("user")
-console.log(sc[user].BasicprofileData.basic.day)
+
 document.getElementById("name").innerHTML = sc[user].Name
 document.getElementById("add").innerHTML = sc[user].BasicprofileData.basic.day
 document.getElementById("phone").innerHTML = sc[user].Name
 document.getElementById("email").innerHTML = sc[user].email
-
+if(sc[user].resumeProtected && sc[user].resumeProtected!="false"){
+	document.getElementById("passtxt").style.display="block"
+	document.getElementById("passkey").innerHTML = sc[user].resumeProtected
+}else{
+	document.getElementById("passtxt").style.display="none"
+}
+function secure(){
+	let random =  "R"+Math.floor((Math.random() * 100) + 1)+"PKQUE"+Math.floor((Math.random() * 1000) + 1);
+	let passkey =random
+	data={
+		resumeProtected : random
+	}
+	firebase.database().ref('studentData').child(user).update(data)
+	window.location.reload()
+}
 </script>
 </html>

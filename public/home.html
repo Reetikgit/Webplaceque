@@ -395,17 +395,17 @@
 									</div><!-- page like widget -->
 									<div class="widget">
 										<div class="banner medium-opacity bluesh">
-											<div class="bg-image" style="background-image: url(https://cdn5.vectorstock.com/i/1000x1000/18/69/cv-or-resume-related-icons-image-vector-12641869.jpg)"></div>
+											<div class="bg-image" style="background-image: url(https://i.pinimg.com/originals/88/6b/15/886b1598b09c5c588004570c4fd1e28c.gif)"></div>
 											<div class="baner-top">
 												<span><img alt="" src="https://cdn5.vectorstock.com/i/1000x1000/18/69/cv-or-resume-related-icons-image-vector-12641869.jpg"></span>
 												<i class="fa fa-ellipsis-h"></i>
 											</div>
 											<div class="banermeta">
 												<p>
-													Generate your own resume Now
+													Your resume is ready with us 
 												</p>
 												<span>like them all</span>
-												<a href="resume1.html" data-ripple="" title="" href="#">Generate now!</a>
+												<a href="resume1.html" data-ripple="" title="" href="#">View now!</a>
 											</div>
 										</div>											
 									</div>
@@ -414,70 +414,20 @@
 										<div id="searchDir"></div>
 										<ul id="people-list" class="friendz-list"	>
 											
-											
+											<li>
+												<figure>
+													<img src="images/resources/friend-avatar.jpg" alt="">
+													<span class="status f-online"></span>
+												</figure>
+												<div class="friendz-meta">
+													<a href="time-line.html">Akash</a>
+													<i><a href="https://wpkixx.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a0d7c9ced4c5d2d3cfccc4c5d2e0c7cdc1c9cc8ec3cfcd">[email&#160;protected]</a></i>
+												</div>
+											</li>
 											
 										</ul>
-										<div class="chat-box">
-											<div class="chat-head">
-												<span class="status f-online"></span>
-												<h6>Bucky Barnes</h6>
-												<div class="more">
-													<span><i class="ti-more-alt"></i></span>
-													<span class="close-mesage"><i class="ti-close"></i></span>
-												</div>
-											</div>
-											<div class="chat-list">
-												<ul>
-													<li class="me">
-														<div class="chat-thumb"><img src="images/resources/chatlist1.jpg" alt=""></div>
-														<div class="notification-event">
-															<span class="chat-message-item">
-																Hi James! Please remember to buy the food for tomorrow! I’m gonna be handling the gifts and Jake’s gonna get the drinks
-															</span>
-															<span class="notification-date"><time datetime="2004-07-24T18:18" class="entry-date updated">Yesterday at 8:10pm</time></span>
-														</div>
-													</li>
-													<li class="you">
-														<div class="chat-thumb"><img src="images/resources/chatlist2.jpg" alt=""></div>
-														<div class="notification-event">
-															<span class="chat-message-item">
-																Hi James! Please remember to buy the food for tomorrow! I’m gonna be handling the gifts and Jake’s gonna get the drinks
-															</span>
-															<span class="notification-date"><time datetime="2004-07-24T18:18" class="entry-date updated">Yesterday at 8:10pm</time></span>
-														</div>
-													</li>
-													<li class="me">
-														<div class="chat-thumb"><img src="images/resources/chatlist1.jpg" alt=""></div>
-														<div class="notification-event">
-															<span class="chat-message-item">
-																Hi James! Please remember to buy the food for tomorrow! I’m gonna be handling the gifts and Jake’s gonna get the drinks
-															</span>
-															<span class="notification-date"><time datetime="2004-07-24T18:18" class="entry-date updated">Yesterday at 8:10pm</time></span>
-														</div>
-													</li>
-												</ul>
-												<form class="text-box">
-													<textarea placeholder="Post enter to post..."></textarea>
-													<div class="add-smiles">
-														<span title="add icon" class="em em-expressionless"></span>
-													</div>
-													<div class="smiles-bunch">
-														<i class="em em---1"></i>
-														<i class="em em-smiley"></i>
-														<i class="em em-anguished"></i>
-														<i class="em em-laughing"></i>
-														<i class="em em-angry"></i>
-														<i class="em em-astonished"></i>
-														<i class="em em-blush"></i>
-														<i class="em em-disappointed"></i>
-														<i class="em em-worried"></i>
-														<i class="em em-kissing_heart"></i>
-														<i class="em em-rage"></i>
-														<i class="em em-stuck_out_tongue"></i>
-													</div>
-													<button type="submit"></button>
-												</form>
-											</div>
+										<div id="chat-box-hub">
+
 										</div>
 									</div><!-- friends list sidebar -->
 								</aside>
@@ -651,6 +601,10 @@
 	setTimeout(function(){
 
 		let ref3 = firebase.database().ref('driveData')
+		let data=JSON.parse(window.localStorage.getItem("studentData"))
+		let user =window.localStorage.getItem("userId")
+		window.localStorage.setItem("branch", data[user].educationData.education.branch)
+        window.localStorage.setItem("sem", data[user].educationData.education.semester)
 		ref3.on('value',gotDrive,errData) 
 		function gotDrive(data){
 			let dc = data.val()

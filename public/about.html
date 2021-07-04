@@ -8,82 +8,68 @@
     <meta name="keywords" content="" />
 	<title>placeQue - Career Tool</title>
     <link rel="icon" href="images/logo23.png" type="image/png" sizes="16x16"> 
-    
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="css/main.min.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/color.css">
     <link rel="stylesheet" href="css/responsive.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 </head>
 <script>
 		
-	
 	$(document).ready(function(){
 	
 	$('#navigation').load("commonNavigation.html");
-		
+	$('#commonProfile').load("commonProfile.html");
+	$('#profileTask').load("profileTask.html");
 });
 </script>
 <body>
 <!--<div class="se-pre-con"></div>-->
 <div class="theme-layout">
-	
-	
 	<div id="navigation"></div>
-	<section>
-		<div class="feature-photo">
-			<figure><img src="https://i.pinimg.com/originals/9e/05/f9/9e05f930e4cb3855169205c469cf3b99.jpg" alt=""></figure>
-			<div class="add-btn">
-				<span>Reetikchitragupt@gmail.com</span>
-				<a href="#" title="" data-ripple="" disabled="true">512 SGPS</a>
-			</div>
-			<!-- <form class="edit-phto">
-				<i class="fa fa-camera-retro"></i>
-				<label class="fileContainer">
-					Edit Cover Photo
-				<input type="file"/>
-				</label>
-			</form> -->
-			<div class="container-fluid">
-				<div class="row merged">
-					<div class="col-lg-2 col-sm-3">
-						<div class="user-avatar">
-							<figure>
-								<img src="https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png" alt="">
-								<form class="edit-phto">
-									<i class="fa fa-camera-retro"></i>
-									<label class="fileContainer">
-										Edit Display Photo
-										<input type="file"/>
-									</label>
-								</form>
-							</figure>
-						</div>
+	<div class="feature-photo">
+		<figure><img src="https://www.iesonline.co.in/colleges-image/sai-vidhya-institute-lg.jpg" alt=""></figure>
+		<!-- <div class="add-btn">
+			<span>1205 followers</span>
+			<a href="#" title="" data-ripple="">Add Friend</a>
+		</div> -->
+	
+		<div class="container-fluid">
+			<div class="row merged">
+				<div class="col-lg-2 col-sm-3">
+					<div class="user-avatar">
+						<figure>
+							<img style="height: 100px;object-fit: contain;" id="studimage" src="https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png" alt="">
+							
+						</figure>
 					</div>
-					<div class="col-lg-10 col-sm-9">
-						<div class="timeline-info">
-							<ul>
-								<li class="admin-name">
-								  <h5>Rishabh Singh</h5>
-								  <span>8rd Semester ISE</span>
-								</li>
-								<li>
-									<!-- <a class="" href="time-line.html" title="" data-ripple="">time line</a>
-									<a class="" href="timeline-photos.html" title="" data-ripple="">Photos</a>
-									<a class="" href="timeline-videos.html" title="" data-ripple="">Videos</a>
-									<a class="" href="timeline-friends.html" title="" data-ripple="">Friends</a>
-									<a class="" href="timeline-groups.html" title="" data-ripple="">Groups</a> -->
-									<a class="active" href="about.html" title="" data-ripple="">about</a>
-									<a class="" href="edit-profile-basic.html" title="" data-ripple="">Edit Info</a>
-								</li>
-							</ul>
-						</div>
+				</div>
+				<div class="col-lg-10 col-sm-9">
+					<div class="timeline-info">
+						<ul>
+					
+							<li class="admin-name">
+							  <h5 id="studname">Loading..</h5>
+	
+							</li>
+							<li>
+								   <span style="font-weight: 700;"> Semester - </span> <span style="font-weight: bold; padding-right:10px ;" id="studsem">....</span>
+	
+									<span style="font-weight: 700;">Branch - </span><a href="#" title="" data-ripple="" id="studbranch">....</a>
+							</li>
+					
+							
+						</ul>
 					</div>
+			
 				</div>
 			</div>
 		</div>
+	</div>
+
 	</section><!-- top area -->
-		
+
 	<section>
 		<div class="gap gray-bg">
 			<div class="container-fluid">
@@ -91,84 +77,50 @@
 					<div class="col-lg-12">
 						<div class="row" id="page-contents">
 							<div class="col-lg-3">
-								
 								<aside class="sidebar static">
-									<div class="widget">
-									<h4 class="widget-title">Edit info</h4>
-									<ul class="naves">
-										<li>
-											<i class="ti-info-alt"></i>
-											<a title="" href="edit-profile-basic.html">Basic info</a>
-										</li>
-										<li>
-											<i class="ti-mouse-alt"></i>
-											<a title="" href="edit-work-education.html">Education &amp; Work</a>
-										</li>
-										<li>
-											<i class="ti-heart"></i>
-											<a title="" href="edit-interest.html">My interests</a>
-										</li>
-										<li>
-											<i class="ti-settings"></i>
-											<a title="" href="edit-account-setting.html">account setting</a>
-										</li>
-										<li>
-											<i class="ti-lock"></i>
-											<a title="" href="edit-password.html">change password</a>
-										</li>
-									</ul>
-								</div>
-									<div class="widget">
-											<h4 class="widget-title">Socials</h4>
-											<ul class="socials">
-												<li class="facebook">
-													<a title="" href="#"><i class="fa fa-facebook"></i> <span>facebook</span> <ins>45 likes</ins></a>
-												</li>
-												<li class="twitter">
-													<a title="" href="#"><i class="fa fa-twitter"></i> <span>twitter</span><ins>25 likes</ins></a>
-												</li>
-												<li class="google">
-													<a title="" href="#"><i class="fa fa-google"></i> <span>google</span><ins>35 likes</ins></a>
-												</li>
-											</ul>
-										</div>									
+									
+									<div class="widget friend-list stick-widget">
+										<h4 class="widget-title">See Also</h4>
+										<div id="searchDir"></div>
+										<ul id="people-list" class="friendz-list"	>
+											
+											
+											
+										</ul>
+										<div id="chat-box-hub">
+
+										</div>
+									</div><!-- friends list sidebar -->
 								</aside>
-							</div><!-- sidebar -->
+							</div>
 							<div class="col-lg-6">
 								<div class="central-meta">
 									<div class="about">
 										<div class="personal">
-											<h5 class="f-title"><i class="ti-info-alt"></i> Personal Info</h5>
-											<p>
-												Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-											</p>
+											<h5 class="f-title"><i class="ti-info-alt"></i>Information</h5>
+											
 										</div>
 										<div class="d-flex flex-row mt-2">
 											<ul class="nav nav-tabs nav-tabs--vertical nav-tabs--left" >
 												<li class="nav-item">
 													<a href="#basic" class="nav-link active" data-toggle="tab" >Basic info</a>
 												</li>
+												
 												<li class="nav-item">
-													<a href="#location" class="nav-link" data-toggle="tab" >location</a>
-												</li>
-												<li class="nav-item">
-													<a href="#work" class="nav-link" data-toggle="tab" >work and education</a>
+													<a href="#work" class="nav-link" data-toggle="tab" >Education</a>
 												</li>
 												<li class="nav-item">
 													<a href="#interest" class="nav-link" data-toggle="tab"  >interests</a>
 												</li>
-												<li class="nav-item">
-													<a href="#lang" class="nav-link" data-toggle="tab" >languages</a>
-												</li>
+												
 											</ul>
 											<div class="tab-content">
 												<div class="tab-pane fade show active" id="basic" >
 													<ul class="basics">
-														<li><i class="ti-user"></i>sarah grey</li>
-														<li><i class="ti-map-alt"></i>live in Dubai</li>
-														<li><i class="ti-mobile"></i>+1-234-345675</li>
-														<li><i class="ti-email"></i><a href="https://wpkixx.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3c4553494e515d55507c59515d5550125f5351">[email&#160;protected]</a></li>
-														<li><i class="ti-world"></i>www.yoursite.com</li>
+														<li><i class="ti-user" ></i><span id="studname3"></span></li>
+														<li><i class="ti-map-alt"></i>live in <span id="studplace"></span></li>
+														<li><i class="ti-email"></i><span id="studemail"></span></li>
+														<li><i class="ti-id-badge"></i><span id="usn"></span></li>
 													</ul>
 												</div>
 												<div class="tab-pane fade" id="location" role="tabpanel">
@@ -178,20 +130,20 @@
 												</div>
 												<div class="tab-pane fade" id="work" role="tabpanel">
 													<div>
-														
-														<a href="#" title="">Envato</a>
-														<p>work as autohr in envato themeforest from 2013</p> 
+
 														<ul class="education">
-															<li><i class="ti-facebook"></i> BSCS from Oxford University</li>
-															<li><i class="ti-twitter"></i> MSCS from Harvard Unversity</li>
+															
+															<li><i class="ti-home" ></i><span id="studcollege"></span></li>
+															<li><i class="ti-bag"></i>Sem - <span id="studsem2"></span></li>
+															<li><i class="ti-agenda"></i>Branch -<span id="studbranch2"></span></li>
+															<li><i class="ti-bag"></i>Batch<span id="batch"></span></li>
+													
 														</ul>
 													</div>
 												</div>
 												<div class="tab-pane fade" id="interest" role="tabpanel">
-													<ul class="basics">
-														<li>Footbal</li>
-														<li>internet</li>
-														<li>photography</li>
+													<ul class="basics" id="skills">
+												
 													</ul>
 												</div>
 												<div class="tab-pane fade" id="lang" role="tabpanel">
@@ -210,96 +162,21 @@
 								<aside class="sidebar static">
 									<div class="widget">
 										<div class="banner medium-opacity bluesh">
-											<div class="bg-image" style="background-image: url(https://cdn5.vectorstock.com/i/1000x1000/18/69/cv-or-resume-related-icons-image-vector-12641869.jpg)"></div>
+											<div class="bg-image" style="background-image: url(https://i.pinimg.com/originals/88/6b/15/886b1598b09c5c588004570c4fd1e28c.gif)"></div>
 											<div class="baner-top">
-												<span><img alt="" src="https://cdn5.vectorstock.com/i/1000x1000/18/69/cv-or-resume-related-icons-image-vector-12641869.jpg"></span>
+												<span><img alt="" src="https://i.pinimg.com/originals/88/6b/15/886b1598b09c5c588004570c4fd1e28c.gif"></span>
 												<i class="fa fa-ellipsis-h"></i>
 											</div>
 											<div class="banermeta">
 												<p>
-													create your own resume
+													View <span id="studname2">Reetiks</span><quotes>s</quotes> Resume
 												</p>
-												<span>like them all</span>
-												<a data-ripple="" title="" href="#">create now!</a>
+												
+												<a data-ripple="" onclick="checkResume()" title="" href="#">View Resume</a>
 											</div>
 										</div>											
 									</div>
-									<div class="widget">
-											<h4 class="widget-title">Your page</h4>	
-											<div class="your-page">
-												<figure>
-													<a title="" href="#"><img alt="" src="images/resources/friend-avatar9.jpg"></a>
-												</figure>
-												<div class="page-meta">
-													<a class="underline" title="" href="#">My page</a>
-													<span><i class="ti-comment"></i>Messages <em>9</em></span>
-													<span><i class="ti-bell"></i>Notifications <em>2</em></span>
-												</div>
-												<div class="page-likes">
-													<ul class="nav nav-tabs likes-btn">
-														<li class="nav-item"><a data-toggle="tab" href="#link1" class="active">likes</a></li>
-														 <li class="nav-item"><a data-toggle="tab" href="#link2" class="">views</a></li>
-													</ul>
-													<!-- Tab panes -->
-													<div class="tab-content">
-													  <div id="link1" class="tab-pane active fade show">
-														<span><i class="ti-heart"></i>884</span>
-														  <a title="weekly-likes" href="#">35 new likes this week</a>
-														  <div class="users-thumb-list">
-														  	<a data-toggle="tooltip" title="" href="#" data-original-title="Anderw">
-																<img alt="" src="images/resources/userlist-1.jpg">  
-															</a>
-															<a data-toggle="tooltip" title="" href="#" data-original-title="frank">
-																<img alt="" src="images/resources/userlist-2.jpg">  
-															</a>
-															<a data-toggle="tooltip" title="" href="#" data-original-title="Sara">
-																<img alt="" src="images/resources/userlist-3.jpg">  
-															</a>
-															<a data-toggle="tooltip" title="" href="#" data-original-title="Amy">
-																<img alt="" src="images/resources/userlist-4.jpg">  
-															</a>
-															<a data-toggle="tooltip" title="" href="#" data-original-title="Ema">
-																<img alt="" src="images/resources/userlist-5.jpg">  
-															</a>
-															<a data-toggle="tooltip" title="" href="#" data-original-title="Sophie">
-																<img alt="" src="images/resources/userlist-6.jpg">  
-															</a>
-															<a data-toggle="tooltip" title="" href="#" data-original-title="Maria">
-																<img alt="" src="images/resources/userlist-7.jpg">  
-															</a>  
-														  </div>
-													  </div>
-													  <div id="link2" class="tab-pane fade">
-														  <span><i class="ti-eye"></i>445</span>
-														  <a title="weekly-likes" href="#">440 new views this week</a>
-														  <div class="users-thumb-list">
-														  	<a data-toggle="tooltip" title="" href="#" data-original-title="Anderw">
-																<img alt="" src="images/resources/userlist-1.jpg">  
-															</a>
-															<a data-toggle="tooltip" title="" href="#" data-original-title="frank">
-																<img alt="" src="images/resources/userlist-2.jpg">  
-															</a>
-															<a data-toggle="tooltip" title="" href="#" data-original-title="Sara">
-																<img alt="" src="images/resources/userlist-3.jpg">  
-															</a>
-															<a data-toggle="tooltip" title="" href="#" data-original-title="Amy">
-																<img alt="" src="images/resources/userlist-4.jpg">  
-															</a>
-															<a data-toggle="tooltip" title="" href="#" data-original-title="Ema">
-																<img alt="" src="images/resources/userlist-5.jpg">  
-															</a>
-															<a data-toggle="tooltip" title="" href="#" data-original-title="Sophie">
-																<img alt="" src="images/resources/userlist-6.jpg">  
-															</a>
-															<a data-toggle="tooltip" title="" href="#" data-original-title="Maria">
-																<img alt="" src="images/resources/userlist-7.jpg">  
-															</a>  
-														  </div>
-													  </div>
-													</div>
-												</div>
-											</div>
-										</div>
+						
 								
 								</aside>
 							</div><!-- sidebar -->
@@ -317,7 +194,7 @@
 					<div class="widget">
 						<div class="foot-logo">
 							<div class="logo">
-								<a href="index-2.html" title=""><img src="images/logo.png" alt=""></a>
+								<a href="index-2.html" title=""><img src="" alt=""></a>
 							</div>	
 							<p>
 								The trio took this simple idea and built it into the world’s leading carpooling platform.
@@ -461,8 +338,52 @@
 	
 
 
-</body>	
 
-<!-- <script src="js/script.js"></script> -->
+</body>
+
+<script>
+
+	let sc =JSON.parse(window.localStorage.getItem("studentData"))
+	let key=window.localStorage.getItem("searchedStudent")
+	let name= sc[key].BasicprofileData.basic.fname
+
+	document.getElementById("studname").innerHTML=name
+	document.getElementById("studname2").innerHTML=name
+	if(sc[key].photoUrl)
+		document.getElementById("studimage").src=sc[key].photoUrl
+	else
+		document.getElementById("studimage").src="https://assets.webiconspng.com/uploads/2016/12/User-Icon.png"
+	document.getElementById("studsem").innerHTML=sc[key].educationData.education.semester
+	document.getElementById("studbranch").innerHTML=sc[key].educationData.education.branch
+	document.getElementById("studname3").innerHTML=sc[key].BasicprofileData.basic.fname + " "+sc[key].BasicprofileData.basic.lname
+	document.getElementById("studplace").innerHTML=sc[key].BasicprofileData.basic.currentAddress;
+	document.getElementById("studemail").innerHTML=sc[key].email;
+	document.getElementById("usn").innerHTML=sc[key].educationData.education.usn
+	document.getElementById("studbranch2").innerHTML=sc[key].educationData.education.branch
+	document.getElementById("studsem2").innerHTML=sc[key].educationData.education.semester
+	document.getElementById("studcollege").innerHTML=sc[key].educationData.education.collegeName
+	document.getElementById("batch").innerHTML=sc[key].educationData.education.collegeTo.split("-")[0]
+
+	for(let i=0;i<sc[key].skills.length;i++){
+		document.getElementById("skills").innerHTML+=`
+		<li>`+sc[key].skills[i]+`</li>
+		`
+	}
+	function checkResume(){
+		if(sc[key].resumeProtected && sc[key].resumeProtected !="false"){
+			res=prompt("Enter resume pass key")
+			if(res==sc[key].resumeProtected){
+				window.location="resume2.html"
+			}else{
+				alert("invalid passkey")
+			}
+		}else{
+			
+			window.location="resume2.html"
+		}
+	}
+</script>
 
 </html>
+
+

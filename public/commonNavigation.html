@@ -31,6 +31,9 @@
   box-shadow: 0 1px 5px -2px #333;
   background-color: #fff;
 }
+.hideChat{
+    display: none;
+}
 .mobile-bottom-nav__item {
   flex-grow: 1;
   text-align: center;
@@ -588,8 +591,8 @@ let newInterval = setInterval(function(){
             document.getElementById("people-list").innerHTML=""
             for(let i=0;i<kys.length;i++){
                 let key=kys[i];
-                if(allstds[key].educationData &&allstds[key].BasicprofileData ){
-               
+                if(allstds[key].educationData && allstds[key].BasicprofileData ){
+         
                 if(allstds[key].educationData.education.semester == window.localStorage.getItem("sem") && allstds[key].educationData.education.branch ==window.localStorage.getItem("branch")  ){
                     if(!allstds[key].photoUrl){
                         allstds[key].photoUrl="https://img.icons8.com/bubbles/2x/user-male.png"
@@ -597,14 +600,76 @@ let newInterval = setInterval(function(){
                     document.getElementById("people-list").innerHTML+=`
                     <li>								
                         <figure>
-                            <img style="width:30px;height:30px;object-fit:cover" src="`+allstds[key].photoUrl+`" alt="">
+                            <img  onclick=openChatbox("`+key+`") style="width:30px;height:30px;object-fit:cover;cusror:pointer" src="`+allstds[key].photoUrl+`" alt="">
                             <span class="status f-online"></span>
                         </figure>
                         <div class="friendz-meta">
-                            <a href="time-line.html">`+allstds[key].BasicprofileData.basic.fname+`</a>
+                            <a href="#!" onclick=openAbout("`+key+`")>`+allstds[key].BasicprofileData.basic.fname+`</a>
                             <i>`+allstds[key].educationData.education.usn+`</i>
                         </div>
                     </li>
+                   
+                    `
+                    document.getElementById("chat-box-hub").innerHTML+=`
+                    <div class="chat-box`+key+` chat-box hideChat" >
+                        <div class="chat-head " >
+                            <span class="status f-online"></span>
+                            <h6>`+allstds[key].BasicprofileData.basic.fname+`</h6>
+                            <div class="more">
+                                <span><i class="ti-more-alt"></i></span>
+                                <span  class="close-mesage"><i onclick=closeChatbox("`+key+`") class="ti-close"></i></span>
+                            </div>
+                        </div>
+                        <div class="chat-list">
+                            <ul style="overflow-y:scroll">
+                                <div id="meMessage">
+                                    <li class="me">
+                                        <div class="chat-thumb"><img style="widht:30px;height:30px;object-fit:cover" src="`+allstds[window.localStorage.getItem("user")].photoUrl+`" alt=""></div>
+                                        <div class="notification-event">
+                                            <span class="chat-message-item">
+                                                Hi James! Please remember to buy the food for tomorrow! I’m gonna be handling the gifts and Jake’s gonna get the drinks
+                                            </span>
+                                            <span class="notification-date"><time datetime="2004-07-24T18:18" class="entry-date updated">Yesterday at 8:10pm</time></span>
+                                        </div>
+                                    </li>
+                                    <li class="me">
+                                        <div class="chat-thumb"><img style="widht:30px;height:30px;object-fit:cover" src="`+allstds[window.localStorage.getItem("user")].photoUrl+`" alt=""></div>
+                                        <div class="notification-event">
+                                            <span class="chat-message-item">
+                                                Hi James! Please remember to buy the food for tomorrow! I’m gonna be handling the gifts and Jake’s gonna get the drinks
+                                            </span>
+                                            <span class="notification-date"><time datetime="2004-07-24T18:18" class="entry-date updated">Yesterday at 8:10pm</time></span>
+                                        </div>
+                                    </li>
+                                </div>
+                                <li class="you">
+                                    <div class="chat-thumb"><img style="widht:30px;height:30px;object-fit:cover" src="`+allstds[key].photoUrl+`" alt=""></div>
+                                    <div class="notification-event">
+                                        <span class="chat-message-item">
+                                            Hi James! Please remember to buy the food for tomorrow! I’m gonna be handling the gifts and Jake’s gonna get the drinks
+                                        </span>
+                                        <span class="notification-date"><time datetime="2004-07-24T18:18" class="entry-date updated">Yesterday at 8:10pm</time></span>
+                                    </div>
+                                </li>
+                                <li class="me">
+                                    <div class="chat-thumb"><img src="images/resources/chatlist1.jpg" alt=""></div>
+                                    <div class="notification-event">
+                                        <span class="chat-message-item">
+                                            Hi James! Please remember to buy the food for tomorrow! I’m gonna be handling the gifts and Jake’s gonna get the drinks
+                                        </span>
+                                        <span class="notification-date"><time datetime="2004-07-24T18:18" class="entry-date updated">Yesterday at 8:10pm</time></span>
+                                    </div>
+                                </li>
+                            </ul>
+                         
+                          
+                            <input type="text" id="chatMessage`+key+`" placeholder="Type your message here" style="padding:4px;margin-top:9%;width:80%;font-size:12px;border-radius:4px" >
+                            
+                            <button style="borer-radius:4px;border:none;background:white"  onclick=sendMessage("`+key+`","chatMessage`+key+`")>  <span class="material-icons" style="font-size:10px" >send</span></button>
+                          
+                           
+                        </div>
+                    </div>
                     `
                 }else{
                     if(!allstds[key].photoUrl){
@@ -626,7 +691,7 @@ let newInterval = setInterval(function(){
             }
             }
         }
-        if(window.location.href.includes("classStudents.html")){
+        if(window.location.href.includes("classStudents.html")||window.location.href.includes("about.html")){
            
             let allstds =JSON.parse(window.localStorage.getItem("studentData"))
 
@@ -641,17 +706,79 @@ let newInterval = setInterval(function(){
                             allstds[key].photoUrl="https://img.icons8.com/bubbles/2x/user-male.png"
                         }
                         document.getElementById("people-list").innerHTML+=`
-                        <li>								
-                            <figure>
-                                <img style="width:30px;height:30px;object-fit:cover" src="`+allstds[key].photoUrl+`" alt="">
-                                <span class="status f-online"></span>
-                            </figure>
-                            <div class="friendz-meta">
-                                <a href="time-line.html">`+allstds[key].BasicprofileData.basic.fname+`</a>
-                                <i>`+allstds[key].educationData.education.usn+`</i>
+                    <li>								
+                        <figure>
+                            <img  onclick=openChatbox("`+key+`") style="width:30px;height:30px;object-fit:cover;cusror:pointer" src="`+allstds[key].photoUrl+`" alt="">
+                            <span class="status f-online"></span>
+                        </figure>
+                        <div class="friendz-meta">
+                            <a href="#!" onclick=openAbout("`+key+`")>`+allstds[key].BasicprofileData.basic.fname+`</a>
+                            <i>`+allstds[key].educationData.education.usn+`</i>
+                        </div>
+                    </li>
+                   
+                    `
+                    document.getElementById("chat-box-hub").innerHTML+=`
+                    <div class="chat-box`+key+` chat-box hideChat" >
+                        <div class="chat-head " >
+                            <span class="status f-online"></span>
+                            <h6>`+allstds[key].BasicprofileData.basic.fname+`</h6>
+                            <div class="more">
+                                <span><i class="ti-more-alt"></i></span>
+                                <span  class="close-mesage"><i onclick=closeChatbox("`+key+`") class="ti-close"></i></span>
                             </div>
-                        </li>
-                        `
+                        </div>
+                        <div class="chat-list">
+                            <ul style="overflow-y:scroll">
+                                <div id="meMessage">
+                                    <li class="me">
+                                        <div class="chat-thumb"><img style="widht:30px;height:30px;object-fit:cover" src="`+allstds[window.localStorage.getItem("user")].photoUrl+`" alt=""></div>
+                                        <div class="notification-event">
+                                            <span class="chat-message-item">
+                                                Hi James! Please remember to buy the food for tomorrow! I’m gonna be handling the gifts and Jake’s gonna get the drinks
+                                            </span>
+                                            <span class="notification-date"><time datetime="2004-07-24T18:18" class="entry-date updated">Yesterday at 8:10pm</time></span>
+                                        </div>
+                                    </li>
+                                    <li class="me">
+                                        <div class="chat-thumb"><img style="widht:30px;height:30px;object-fit:cover" src="`+allstds[window.localStorage.getItem("user")].photoUrl+`" alt=""></div>
+                                        <div class="notification-event">
+                                            <span class="chat-message-item">
+                                                Hi James! Please remember to buy the food for tomorrow! I’m gonna be handling the gifts and Jake’s gonna get the drinks
+                                            </span>
+                                            <span class="notification-date"><time datetime="2004-07-24T18:18" class="entry-date updated">Yesterday at 8:10pm</time></span>
+                                        </div>
+                                    </li>
+                                </div>
+                                <li class="you">
+                                    <div class="chat-thumb"><img style="widht:30px;height:30px;object-fit:cover" src="`+allstds[key].photoUrl+`" alt=""></div>
+                                    <div class="notification-event">
+                                        <span class="chat-message-item">
+                                            Hi James! Please remember to buy the food for tomorrow! I’m gonna be handling the gifts and Jake’s gonna get the drinks
+                                        </span>
+                                        <span class="notification-date"><time datetime="2004-07-24T18:18" class="entry-date updated">Yesterday at 8:10pm</time></span>
+                                    </div>
+                                </li>
+                                <li class="me">
+                                    <div class="chat-thumb"><img src="images/resources/chatlist1.jpg" alt=""></div>
+                                    <div class="notification-event">
+                                        <span class="chat-message-item">
+                                            Hi James! Please remember to buy the food for tomorrow! I’m gonna be handling the gifts and Jake’s gonna get the drinks
+                                        </span>
+                                        <span class="notification-date"><time datetime="2004-07-24T18:18" class="entry-date updated">Yesterday at 8:10pm</time></span>
+                                    </div>
+                                </li>
+                            </ul>
+                         
+                          
+                            <input type="text" id="chatMessage`+key+`" placeholder="Type your message here" style="padding:4px;margin-top:9%;width:80%;font-size:12px;border-radius:4px" >
+                            
+                            <button style="borer-radius:4px;border:none;background:white"  onclick=sendMessage("`+key+`","chatMessage`+key+`")>  <span class="material-icons" style="font-size:10px" >send</span></button>
+                          
+                           
+                        </div>
+                    </div>
+                    `
                     }
                 }
             }
@@ -1040,6 +1167,17 @@ let newInterval = setInterval(function(){
 },500)
 
 },1000)
+function openAbout(student){
+    
+    if(student == window.localStorage.getItem("userId")){
+        window.localStorage.setItem("searchedStudent"," ")
+        window.location="edit-profile-basic.html"
+    }else{
+        window.localStorage.setItem("searchedStudent",student)
+        window.location="about.html"
+    }
+
+}
 function increaseView(postid,userid){
 
     var arr = []
@@ -1120,7 +1258,23 @@ function updateLike(postid,userid){
         
     });
 }
-
+function openChatbox(key){
+    
+    $('.friendz-list > li, .chat-users > li').on('click', function() {
+    $('.chat-box').addClass("hideChat");
+    $('.chat-box'+key).removeClass("hideChat");
+	$('.chat-box'+key).addClass("show");
+    	return false;
+    });	
+}
+function closeChatbox(key){
+    $('.chat-box'+key).removeClass("show");
+}
+function sendMessage(key,message){
+    alert(message)
+    let a=document.querySelector('#chatMessage'+key).value;
+    alert(a)
+}
 function sendComment(postid,userid){
 
 let message = document.getElementById("cmtmsg"+postid).value
