@@ -146,8 +146,7 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
                         <a class="dropdown-item" href="userprofile.html"><i class="dw dw-user1"></i> Profile</a>
-                        <a class="dropdown-item" href="profile.html"><i class="dw dw-settings2"></i> Setting</a>
-                        <a class="dropdown-item" href="faq.html"><i class="dw dw-help"></i> Help</a>
+
                         <a class="dropdown-item" onclick="logout()" style="cursor: pointer;"><i class="dw dw-logout"></i> Log Out</a>
                     </div>
                 </div>
@@ -173,7 +172,7 @@
                 <h4 class="weight-600 font-18 pb-10">Header Background</h4>
                 <div class="sidebar-btn-group pb-30 mb-10">
                     <a href="javascript:void(0);" class="btn btn-outline-primary header-white active">White</a>
-                    <a href="javascript:void(0);" class="btn btn-outline-primary header-dark">Dark</a>
+                    <a href="javascript:void(0);" class="btn btn-outl   ine-primary header-dark">Dark</a>
                 </div>
     
                 <h4 class="weight-600 font-18 pb-10">Sidebar Background</h4>
@@ -284,7 +283,7 @@
                     
                     <li class="dropdown">
                         <a href="javascript:;" class="dropdown-toggle">
-                            <span class="micon dw dw-edit2"></span><span class="mtext">Comapny Drives</span>
+                            <span class="micon dw dw-apartment"></span><span class="mtext">Comapny Drives</span>
                         </a>
                         <ul class="submenu">
                             <li><a href="newDrive.html">Add a Drive</a></li>
@@ -305,6 +304,33 @@
                             <li><a href="html5-editor.html">Send Quiz Results</a></li>
                     
                         </ul>
+                    </li>
+                    
+                    <li class="dropdown">
+                        <a href="javascript:;" class="dropdown-toggle ">
+                            <span class="micon dw dw-diagram"></span><span class="mtext">Placement Documents</span>
+                        </a>
+                        <ul class="submenu">
+                            <li><a href="placementDocuments.html">Add a Study Material</a></li>
+                            <li><a href="allDocuments.html">View all added Materials</a></li>
+                            
+                    
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="query.html" class="dropdown-toggle no-arrow">
+                            <span class="micon dw dw-search"></span><span class="mtext">Students Query</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="userprofile.html" class="dropdown-toggle no-arrow">
+                            <span class="micon dw dw-user2"></span><span class="mtext">Profile</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#!" onclick="logout()" class="dropdown-toggle no-arrow">
+                            <span class="micon dw dw-lock"></span><span class="mtext">Logout</span>
+                        </a>
                     </li>
                    <!---- <li class="dropdown">
                         <a href="javascript:;" class="dropdown-toggle">
@@ -529,6 +555,7 @@
     var ref=firebase.database().ref('adminData')
     var ref2=firebase.database().ref('quizData')
     var ref3 = firebase.database().ref('driveData')
+    var ref4 =firebase.database().ref('DocumentData')
     if(window.localStorage.getItem("image"))
         document.getElementById("userImg").src=(window.localStorage.getItem("image"))
     
@@ -548,7 +575,59 @@
             ref2.on('value',gotQuizData,errData)
             if(window.location.href.includes("upcomingDrive.html"))
                 ref3.on('value',gotDriveData,errData)
+            if(window.location.href.includes("allDocuments.html"))
+                ref4.on('value',gotDocumentData,errData)
 
+            function gotDocumentData(data){
+                let sc =data.val()
+                let color ="green"
+                let keys =Object.keys(sc)
+                document.getElementById("allDocuments").innerHTML=""
+                for(let i =0;i<keys.length;i++){
+                    let key =keys[i];
+                    let k=sc[key]
+                    if(k.status =="active" || k.status =="Active"){
+                        color = "green"
+                    }else{
+                        color = "red"
+                    }
+                    document.getElementById("allDocuments").innerHTML+=`
+                    <div class="col-lg-4 col-md-6 col-sm-12 mb-30">
+                            <div class="card card-box">
+                                <img class="card-img-top" style="height:200px;objec-fit:contain" src="https://cdn.dribbble.com/users/616823/screenshots/3120552/pdf-page-flip-animation.gif" alt="Card image cap">
+                                <div class="card-body">
+                                    <h5 class="card-title weight-500">`+k.documentTitle+` <span style="color:`+color+`;font-weight:700">(`+k.status+`)</span></h5>
+                                    <p class="card-text">
+                                        <ul>
+                                            <li style="color:orange;font-weight:bolder"> `+k.documentText+`</li>
+                                            <li>Time of Post : `+k.timeOfPost+`</li>
+                                       
+                                            <li>Uploaded by : `+k.author+`</li></b>
+                                            <a href="`+k.documentUrl+`" target="_blank" ><li>View Document</li></a>
+                                          
+                                        </ul>
+                                    </p>
+                                    <a href="#!" class="btn btn-primary" style="background:red;border:none" id="deactivate`+key+`" onclick=deactivateDocument("`+key+`")>Deactivate</a>
+                                    <a href="#!" class="btn btn-primary" style="background:green;border:none;display:none" id="activate`+key+`" onclick=activateDocument("`+key+`")>Activate</a>
+                                    <a href="#!" class="btn btn-primary" style="background:orange;border:none" onclick=deleteDocument("`+key+`")>Delete</a>
+                                </div>
+                            </div>
+                        </div>
+
+                    `
+                    if(k.status =="active" || k.status =="Active"){
+                           
+                           document.getElementById("deactivate"+key).style.display="inline-block"
+                           document.getElementById("activate"+key).style.display="none"
+                      
+                      }else{
+                      
+                          document.getElementById("deactivate"+key).style.display="none"
+                          document.getElementById("activate"+key).style.display="inline-block"
+                          
+                      }
+                }
+            }
             function gotDriveData(data){
                 let sc=(data.val())
                 window.localStorage.setItem("driveDatabase",JSON.stringify(sc))
@@ -763,6 +842,7 @@
         firebase.database().ref("quizData").child(key).update(data)
 
     }
+
     function deactivateDrive(key){
 
         let data= {
@@ -770,7 +850,25 @@
         }
         firebase.database().ref("driveData").child(key).update(data)
 
+    }
+    function activateDocument(key){
+        let data= {
+            "status" :"active"
         }
+        firebase.database().ref("DocumentData").child(key).update(data)
+
+    }
+    function deactivateDocument(key){
+      
+        let data= {
+            "status" :"Inactive"
+        }
+        firebase.database().ref("DocumentData").child(key).update(data)
+
+    }
+        
+
+
         function activateDrive(key){
         let data= {
             "status" :"active"
@@ -799,6 +897,10 @@
 
             window.location="newDrive.html"
         }
+
+    function deleteDocument(key){
+        firebase.database().ref("documentData").child(key).remove()
+    }
     function deleteStaff(id,email,pass){
        	
 		firebase.auth().signInWithEmailAndPassword(email, pass).then(function(){
