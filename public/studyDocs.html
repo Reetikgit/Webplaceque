@@ -153,14 +153,7 @@
                                 <div class="row" id="allstudyDocuments">
                                
                                         
-                                    <div class="card" style="width: 50%;padding:5px">
-                                        <img src="https://visme.co/blog/wp-content/uploads/2020/06/Header_1200.gif" class="card-img-top" alt="...">
-                                        <div class="card-body">
-                                            <h5 class="card-title">Card title</h5>
-                                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                            <a href="newsletter_01.pdf" target="_blank" class="btn btn-primary">View Document </a>
-                                        </div>
-                                    </div>
+                                    
                                 
                                     
                         
@@ -359,25 +352,26 @@
 <script>
 	setTimeout(function(){
 
-		let ref3 = firebase.database().ref('driveData')
+		let ref3 = firebase.database().ref('DocumentData')
 	
        
-		ref3.on('value',gotDrive,errData) 
-		function gotDrive(data){
+		ref3.on('value',gotDocument,errData) 
+		function gotDocument(data){
 			let dc = data.val()
 			let keys = Object.keys(dc)
-			document.getElementById("drives").innerHTML =""
+			document.getElementById("allstudyDocuments").innerHTML =""
 			for(let i =0 ;i<keys.length;i++){
 				let key = keys[i]
-				if(!dc[key].expired)
-					document.getElementById("drives").innerHTML += `
-					<li>
-						<div class="activity-meta">
-							<i>`+dc[key].time.substring(0,23)+`</i>
-							<span> <img src=`+dc[key].Driveinfo.photoUrl+` style="width:30px;object-fit:contain"> <a href="#!" onclick=openDrive("`+key+`") title="">`+dc[key].Driveinfo.name+` </a></span>
-							<h6>`+dc[key].Driveinfo.comments+`</h6>
-						</div>
-					</li>
+				if(dc[key].status=="Active" || dc[key].status=="active")
+				document.getElementById("allstudyDocuments").innerHTML +=`
+				<div class="card" style="width: 50%;padding:5px">
+					<img src="https://visme.co/blog/wp-content/uploads/2020/06/Header_1200.gif" class="card-img-top" alt="...">
+					<div class="card-body">
+						<h5 class="card-title">`+dc[key].documentTitle+`</h5>
+						<p class="card-text">`+dc[key].documentText+`</p>
+						<a href="`+dc[key].documentUrl+`" target="_blank" class="btn btn-primary">View Document </a>
+					</div>
+				</div>
 				`
 			}
 		}
