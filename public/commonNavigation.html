@@ -448,10 +448,10 @@
             <div class="modal-body" style="font-weight: 700;">
                 Dear <span id="username" style="font-style: italic;color: green;"></span> Please Verifiy your email address & refresh the page for procedding to next steps.
             </div>
-            <!-- <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
-            </div> -->
+            <div class="modal-footer">
+    
+            <button type="button" onclick="refreshPage()" class="btn btn-primary">Refresh</button>
+            </div>
         </div>
         </div>
     </div>
@@ -1688,5 +1688,8 @@ function step3(){
 
 function goTo(place){
     window.location=place
+}
+function refreshPage(){
+    window.location.reload()
 }
 </script>
