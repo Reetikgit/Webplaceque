@@ -135,13 +135,30 @@ $(".tab-wizard").steps({
 
 	if(QuizInfo == undefined ){
 	
-	
+		const convertTime12to24 = (time12h) => {
+			const [time, modifier] = time12h.split(' ');
+		  
+			let [hours, minutes] = time.split(':');
+		  
+			if (hours === '12') {
+			  hours = '00';
+			}
+		  
+			if (modifier === 'PM' || modifier === 'pm' ) {
+			  hours = parseInt(hours, 10) + 12;
+			}
+		  
+			return `${hours}:${minutes}`;
+		  }
+		  
 		let title=document.querySelector("#title").value
-		let startTime=document.querySelector("#sttime").value
-		let endTime=document.querySelector("#endtime").value
+		let startTime=convertTime12to24(document.querySelector("#sttime").value)
+		let endTime=convertTime12to24(document.querySelector("#endtime").value)
 		let date=document.querySelector("#date").value
 		let total=document.querySelector("#total").value
-		
+
+		let cn=convertTime12to24(startTime)
+		alert(cn)
 		var selectedBranches = [];
 		for (var option of document.getElementById('branch').options)
 		{
@@ -188,13 +205,31 @@ $(".tab-wizard").steps({
 		})
 	}else{
 		
+		const convertTime12to24 = (time12h) => {
+			const [time, modifier] = time12h.split(' ');
+		  
+			let [hours, minutes] = time.split(':');
+		  
+			if (hours === '12') {
+			  hours = '00';
+			}
+		  
+			if (modifier === 'pm') {
+			  hours = parseInt(hours, 10) + 12;
+			}
+		  
+			return `${hours}:${minutes}`;
+		  }
+		  
+		
 		let title=document.querySelector("#title").value
-		let startTime=document.querySelector("#sttime").value
-		let endTime=document.querySelector("#endtime").value
+		let startTime=convertTime12to24(document.querySelector("#sttime").value)
+		let endTime=convertTime12to24(document.querySelector("#endtime").value)
 		let date=document.querySelector("#date").value
 		let total=document.querySelector("#total").value
 		let id=document.querySelector("#id").value
 		var selectedBranches = [];
+
 		let description =window.localStorage.getItem("description")
 
 		for (var option of document.getElementById('branch').options)
