@@ -25,9 +25,6 @@
         max-width:none !important;
 
     }
-	body {
-    background-color: #a04c65
-}
 
     .modal-content-full-width  {
         height: auto !important;
@@ -43,7 +40,6 @@
     .modal-footer-full-width  {
         border-top: 1px solid #9ea2a2 !important;
     }
-	
 </style>
 <script>
 		
@@ -57,33 +53,96 @@
 <!--<div class="se-pre-con"></div>-->
 <div class="theme-layout">
 	<div id="navigation"></div>
-	<section style="background-color:navajowhite !important;">
+	<section>
 		<div class="">
 			<div class="">
 				<div class="row">
 					<div class="col-lg-12">
-						<div class="row">
-							<div class="col-md-12">
-								<div class="main-verification-input-wrap">
-									<ul>
-										<li>Enter the quiz code sent over the registered college mail.</li>
-										<li>If somehow, you did not recieve the verification email then <a href="#">raise a query to the placement admin</a></li>
-									</ul>
-									<div class="main-verification-input fl-wrap">
-										<div class="main-verification-input-item"> <input type="text" id="code" value="" placeholder="Enter the verification code"> </div> <button class="main-verification-button" id="verify"  onclick="verifyCode()">Verify Now</button>
-									</div>
-								</div>
+						<div class="row" id="page-contents">
+							<div class="col-lg-3">
+								<aside class="sidebar static hide-small" >
+									<div class="widget">
+										<h4 class="widget-title">Shortcuts</h4>
+										<ul class="naves">
+											<li>
+												<i class="ti-clipboard"></i>
+												<a href="home.html" title="">place-Que Timeline</a>
+											</li>
+											<li>
+												<i class="ti-mouse-alt"></i>
+												<a href="studyDocs.html" title="">Study Documents</a>
+											</li>
+											<li>
+												<i class="ti-files"></i>
+												<a href="edit-profile-basic.html" title="">My profile</a>
+											</li>
+											<li>
+												<i class="ti-user"></i>
+												<a href="classStudents.html" title="">My classroom</a>
+											</li>
+											
+											<li>
+												<i class="ti-comments-smiley"></i>
+												<a href="otherStudents.html" title="">Friends Nearby</a>
+											</li>
+											<li>
+												<i class="ti-bell"></i>
+												<a href="resume1.html" title="">Your Resume</a>
+											</li>
+										
+											<li>
+												<i class="fa fa-bar-chart-o"></i>
+												<a href="allDrives.html" title="">Drive updates</a>
+											</li>
+											<li>
+												<i class="ti-power-off"></i>
+												<a href="#1" onclick="logout()" title="">Logout</a>
+											</li>
+										</ul>
+									</div><!-- Shortcuts -->
+								
+									
+								</aside>
+							</div><!-- sidebar -->
+							<div class="col-lg-6">
+                                <br>
+                                <div class="row" id="allAddedQuiz">
+                               
+                                        
+                                </div>
+                                
+								
 							</div>
-						</div>
+							
+							<div class="col-lg-3">
+								<aside class="sidebar static">
+							
+									<div class="widget">
+										<div class="banner medium-opacity bluesh">
+											<div class="bg-image" style="background-image: url(https://i.pinimg.com/originals/88/6b/15/886b1598b09c5c588004570c4fd1e28c.gif)"></div>
+											<div class="baner-top">
+												<span><img alt="" src="https://cdn5.vectorstock.com/i/1000x1000/18/69/cv-or-resume-related-icons-image-vector-12641869.jpg"></span>
+												<i class="fa fa-ellipsis-h"></i>
+											</div>
+											<div class="banermeta">
+												<p>
+													Your resume is ready with us 
+												</p>
+												<span>like them all</span>
+												<a href="resume1.html" data-ripple="" title="" href="#">View now!</a>
+											</div>
+										</div>											
+									</div>
+									
+								</aside>
+							</div><!-- sidebar -->
+						</div>	
 					</div>
 				</div>
 			</div>
 		</div>	
-		<br>
-	<br>
-
 	</section>
-	
+
 	<footer>
 		<div class="container">
 			<div class="row">
@@ -241,133 +300,53 @@
 </body>	
 <!-- <script src="js/main.min.js"></script>
 <script src="js/script.js"></script> -->
-
+</html>
 <script>
-	function verifyCode(){
-		let code=document.getElementById("code").value
-		let quizData = firebase.database().ref('quizData')
-		let studentData = JSON.parse(window.localStorage.getItem("studentData"))
-		let user =window.localStorage.getItem("user")
-	
-	
-       	quizData.on('value',gotData,errData)
+	setTimeout(function(){
 
-        function gotData(data){
-			let year= "0"
-            let sc= data.val()
-			let flag="unset"
-			let keys=Object.keys(sc)
-			
-			for(let i =0;i<keys.length;i++){
-				let key = keys[i]
-			
-				if(studentData[user].quizScores){
-			
-					for(let p=0;p<studentData[user].quizScores.length;p++){
-					
-						if(studentData[user].quizScores[p].code==code){
-							
-							flag =undefined
-							break;
-						}
-					}
-					
-					if(flag == undefined){
-
-				
-						break;
-					}
-				
-						
-				}
-				if(code == sc[key].info.id ){
-					flag  = key	
-				}
-				
-			}
-			
-			
-			if(window.localStorage.getItem("sem")==1 || window.localStorage.getItem("sem")==2){
-				year="1"
-			}else if (window.localStorage.getItem("sem")==3 || window.localStorage.getItem("sem")==4){
-				year="2"
-			}else if(window.localStorage.getItem("sem")==5 || window.localStorage.getItem("sem")==6){
-				year="3"
-			}else{
-				year="4"
-			}
-			
-			if(flag && flag != "unset"){
-		
-				let startTime =sc[flag].info.date + " "+(sc[flag].info.startTime).substring(0,5)
-				let endTime =sc[flag].info.date + " "+(sc[flag].info.endTime).substring(0,5)
-
-				var countDownDate = new Date(startTime).getTime();
-				var endTiming = new Date(endTime).getTime();
-				var now = new Date().getTime();
-				
-				var timeleft = countDownDate - now;
-				var isEnded = endTiming -now;
-	
-				if(isEnded > 0){
-				
-
-					if((sc[flag].info.selectedBranches).includes(window.localStorage.getItem("branch")) && (sc[flag].info.selectedYear).includes(year) ){
-						window.localStorage.setItem("quizKey",flag)
-						window.localStorage.setItem("quizInstruction",sc[flag].instruction)
-						window.localStorage.setItem("quizDetails",JSON.stringify(sc))
-						window.location="instructionquiz.html"
-					}else{
-						document.getElementById("verify").style.backgroundColor="red"
-
-						document.getElementById("verify").innerHTML="Invalid Code"
-						setTimeout(function(){
-							document.getElementById("verify").style.backgroundColor="#4DB7FE"
-
-							document.getElementById("verify").innerHTML="Verify"
-						},3000)
-					}
-				}else{
-				
-					document.getElementById("verify").style.backgroundColor="red"
-
-					document.getElementById("verify").innerHTML="Quiz Expired"
-					setTimeout(function(){
-						document.getElementById("verify").style.backgroundColor="#4DB7FE"
-
-						document.getElementById("verify").innerHTML="Verify"
-					},3000)
-				}
-				
-			}else{
-				if(flag =="unset"){
-					document.getElementById("verify").style.backgroundColor="red"
-
-					document.getElementById("verify").innerHTML="Invalid Code"
-					setTimeout(function(){
-						document.getElementById("verify").style.backgroundColor="#4DB7FE"
-
-						document.getElementById("verify").innerHTML="Verify"
-					},3000)
-				}else{
-					document.getElementById("verify").style.backgroundColor="red"
-
-					document.getElementById("verify").innerHTML="Quiz already taken"
-					setTimeout(function(){
-						document.getElementById("verify").style.backgroundColor="#4DB7FE"
-
-						document.getElementById("verify").innerHTML="Verify"
-					},3000)
-				}
-			
-			}
-			
-			
-
+		let ref3 = firebase.database().ref('quizData')
+        if(window.localStorage.getItem("sem")==1 || window.localStorage.getItem("sem")==2){
+            year="1"
+        }else if (window.localStorage.getItem("sem")==3 || window.localStorage.getItem("sem")==4){
+            year="2"
+        }else if(window.localStorage.getItem("sem")==5 || window.localStorage.getItem("sem")==6){
+            year="3"
+        }else{
+            year="4"
         }
+       
+		ref3.on('value',gotDocument,errData) 
+		function gotDocument(data){
+			let dc = data.val()
+			let keys = Object.keys(dc)
+			document.getElementById("allAddedQuiz").innerHTML =""
+			for(let i =0 ;i<keys.length;i++){
+				let key = keys[i]
+				if(dc[key].status=="Active" || dc[key].status=="active"){
+                    if((dc[key].info.selectedBranches).includes(window.localStorage.getItem("branch")) && (dc[key].info.selectedYear).includes(year) ){
+                        document.getElementById("allAddedQuiz").innerHTML +=`
+                        <div class="card" style="padding-left:25px">
+                            <img src="https://cdn1.iconfinder.com/data/icons/education-items/512/examtest-512.png" style="width:130px;heightit:cover:130px;object-f" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">`+dc[key].info.title+`</h5>
+                                <p class="card-text"><span>Quiz ID : </span>`+dc[key].info.id+`</p>
+                                <a href="verifyquiz.html" class="btn btn-primary" style="background:orange">Take Quiz </a>
+                            </div>
+                        </div>
+                        `
+                    }
+                }
+			}
+		}
 		function errData(){
 
 		}
-	}
+
+	
+
+	},2500)
+	function openDrive(key){
+			window.localStorage.setItem("driveKey",key)
+			window.location="detailCompany.html"
+		}
 </script>
-</html>

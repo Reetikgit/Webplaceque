@@ -87,15 +87,27 @@
             <li> <a href="home.html"><span>Home</span>
                
             </li></a>
-            <li> <a href="verifyquiz.html"><span>Take Quiz</span>
+            <li><span>Quiz</span>
+                <ul>
+              
+                    <li><a href="verifyquiz.html" title="">Take a Quiz</a></li>
+                    <li><a href="allAddedQuiz.html" title="">View All Quiz</a></li>
+                    <li><a href="timeline-pages.html" title="">Quiz Results</a></li>
                
-            </li></a>
-            <li> <a href="classStudents.html"><span>Class Students</span>
-               
-            </li></a>
-            <li> <a href="otherStudents.html"><span>Other Students</span>
-               
-            </li></a>
+                    
+                    
+                </ul>
+            </li>
+            <li><span>Friends</span>
+                <ul>
+              
+                    <li><a href="classStudents.html" title="">Class Friends</a></li>
+                    <li><a href="otherStudents.html" title="">Friends Nearby</a></li>
+                 
+                    
+                </ul>
+            </li>
+           
             <li> <a href="allDrives.html"><span>All Drives</span>
                
             </li></a>
@@ -272,7 +284,7 @@
                 <ul>
                     <li><a href="verifyquiz.html" title="">Take Quiz</a></li>
                     <li><a href="about.html" title="">Check Results</a></li>
-                    <li><a href="contact.html" title="">Upcoming Quiz</a></li>
+                    <li><a href="allAddedQuiz.html" title="">Upcoming Quiz</a></li>
             
                 </ul>
             </li>
@@ -456,7 +468,7 @@
         </div>
     </div>
     <nav class="mobile-bottom-nav hide-small2">
-        <div class="mobile-bottom-nav__item " id="mainHome" onclick="goTo('home.html')"
+        <div class="mobile-bottom-nav__item " id="mainHome" onclick="goTo('home.html')">
             <div class="mobile-bottom-nav__item-content">
                 <i class="material-icons">home</i>
                 Home
@@ -686,7 +698,7 @@ let newInterval = setInterval(function(){
                     `
                 }else{
                     
-                    if(!allstds[key].photoUrl){
+                    if(!allstds[key].photoUrl){ 
                         allstds[key].photoUrl="https://img.icons8.com/bubbles/2x/user-male.png"
                     }
                     document.getElementById("other-list").innerHTML+=`
