@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- Basic Page Info -->
+	<meta charset="utf-8">
+	<title>placeQue - Smart Placement System | Training & Placement</title>
+
+	<!-- Site favicon -->
+	<link rel="apple-touch-icon" sizes="180x180" href="vendors/images/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="vendors/images/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="vendors/images/favicon-16x16.png">
+
+	<!-- Mobile Specific Metas -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<!-- Google Font -->
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+	<!-- CSS -->
+	<link rel="stylesheet" type="text/css" href="vendors/styles/core.css">
+	<link rel="stylesheet" type="text/css" href="vendors/styles/icon-font.min.css">
+	<link rel="stylesheet" type="text/css" href="src/plugins/datatables/css/dataTables.bootstrap4.min.css">
+	<link rel="stylesheet" type="text/css" href="src/plugins/datatables/css/responsive.bootstrap4.min.css">
+
+	<link rel="stylesheet" type="text/css" href="src/plugins/jquery-steps/jquery.steps.css">
+	<link rel="stylesheet" type="text/css" href="vendors/styles/style.css">
+
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-119386393-1"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script>
+		
+	// $(body).load("commonNavigation.html");
+
+	
+	$(function () { 
+        setTimeout(function(){
+            $.get("commonNavigation.html", function (data) {
+				$("#navigation").append(data);
+			});
+		});
+        })                                                                                                                                                                                                                                                                                                     
+		
+
+
+	</script>
+</head>
+<body>
+
+	<div id="navigation"></div>
+
+	<div class="main-container">
+        <div class="pd-ltr-20 xs-pd-20-10">
+			<div class="min-height-200px">
+				<div class="page-header">
+					<div class="row">
+						<div class="col-md-6 col-sm-12">
+							<div class="title">
+								<h4>Send Quiz Results</h4>
+							</div>
+							<nav aria-label="breadcrumb" role="navigation">
+								<ol class="breadcrumb">
+									<li class="breadcrumb-item"><a href="index.html">Home</a></li>
+									<li class="breadcrumb-item active" aria-current="page">Send Quiz Results</li>
+								</ol>
+							</nav>
+						</div>
+					</div>
+				</div>
+
+		
+
+				<div class="pd-20 card-box mb-30">
+					<div class="clearfix">
+						<h4 class="text-blue h4">Basic Info</h4>
+					
+					</div>
+					<div class="wizard-content">
+						<form class="tab-wizard  wizard vertical">
+							<section>
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label >Quiz Id</label>
+											<select class="form-control" id="quizIds" aria-label="Default select example">
+                                               
+                                            </select>
+										</div>
+									</div>
+                                    <div class="col-md-6">
+										<div class="form-group">
+											<label >General / Specific Email</label>
+											<input type="email" id="email" class="form-control">
+										</div>
+									</div>
+                                    
+								</div>
+					
+                                
+                                <div class="modal-footer justify-content-center">
+                                    <button type="button" class="btn btn-primary" onclick="publishResult()">Publish Results</button>
+                                    
+                                </div>
+							</section>
+						</form>
+					</div>
+				</div>
+
+				<!-- success Popup html Start -->
+				<div class="modal fade" id="success-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered" role="document">
+						<div class="modal-content">
+							<div class="modal-body text-center font-18">
+								<h3 class="mb-20">Drive Details Pushed Successfully</h3>
+								<div class="mb-30 text-center"><img src="vendors/images/success.png"></div>
+								Thankyou
+							</div>
+							<div class="modal-footer justify-content-center">
+								<button type="button" class="btn btn-primary" data-dismiss="modal">Done</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- success Popup html End -->
+			</div>
+			<div class="footer-wrap pd-20 mb-20 card-box">
+				placeQue - Smart Placement System <a href="https://github.com/dropways" target="_blank">NRSH</a>
+			</div>
+		</div>
+	</div>
+	<script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-app.js"></script>
+
+	<!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+	<script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-analytics.js"></script>
+  
+	<!-- Add Firebase products that you want to use -->
+	<script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-auth.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-firestore.js"></script>
+
+</body>
+
+<script src="vendors/scripts/core.js"></script>
+
+<script src="vendors/scripts/layout-settings.js"></script>
+
+
+
+
+
+<script>
+
+    let qd =JSON.parse(window.localStorage.getItem("quizDatabase"))
+    let keys=Object.keys(qd)
+   
+    for(let i =0;i<keys.length;i++){
+        let k =keys[i]
+        console.log(qd)
+        console.log(k)
+        document.getElementById("quizIds").innerHTML +=
+        `
+            <option value="`+qd[k].info.id+`">`+qd[k].info.id+"/"+qd[k].info.title+`</option>
+
+
+        `   
+    }
+    function publishResult(){
+        let id = document.querySelector("#quizIds").value
+        let email =document.getElementById("email").value
+        let form =firebase.database().ref('publishedQuizResult')
+        let keyID=form.push()
+        let newForm = keyID.set({
+			
+			"QuizId" : id,
+            "Email" :email,
+            "key" :keyID.key
+			
+		}).then(function(){
+			console.log("Done")
+			
+		})
+    }
+</script>
+</html>
+

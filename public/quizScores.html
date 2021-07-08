@@ -103,7 +103,7 @@
 									<th>Semester</th>
 									<th>Branch</th>
 									<th>Score</th>
-									<th>Quiz ID</th>
+									<th>Quiz ID/Title</th>
 									<th class="datatable-nosort">Action</th>
 								</tr>
 							</thead>
@@ -180,16 +180,17 @@
 	};
 	//initialize firebase
 	firebase.initializeApp(firebaseConfig);
+    var sc;
     function getScores(){
         let qid=document.querySelector('#quizId').value
         var formMessage = firebase.database().ref('studentData');
-        var sc;
+        
         formMessage.on('value',gotData,errData)
         function gotData(data){
         
                     sc=data.val();
                     var keys=Object.keys(sc);
-                    
+                    var qd = JSON.parse(window.localStorage.getItem("quizDatabase"))
                     document.getElementById("tb").innerHTML=""
                    
                     for(var i=0;i<keys.length;i++){
@@ -214,7 +215,7 @@
                                                 <td>`+Sem+`</td>
                                                 <td>`+Branch+`</td>
                                                 <td>`+sc[k].quizScores[m].score+`</td>
-                                                <td>`+yearofpass+`</td>
+                                                <td>`+sc[k].quizScores[m].code+"/"+qd[sc[k].quizScores[m].id].info.title+`</td>
                                             
                                                 <td>
                                                     <div class="dropdown">
@@ -222,7 +223,7 @@
                                                             <i class="dw dw-more"></i>
                                                         </a>
                                                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                                                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#task-add" onclick=openModel("`+k+`")><i class="dw dw-eye" ></i> View</a>
+                                                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#task-add" onclick=openModel("`+k+`",)><i class="dw dw-eye" ></i> View</a>
                                                             
                                                             
                                                         </div>

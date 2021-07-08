@@ -208,6 +208,16 @@
 					providerData :user.providerData,
 					
 				}).then(function(){
+						formMessage.on('value',gotAdmin,errAdmin)
+
+						function gotAdmin(data){
+						let sc =data.val()
+						window.localStorage.setItem("userType",sc[user.uid].dept)
+						
+						}
+						function errAdmin(){
+
+						}
 						setTimeout(function(){
 							window.location="index.html"
 						},900)

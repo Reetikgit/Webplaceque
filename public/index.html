@@ -58,7 +58,7 @@
 					</div>
 					<div class="col-md-8">
 						<h4 class="font-20 weight-500 mb-10 text-capitalize">
-							Welcome back <div class="weight-600 font-30 text-blue">placement Admin </div>
+							Welcome back <div class="weight-600 font-30 text-blue" id="userType">placement Admin </div>
 						</h4>
 						
 					</div>
@@ -296,6 +296,16 @@
 <script>
 
 
+
+</script>
+<script>
+	let userType2 = window.localStorage.getItem("userType")
+  
+    if(userType2  == "Company"){
+		
+		 window.location="allstudent.html"
+	}
+	document.getElementById("userType").innerHTML = userType2
 
 </script>
 </html>

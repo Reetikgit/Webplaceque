@@ -117,16 +117,16 @@
 									<ul class="nav nav-tabs customtab" role="tablist">
 									
 										<li class="nav-item">
-											<a class="nav-link" data-toggle="tab" href="#tasks" role="tab">Notes</a>
+											<a class="nav-link" data-toggle="tab" href="#tasks"  role="tab">Notes</a>
 										</li>
                                         <li class="nav-item">
-											<a class="nav-link active" data-toggle="tab" href="#timeline" role="tab">Update Profile</a>
+											<a class="nav-link active" data-toggle="tab" href="#timeline"  role="tab">Update Profile</a>
 										</li>
 										<li class="nav-item">
-											<a class="nav-link" data-toggle="tab" href="#setting" role="tab">Add Staffs</a>
+											<a class="nav-link" data-toggle="tab" href="#setting" id="pushStaff" role="tab">Add Staffs</a>
 										</li>
 										<li class="nav-item">
-											<a class="nav-link" data-toggle="tab" href="#allstaffs" role="tab">ALL Staffs</a>
+											<a class="nav-link" data-toggle="tab" href="#allstaffs" id="totalStaff" role="tab">ALL Staffs</a>
 										</li>
 									</ul>
 									<div class="tab-content">
@@ -436,7 +436,8 @@
                                                                     <option>CIVIL</option>
                                                                     <option>EEE</option>
                                                                     <option>ECE</option>
-                                                                    <option>Management</option>
+                                                                    <option>Training & Placement</option>
+																	<option>Company</option>
 																</select>
 															</div>
 														
@@ -481,7 +482,11 @@
 
 <script>
     var user;
-
+	let userType3 = window.localStorage.getItem("userType")
+	if(userType3  != "Training & Placement"){
+		document.getElementById("pushStaff").style.display="none"
+		document.getElementById("totalStaff").style.display="none"
+	}
 
     var selectedFile;
     function readURL(input) {
@@ -582,20 +587,24 @@
     }
 
     function createStaff(){
+		if(window.localStorage.getItem("newUserCreated"))
+			window.localStorage.removeItem("newUserCreated")
         let db=firebase.database().ref('adminData');
         let sname = document.getElementById("sname").value
         let semail  = document.getElementById("semail").value
         let spass = document.getElementById("spass").value
         let dept = document.getElementById("sdepartment").value
-		alert(8)
+		
         firebase.auth().createUserWithEmailAndPassword(semail, spass).then(function(){
             document.getElementById("staffBtn").innerHTML = "Staff Added Successfully"
 			firebase.auth().onAuthStateChanged(function(user) {
 			console.log(user)
 			if (user) {
+			
 			let uid=user.uid;
-			let newformMessage =db.child(uid);
-		
+			if(window.localStorage.getItem("newUserCreated")==undefined){
+				let newformMessage =db.child(uid);
+				
 				newformMessage.update({
 					displayName :user.displayName,
 					email : user.email,
@@ -610,6 +619,7 @@
 					address :"",
 					dob: ""
 				}).then(function(){
+					window.localStorage.setItem("newUserCreated","yes")
 					setTimeout(function(){
 						let em = window.localStorage.getItem("secretkey")
 						let ps= window.localStorage.getItem("secretvalue")
@@ -622,6 +632,7 @@
 				})
 
 			}
+			}
 		})
         }).catch(function(error){
     
@@ -632,6 +643,7 @@
             console.log(errorMessage)
 			console.log(errorCode);
         })
+	
 		
         // let user1= window.localStorage.getItem("userId")
         
