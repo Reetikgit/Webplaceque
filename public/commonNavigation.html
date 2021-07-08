@@ -49,6 +49,14 @@
   display: flex;
   flex-direction: column;
 }
+.top-area > ul.main-menu > li.nodisp::after {
+    content: " ";
+    font-family: fontawesome;
+    font-size: 13px;
+    position: absolute;
+    right: 10px;
+    top: 0;
+}
 </style>
 
 <div id="overlay" style="z-index: 999;">
@@ -92,7 +100,7 @@
               
                     <li><a href="verifyquiz.html" title="">Take a Quiz</a></li>
                     <li><a href="allAddedQuiz.html" title="">View All Quiz</a></li>
-                    <li><a href="timeline-pages.html" title="">Quiz Results</a></li>
+                    <li><a href="quizresults.html" title="">Quiz Results</a></li>
                
                     
                     
@@ -226,18 +234,12 @@
     </div>
     
     <div class="top-area">
+        
         <ul class="main-menu">
-            <li>
-                <a href="home.html" title="">Home</a>
-                <!-- <ul>
-                    <li><a href="index-2.html" title="">Home Social</a></li>
-                    <li><a href="index2.html" title="">Home Social 2</a></li>
-                    <li><a href="index-company.html" title="">Home Company</a></li>
-                    <li><a href="landing.html" title="">Login page</a></li>
-                    <li><a href="logout.html" title="">Logout Page</a></li>
-                    <li><a href="newsfeed.html" title="">news feed</a></li>
-                </ul> -->
-            </li>
+            <li class="nodisp">
+                <a href="home.html" title="" >Home</a>
+        
+            </li>   
             <li>
                 <a href="#" title="">timeline</a>
                 <ul>
@@ -283,7 +285,7 @@
                 <a href="#" title="">Career Quiz's</a>
                 <ul>
                     <li><a href="verifyquiz.html" title="">Take Quiz</a></li>
-                    <li><a href="about.html" title="">Check Results</a></li>
+                    <li><a href="quizresults.html" title="">Check Results</a></li>
                     <li><a href="allAddedQuiz.html" title="">Upcoming Quiz</a></li>
             
                 </ul>
@@ -499,6 +501,7 @@
             </div>		
         </div>
     </nav>
+    
 
 <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase.js"></script>
