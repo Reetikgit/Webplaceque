@@ -140,18 +140,10 @@
                              
                                     <div class="card p-3 mt-3">
                                         <h5 class="mt-3 mb-3">Performance score</h5>
-                                        <div class="border p-2 rounded d-flex flex-row align-items-center">
-                                            <div class="p-1 px-4 d-flex flex-column align-items-center score rounded"> <span class="d-block char text-success">A</span> <span class="text-success">98%</span> </div>
-                                            <div class="ml-2 p-3">
-                                                <h6 class="heading1">PageSpeed Score</h6> <span>The average page speed score is 75%</span>
-                                            </div>
-                                        </div>
-                                        <div class="border p-2 rounded d-flex flex-row align-items-center mt-2">
-                                            <div class="p-1 px-4 d-flex flex-column align-items-center speed rounded"> <span class="d-block char text-warning">C</span> <span class="text-warning">72%</span> </div>
-                                            <div class="ml-2 p-4">
-                                                <h6 class="text">YSlow Score</h6> <span>The average YSlow score is 76%</span>
-                                            </div>
-                                        </div>
+										<div id="updatedScores">
+											
+										</div>
+                                       
                                     </div>
                                
 								
@@ -274,38 +266,34 @@
 <script>
 	setTimeout(function(){
 
-		let ref3 = firebase.database().ref('quizData')
-        if(window.localStorage.getItem("sem")==1 || window.localStorage.getItem("sem")==2){
-            year="1"
-        }else if (window.localStorage.getItem("sem")==3 || window.localStorage.getItem("sem")==4){
-            year="2"
-        }else if(window.localStorage.getItem("sem")==5 || window.localStorage.getItem("sem")==6){
-            year="3"
-        }else{
-            year="4"
-        }
-       
+		let ref3 = firebase.database().ref('publishedQuizResult')
+		let sc= JSON.parse(window.localStorage.getItem("studentData"))
+		let qd= JSON.parse(window.localStorage.getItem("quizDatabase"))
+		let studKey = window.localStorage.getItem("user")
 		ref3.on('value',gotDocument,errData) 
 		function gotDocument(data){
 			let dc = data.val()
 			let keys = Object.keys(dc)
-			document.getElementById("allAddedQuiz").innerHTML =""
+			document.getElementById("updatedScores").innerHTML =""
 			for(let i =0 ;i<keys.length;i++){
 				let key = keys[i]
-				if(dc[key].status=="Active" || dc[key].status=="active"){
-                    if((dc[key].info.selectedBranches).includes(window.localStorage.getItem("branch")) && (dc[key].info.selectedYear).includes(year) ){
-                        document.getElementById("allAddedQuiz").innerHTML +=`
-                        <div class="card" style="padding-left:25px">
-                            <img src="https://cdn1.iconfinder.com/data/icons/education-items/512/examtest-512.png" style="width:130px;heightit:cover:130px;object-f" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">`+dc[key].info.title+`</h5>
-                                <p class="card-text"><span>Quiz ID : </span>`+dc[key].info.id+`</p>
-                                <a href="verifyquiz.html" class="btn btn-primary" style="background:orange">Take Quiz </a>
-                            </div>
-                        </div>
-                        `
-                    }
-                }
+				for(let j=0;j<sc[studKey].quizScores.length;j++){
+				
+				
+					if(dc[key].QuizId==sc[studKey].quizScores[j].code){
+						
+							document.getElementById("updatedScores").innerHTML +=`
+							<div class="border p-2 rounded d-flex flex-row align-items-center">
+								<div class="p-1 px-4 d-flex flex-column align-items-center score rounded"> <span class="d-block char text-success">`+sc[studKey].quizScores[j].score+`</span> <span class="text-success">Max : `+qd[sc[studKey].quizScores[j].id].info.total+`</span> </div>
+								<div class="ml-2 p-3">
+									<h6 class="heading1">`+sc[studKey].quizScores[j].code+ "("+qd[sc[studKey].quizScores[j].id].info.title+")"+`</h6> <span>Date : `+qd[sc[studKey].quizScores[j].id].info.date+`</span>
+								</div>
+							</div>
+							
+							`
+                    
+                	}
+				}
 			}
 		}
 		function errData(){

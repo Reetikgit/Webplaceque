@@ -1417,6 +1417,7 @@ function logout(){
         // Sign-out successful.
         window.localStorage.removeItem("user")
         window.localStorage.removeItem("userId")
+        window.localStorage.removeItem("isSession")
          window.location="index.html"
         }).catch(function(error) {
         // An error happened.

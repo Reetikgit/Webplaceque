@@ -169,6 +169,9 @@
 </body>	
 
 <script>
+	if(window.localStorage.getItem("isSession")=="yes"){
+		window.location="home.html"
+	}
 	var firebaseConfig = {
 	apiKey: "AIzaSyBrjKsOT5YXZSYFVOa3PeBi3997XdKJRbw",
 	authDomain: "placeque-47156.firebaseapp.com",
@@ -181,9 +184,9 @@
 };
 	// Initialize Firebase
 	setTimeout(function(){
-    document.getElementById("overlay").style.display="none"
-    document.getElementById("loader").style.display="none"
-},800)
+		document.getElementById("overlay").style.display="none"
+		document.getElementById("loader").style.display="none"
+	},800)
 	firebase.initializeApp(firebaseConfig);
 	firebase.analytics();
 	var formStudent= firebase.database().ref('studentData')
@@ -194,10 +197,10 @@
 			refData= firebase.database().ref('studentData').child(user.uid)
 			refData.on('value', (snapshot) => {
 				const data = snapshot.val();
-				console.log(data)
+			
 
 				if(data.studentVerified){
-				
+					window.localStorage.setItem("isSession","yes")
 					window.location="home.html"
 				}else{
 					if(user.emailVerified){
