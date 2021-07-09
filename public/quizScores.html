@@ -89,7 +89,9 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label >Enter Quiz ID  </label>
-                            <input type="text" id="quizId" class="form-control" placeholder="Quiz ID">
+                            <select class="form-control" id="quizId" aria-label="Default select example">
+                                               
+							</select>
                         </div>
                         <div class="modal-footer justify-content-center">
                             <button type="button" class="btn btn-primary" style="background-color: green;border:none" onclick="getScores()">Fecth Results <i class="dw dw-id-card"></i></button>
@@ -181,6 +183,19 @@
 	//initialize firebase
 	firebase.initializeApp(firebaseConfig);
     var sc;
+	let qds =JSON.parse(window.localStorage.getItem("quizDatabase"))
+    let keys=Object.keys(qds)
+   
+    for(let i =0;i<keys.length;i++){
+        let k =keys[i]
+        
+        document.getElementById("quizId").innerHTML +=
+        `
+            <option value="`+qds[k].info.id+`">`+qds[k].info.id+"/"+qds[k].info.title+`</option>
+
+
+        `   
+    }
     function getScores(){
         let qid=document.querySelector('#quizId').value
         var formMessage = firebase.database().ref('studentData');
