@@ -29,4 +29,35 @@
 
 <script>
 
+setTimeout(function(){
+    let ref3 = firebase.database().ref('publishedQuizResult')
+		let sc= JSON.parse(window.localStorage.getItem("studentData"))
+		let qd= JSON.parse(window.localStorage.getItem("quizDatabase"))
+		let studKey = window.localStorage.getItem("user")
+		ref3.on('value',gotDocument,errData) 
+		function gotDocument(data){
+			let dc = data.val()
+			let keys = Object.keys(dc)
+			document.getElementById("sgps").innerHTML =""
+            let sum=0
+			for(let i =0 ;i<keys.length;i++){
+				let key = keys[i]
+                
+				for(let j=0;j<sc[studKey].quizScores.length;j++){
+					
+				
+					if(dc[key].QuizId==sc[studKey].quizScores[j].code){
+                            sum+=sc[studKey].quizScores[j].score
+							
+                    
+                	}
+				}
+			}
+            document.getElementById("sgps").innerHTML=sum
+							
+		}
+        function errData(){
+            
+        }
+},2000)
 </script>
