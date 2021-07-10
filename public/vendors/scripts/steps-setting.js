@@ -158,7 +158,7 @@ $(".tab-wizard").steps({
 		let total=document.querySelector("#total").value
 
 		let cn=convertTime12to24(startTime)
-		alert(cn)
+		
 		var selectedBranches = [];
 		for (var option of document.getElementById('branch').options)
 		{
