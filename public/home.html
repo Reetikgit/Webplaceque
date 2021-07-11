@@ -501,11 +501,11 @@
 				
 				let key = keys[i]
 				
-				if(!dc[key].expired)
+				if(!dc[key].expired && dc[key].status=="active")
 					document.getElementById("drives").innerHTML += `
 					<li>
 						<div class="activity-meta">
-							<i>`+dc[key].time.substring(0,23)+`</i>
+							<i>Posted Recently</i>
 							<span> <img src=`+dc[key].Driveinfo.photoUrl+` style="width:30px;object-fit:contain"> <a href="#!" onclick=openDrive("`+key+`") title="">`+dc[key].Driveinfo.name+` </a></span>
 							<h6>`+dc[key].Driveinfo.comments+`</h6>
 						</div>
