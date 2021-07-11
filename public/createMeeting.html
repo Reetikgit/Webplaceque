@@ -232,10 +232,15 @@
 	
 		let newForm = form.set({
 			info,
-			"key" : form.key
+			"key" : form.key,
+			"createdBy" : window.localStorage.getItem("username"),
+			"facultyImage" :window.localStorage.getItem("image"),
+			"facultyEmail" :window.localStorage.getItem("email"),
+			"facultyDept" : window.localStorage.getItem("dept"),
 			
 		}).then(function(){
 			console.log("Done")
+			alert("Meeting Created Successfully")
 			
 		})
 
