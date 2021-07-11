@@ -629,6 +629,7 @@
                                         <a href="#!" class="btn btn-primary" style="background:red;border:none" id="deactivate`+key[i]+`" onclick=deactivateDrive("`+key[i]+`")>Deactivate</a>
                                         <a href="#!" class="btn btn-primary" style="background:green;border:none;display:none" id="activate`+key[i]+`" onclick=activateDrive("`+key[i]+`")>Activate</a>
                                         <a href="#!" class="btn btn-primary" style="background:orange;border:none" onclick=updateDrive("`+key[i]+`")>Edit</a>
+                                        <a href="#!" class="btn btn-primary" style="background:gray;border:none" onclick=deleteDrive("`+key[i]+`")><i class="dw dw-trash"></i></a>
                                     </div>
                                 </div>
 					        </div>
@@ -806,6 +807,12 @@
         res=confirm("Are u sure to remove the quiz")
         if(res)
          firebase.database().ref("quizData").child(key).remove()
+
+    }
+    function deleteDrive(key){
+        res=confirm("Are u sure to remove the drive")
+        if(res)
+         firebase.database().ref("driveData").child(key).remove()
 
     }
     function activateQuiz(key){
