@@ -581,6 +581,15 @@ let newInterval = setInterval(function(){
         }
     
         var copyData;
+
+        let quizData2 = firebase.database().ref('quizData')
+       	quizData2.on('value',gotQuizData,errData)
+
+        function gotQuizData(data){
+            let quizsc = data.val()
+            window.localStorage.setItem("quizDatabase",JSON.stringify(quizsc))
+        }
+
         let refData2= firebase.database().ref('studentData')
         refData2.on('value', (snapshot) => {
             let copyData = snapshot.val();
