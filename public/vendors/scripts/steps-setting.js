@@ -370,7 +370,7 @@ $(".tab-wizard2").steps({
 								}
 							}
 							let id=name.substring(0,2)+Math.floor(Math.random() * 1000) + 1;
-							
+							var Newtime = new Date();
 							let Driveinfo ={
 								id:id,
 								name :name,
@@ -385,7 +385,8 @@ $(".tab-wizard2").steps({
 								package :package,
 								description:description,
 								comments : comments,
-								photoUrl :urls2
+								photoUrl :urls2,
+								createdTime : Newtime,
 
 							}
 							let refDb = firebase.database().ref("driveData")
@@ -400,12 +401,12 @@ $(".tab-wizard2").steps({
 								window.location="upcomingDrive.html"
 							}else{
 								let form = refDb.push()
-
+							
 								let newForm = form.set({
 									Driveinfo,
+									"time" : Newtime,
+									"status" :"active",
 									"key" : form.key,
-									time : new Date(),
-									status :"active"
 									
 								}).then(function(){
 									console.log("Done")
