@@ -21,7 +21,7 @@
 	<link rel="stylesheet" type="text/css" href="src/plugins/datatables/css/dataTables.bootstrap4.min.css">
 	<link rel="stylesheet" type="text/css" href="src/plugins/datatables/css/responsive.bootstrap4.min.css">
 	<link rel="stylesheet" type="text/css" href="vendors/styles/style.css">
-
+    
 	<!-- Global site tag (gtag.js) - Google Analytics -->
 	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-119386393-1"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -41,22 +41,26 @@
 
 	</script>
 </head>
+<style>
+
+</style>
 <body>
 
 	<div class="navigation"></div>
-	<div class="main-container">
+	
+    <div class="main-container">
 		<div class="pd-ltr-20 xs-pd-20-10">
 			<div class="min-height-200px">
 				<div class="page-header">
 					<div class="row">
 						<div class="col-md-6 col-sm-12">
 							<div class="title">
-								<h4>Students Data Validation</h4>
+								<h4>Quiz Score Lists</h4>
 							</div>
 							<nav aria-label="breadcrumb" role="navigation">
 								<ol class="breadcrumb">
 									<li class="breadcrumb-item"><a href="index.html">Home</a></li>
-									<li class="breadcrumb-item active" aria-current="page">Student Validation</li>
+									<li class="breadcrumb-item active" aria-current="page">Quiz Results</li>
 								</ol>
 							</nav>
 						</div>
@@ -75,11 +79,24 @@
 					</div>
 				</div>
 				<!-- Simple Datatable start -->
+
+				
 				<div class="card-box mb-30">
 					<div class="pd-20">
-						<h4 class="text-blue h4">Student List</h4>
+						<h4 class="text-blue h4">Drive Score List</h4>
 						
 					</div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label >Select Aptitude ID  </label>
+                            <select class="form-control" id="quizId" aria-label="Default select example">
+                                               
+							</select>
+                        </div>
+                        <div class="modal-footer justify-content-center">
+                            <button type="button" class="btn btn-primary" style="background-color: green;border:none" onclick="getScores()">Fecth Results <i class="dw dw-id-card"></i></button>
+                        </div>
+                    </div>
 					<div class="pb-20">
 						<table class="data-table table stripe hover nowrap">
 							<thead>
@@ -87,16 +104,18 @@
 									<th class="table-plus datatable-nosort">Name</th>
 									<th>Semester</th>
 									<th>Branch</th>
-									<th>Status</th>
-									<th>Request Date</th>
+									<th>Score</th>
+                                    <th>Status</th>
+									<th>Aptitude ID/Title</th>
 									<th class="datatable-nosort">Action</th>
 								</tr>
 							</thead>
 							<tbody id="tb">
 								
-							</tbody>
+								
+
+						</tbody>
 						</table>
-						
 					</div>
 				</div>
 
@@ -115,15 +134,12 @@
 								<ul id="details">
 									<li>
 										<form>
-
+									
 										</form>
 									</li>
-									
 								</ul>
 							</div>
 							
-						</div>
-						
 					</div>
 				</div>
 			</div>
@@ -132,7 +148,7 @@
 			</div>
 		</div>
 	</div>
-	<!-- js -->
+	
 	<script src="vendors/scripts/core.js"></script>
 
 	<script src="src/plugins/datatables/js/jquery.dataTables.min.js"></script>
@@ -152,12 +168,10 @@
 	<script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-auth.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-firestore.js"></script>
 	
-	
 
 </body>
 <script>
-
-	 var firebaseConfig = {
+	var firebaseConfig = {
 		apiKey: "AIzaSyBrjKsOT5YXZSYFVOa3PeBi3997XdKJRbw",
 		authDomain: "placeque-47156.firebaseapp.com",
 		databaseURL: "https://placeque-47156-default-rtdb.firebaseio.com",
@@ -169,116 +183,149 @@
 	};
 	//initialize firebase
 	firebase.initializeApp(firebaseConfig);
-	let formMessage = firebase.database().ref('studentData');
-	var sc;
-	formMessage.on('value',gotData,errData)
-	function gotData(data){
-	
-				 sc=data.val();
-				 var keys=Object.keys(sc);
-				
-				 document.getElementById("tb").innerHTML=""
-				 for(var i=0;i<keys.length;i++){
-					var k=keys[i]
-					
-					console.log("HELLO"+sc[k])
-					if(sc[k].BasicprofileData && sc[k].educationData && sc[k].studentVerified !=true){
-						
-						var Name=sc[k].BasicprofileData.basic.fname
-						var Lname=sc[k].BasicprofileData.basic.lname
-						var Sem=sc[k].educationData.education.semester
-						var Branch=sc[k].branch
-						let status
-						if(sc[k].studentVerified == false){
-							status = "Pending"
-						}
-						if(sc[k].studentVerified =="rejected"){
-							status = "Rejected"
-						}
-					
-						document.getElementById("tb").innerHTML+=
-						`          <tr >
-									<td class="table-plus">`+Name+`</td>
-									<td>`+Sem+`</td>
-									<td>`+Branch+`</td>
-									<td>`+status+`</td>
-									<td>29-03-2018</td>
-									<td>
-										<div class="dropdown">
-											<a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
-												<i class="dw dw-more"></i>
-											</a>
-											<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-												<a class="dropdown-item" href="#" data-toggle="modal" data-target="#task-add" onclick=openModel("`+k+`")><i class="dw dw-eye" ></i> View</a>
-												<a class="dropdown-item" href="#" onclick=acceptStudent("`+k+`")><i class="dw dw-check" ></i> Accept</a>
-												<a class="dropdown-item" href="#" onclick=RejectStudent("`+k+`")><i class="dw dw-cancle"></i> Reject</a>
-												
-											</div>
-										</div>
-									</td>
-								</tr>`
+    var sc;
+	let qds =JSON.parse(window.localStorage.getItem("quizDatabase"))
+    let keys=Object.keys(qds)
+   
+    for(let i =0;i<keys.length;i++){
+        let k =keys[i]
+        
+        document.getElementById("quizId").innerHTML +=
+        `
+            <option value="`+qds[k].info.id+`">`+qds[k].info.id+"/"+qds[k].info.title+`</option>
 
-			 }
-			}
-		}
-	function errData(){
-		console.log("as")
-	}
-	function acceptStudent(id){
-		let res = confirm("Are u sure to accept")
-		data={
-			studentVerified : true
-		}
-		if(res)
-			firebase.database().ref("studentData").child(id).update(data)
-	}
-	function RejectStudent(id){
-		let res = confirm("Are u sure to Reject")
-		data={
-			studentVerified : "rejected"
-		}
-		data2={
-			lastDetailsUpdated : false
-		}
-		if(res){
-			firebase.database().ref("studentData").child(id).update(data)
-			firebase.database().ref("studentData").child(id).update(data2)
-		}
+
+        `   
+    }
+    function getScores(){
+        let qid=document.querySelector('#quizId').value
+        var formMessage = firebase.database().ref('studentData');
+        
+        formMessage.on('value',gotData,errData)
+        function gotData(data){
+        
+                    sc=data.val();
+                    var keys=Object.keys(sc);
+                    var qd = JSON.parse(window.localStorage.getItem("quizDatabase"))
+                    document.getElementById("tb").innerHTML=""
+                    let status2= "Pending"
+                    for(var i=0;i<keys.length;i++){
+                        var k=keys[i]
+                       
+                        if(sc[k].quizScores){
+                            
+                            var Name=sc[k].BasicprofileData.basic.fname
+                            var Lname=sc[k].BasicprofileData.basic.lname
+                            var Sem=sc[k].educationData.education.semester
+                            var yearofpass=sc[k].educationData.education.collegeTo
+                            var Branch=sc[k].branch
+                            let status
+                            
+                        if(sc[k].studentVerified==true ){
+                            for(let m=0;m<sc[k].quizScores.length;m++){
+                                if(sc[k].driveResults){
+                            
+                                    status2 = "Accepted"
+                                }else{
+                                    status2 = "Pending"
+                                }
+                                if(sc[k].quizScores[m].code==qid)
+                                    document.getElementById("tb").innerHTML+=
+                                    `          <tr >
+                                            
+                                                <td class="table-plus">`+Name+`</td>
+                                                <td>`+Sem+`</td>
+                                                <td>`+Branch+`</td>
+                                                <td>`+sc[k].quizScores[m].score+`</td>
+                                                <td>`+status2+`</td>
+                                                <td>`+sc[k].quizScores[m].code+"/"+qd[sc[k].quizScores[m].id].info.title+`</td>
+                                            
+                                                <td>
+                                                    <div class="dropdown">
+                                                        <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+                                                            <i class="dw dw-more"></i>
+                                                        </a>
+                                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+                                                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#task-add" onclick=openModel("`+k+`",)><i class="dw dw-eye" ></i> View</a>
+                                                            <a class="dropdown-item" href="#" id="`+k+`" onclick=updateDriveResult("`+k+`",)><i class="dw dw-check" ></i> Passed </a>                                                            
+                                                            
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>`
+                                        }
+                                    }
+
+                }
+                }
+            }
+        
+        function errData(){
+            console.log("as")
+        }
+    }
+    function updateDriveResult(key){
+        let id = document.querySelector("#quizId").value
+        // let email =document.getElementById("email").value
+      
+        let form =firebase.database().ref('publishedDriveResult')
+        let keyID=form.push()
+        let newForm = keyID.set({
 			
-	}
+			"AptitudeId" : id,
+            "studentId" :key,
+            "key" :keyID.key
+			
+		}).then(function(){
+			console.log("Done")
+            
+            document.getElementById(key).style.display="none"
+			
+		})
+        let data ={
+            driveResults : {
+            "AptitudeId" : id,
+            "studentId" :key,
+            "key" :keyID.key ,
+            "date":new Date()
+            }
+        }
+        firebase.database().ref('studentData').child(key).update(data)
+
+    }
 	function openModel(k){
 	
-					document.getElementById("details").innerHTML= " "
-					 var Name=sc[k].BasicprofileData.basic.fname
-					 var Branch=sc[k].branch
-					 var Sem=sc[k].educationData.education.semester
-					 var Phonenumber=sc[k].BasicprofileData.basic.phone
-					 var Gender=sc[k].BasicprofileData.basic.gender
-					 var fathername=sc[k].BasicprofileData.basic.father
-					 var permanentaddr=sc[k].BasicprofileData.basic.permanentAddress
-					 var presentaddr=sc[k].BasicprofileData.basic.currentAddress
-					 var officialemailid=sc[k].BasicprofileData.basic.officialEmail
-					 var personalemailid=sc[k].BasicprofileData.basic.personalEmail
-                     var yearofpass=sc[k].educationData.education.collegeTo
-					 var percentage=sc[k].educationData.education.cmarks
-					 var collegename=sc[k].educationData.education.collegeName
-					 var Collegename12=sc[k].educationData.education.XIIname
-					 var percentage12=sc[k].educationData.education.XIImarks
-					 var yearofpass12=sc[k].educationData.education.XIIto
-					 var schoolname=sc[k].educationData.education.XIIname
-					 var schoolmarks=sc[k].educationData.education.XIImarks
-					 var yearofpass10=sc[k].educationData.education.Xto
-					 var date=sc[k].BasicprofileData.basic.day 
-					 var Month=sc[k].BasicprofileData.basic.month
-					 var Year=sc[k].BasicprofileData.basic.year
-					 var boe10=sc[k].educationData.education.BOE10
-					 var boe12=sc[k].educationData.education.BOE12
-					 var profileimage=sc[k].photoUrl
-					 if(!profileimage){
-						profileimage='https://lh3.googleusercontent.com/proxy/heoKYTxDHa-p_r0YJB427c6FbihetoxoO6qQRGt80tvwx944RcaVdbddFQ_xb_wPHRRXlNyMPRHM_xXu7aj_s2i4XGxufUDsvUMKLvaHicKe8L3x2_5PhiEYFjfC'
-					}
-					 document.getElementById("details").innerHTML+=
-					`<li>
+	document.getElementById("details").innerHTML=""
+	var Name=sc[k].BasicprofileData.basic.fname
+	var Branch=sc[k].branch
+	var Sem=sc[k].educationData.education.semester
+	var Phonenumber=sc[k].BasicprofileData.basic.phone
+	var Gender=sc[k].BasicprofileData.basic.gender
+	var fathername=sc[k].BasicprofileData.basic.father
+	var permanentaddr=sc[k].BasicprofileData.basic.permanentAddress
+	var presentaddr=sc[k].BasicprofileData.basic.currentAddress
+	var officialemailid=sc[k].BasicprofileData.basic.officialEmail
+	var personalemailid=sc[k].BasicprofileData.basic.personalEmail
+	var yearofpass=sc[k].educationData.education.collegeTo
+	var percentage=sc[k].educationData.education.cmarks
+	var collegename=sc[k].educationData.education.collegeName
+	var Collegename12=sc[k].educationData.education.XIIname
+	var percentage12=sc[k].educationData.education.XIImarks
+	var yearofpass12=sc[k].educationData.education.XIIto
+	var schoolname=sc[k].educationData.education.XIIname
+	var schoolmarks=sc[k].educationData.education.XIImarks
+	var yearofpass10=sc[k].educationData.education.Xto
+	var date=sc[k].BasicprofileData.basic.day 
+	var Month=sc[k].BasicprofileData.basic.month
+	var Year=sc[k].BasicprofileData.basic.year
+	var boe10=sc[k].educationData.education.BOE10
+	var boe12=sc[k].educationData.education.BOE12
+	var profileimage=sc[k].photoUrl
+	if(!profileimage){
+        profileimage='https://lh3.googleusercontent.com/proxy/heoKYTxDHa-p_r0YJB427c6FbihetoxoO6qQRGt80tvwx944RcaVdbddFQ_xb_wPHRRXlNyMPRHM_xXu7aj_s2i4XGxufUDsvUMKLvaHicKe8L3x2_5PhiEYFjfC'
+    }
+	document.getElementById("details").innerHTML+=
+	`<li>
 					   <form>
 						   <h3 style="color: orange ">Personal Details</h3>
 							<br><br>
@@ -450,38 +497,34 @@
 					   </form>
 				   </li>
 				   <div class="modal-footer">
-						<button type="button" class="btn btn-primary" onclick=acceptStudent("`+k+`") style="background-color:green">Accept</button>
-						<button type="button" class="btn btn-primary" onclick=RejectStudent("`+k+`") style="background-color:red">Reject</button>
-						
-						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-					</div>
+					   
+					   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				   </div>
 				   `
 
 
-			 
-	}
+
+}
 
 </script>
 
-	<script src="src/plugins/datatables/js/jquery.dataTables.min.js"></script>
+
+</body>
+<script src="src/plugins/datatables/js/jquery.dataTables.min.js"></script>
 	<script src="src/plugins/datatables/js/dataTables.bootstrap4.min.js"></script>
 	<script src="src/plugins/datatables/js/dataTables.responsive.min.js"></script>
 	<script src="src/plugins/datatables/js/responsive.bootstrap4.min.js"></script>
-	<!-- buttons for Export datatable -->
-	
-	<!-- Datatable Setting js -->
-</body>
-	<script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-app.js"></script>
-    
-    <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
-    <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-analytics.js"></script>
-    
-    <!-- Add Firebase products that you want to use -->
-    <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-app.js"></script>
 
-	<script>
-	var firebaseConfig = {
+<!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+<script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-analytics.js"></script>
+
+<!-- Add Firebase products that you want to use -->
+<script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-firestore.js"></script>
+
+<script>
+		var firebaseConfig = {
 		apiKey: "AIzaSyBrjKsOT5YXZSYFVOa3PeBi3997XdKJRbw",
 		authDomain: "placeque-47156.firebaseapp.com",
 		databaseURL: "https://placeque-47156-default-rtdb.firebaseio.com",
@@ -490,20 +533,20 @@
 		messagingSenderId: "387944466952",
 		appId: "1:387944466952:web:3ec6cfefc5682e3431dfbd",
 		measurementId: "G-N7RD97TPP5"
-	};
-	// Initialize Firebase
-	firebase.initializeApp(firebaseConfig);
-	firebase.analytics();
-	firebase.auth().onAuthStateChanged(function(user) {
+		};
+		// Initialize Firebase
+		firebase.initializeApp(firebaseConfig);
+		firebase.analytics();
+		firebase.auth().onAuthStateChanged(function(user) {
 		if(user){
 
-		    
+
 		}else{
-            window.location="login.html"
-        }
+		window.location="login.html"
+		}
 
-	})
+})
 
-	</script>
-
+</script>
+</script>
 </html>

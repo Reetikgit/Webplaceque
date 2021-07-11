@@ -20,6 +20,18 @@ jQuery(window).on("load resize", function () {
 		autoExpandScrollbar: true,
 		advanced: { autoExpandHorizontalScroll: true }
 	});
+	$(".customscroll2").mCustomScrollbar({
+		theme:"dark-2",
+		scrollInertia: 300,
+		autoExpandScrollbar: true,
+		advanced: { autoExpandHorizontalScroll: true }
+	});
+	$(".customscroll3").mCustomScrollbar({
+		theme:"dark-2",
+		scrollInertia: 300,
+		autoExpandScrollbar: true,
+		advanced: { autoExpandHorizontalScroll: true }
+	});
 });
 jQuery(document).ready(function(){
 	"use strict";

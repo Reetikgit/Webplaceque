@@ -178,7 +178,7 @@
 	
 				 sc=data.val();
 				 var keys=Object.keys(sc);
-				
+				 let sum=0;
 				 document.getElementById("tb").innerHTML=""
 				 for(var i=0;i<keys.length;i++){
 					var k=keys[i]
@@ -194,13 +194,19 @@
 						let status
 						
 					   if(sc[k].studentVerified==true){
+						if(sc[k].quizScores)
+							for(let p=0;p<sc[k].quizScores.length;p++){
+								sum=sum+sc[k].quizScores[p].score
+							}
+						else	
+							sum=0;
 						document.getElementById("tb").innerHTML+=
 						`          <tr >
 							       
 									<td class="table-plus">`+Name+`</td>
 									<td>`+Sem+`</td>
 									<td>`+Branch+`</td>
-									<td>0</td>
+									<td>`+sum+`</td>
 									<td>`+yearofpass+`</td>
 								
 									<td>
@@ -253,7 +259,9 @@
 	var boe10=sc[k].educationData.education.BOE10
 	var boe12=sc[k].educationData.education.BOE12
 	var profileimage=sc[k].photoUrl
-	
+	if(!profileimage){
+        profileimage='https://lh3.googleusercontent.com/proxy/heoKYTxDHa-p_r0YJB427c6FbihetoxoO6qQRGt80tvwx944RcaVdbddFQ_xb_wPHRRXlNyMPRHM_xXu7aj_s2i4XGxufUDsvUMKLvaHicKe8L3x2_5PhiEYFjfC'
+    }
 	document.getElementById("details").innerHTML+=
 	`<li>
 					   <form>
