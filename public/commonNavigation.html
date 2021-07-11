@@ -589,6 +589,19 @@ let newInterval = setInterval(function(){
             let quizsc = data.val()
             window.localStorage.setItem("quizDatabase",JSON.stringify(quizsc))
         }
+        let refD= firebase.database().ref('adminData')
+        if(window.location.href.includes("home.html")){
+            refD.on('value',gotAdminData,errData)
+
+            function gotAdminData(data){
+                let pc= data.val()
+                window.localStorage.setItem("adminData",JSON.stringify(pc))
+            }
+            function errData(){
+
+            }
+        }
+       
 
         let refData2= firebase.database().ref('studentData')
         refData2.on('value', (snapshot) => {
@@ -596,7 +609,7 @@ let newInterval = setInterval(function(){
             window.localStorage.setItem("studentData",JSON.stringify(copyData))
             let data=JSON.parse(window.localStorage.getItem("studentData"))
             let user =window.localStorage.getItem("userId")
-            console.log(data)
+      
             if(data[user].educationData){
                 window.localStorage.setItem("branch", data[user].educationData.education.branch)
                 window.localStorage.setItem("sem", data[user].educationData.education.semester)
@@ -1077,20 +1090,30 @@ let newInterval = setInterval(function(){
                         `
                      
                         if(sc[key].comments){
-                  
+                            let ad = JSON.parse(window.localStorage.getItem("adminData"))
                             let stdKey=(sc[key].comments[0]['user'])
-                            
+                            let image = ""
+                            let names = "Unknown"
                             for(let j =sc[key].comments.length-1;j>=0;j--){
-                                
+                                if(sc[key].comments[j].type =="admin"){
+                                    image = ad[sc[key].comments[j]['user']].photoUrl
+                                    names=ad[sc[key].comments[j]['user']].name
+                                }else{
+                                    names=copyData[sc[key].comments[j]['user']].Name
+                                    if(copyData[sc[key].comments[j]['user']].photoUrl)
+                                        image = copyData[sc[key].comments[j]['user']].photoUrl
+                                    else
+                                        image = "https://img.icons8.com/bubbles/2x/user.png"
+                                }
                                 document.getElementById("cmt"+key).innerHTML+=`
                                 
                                 <li style="margin-bottom:0 !important">
                                     <div class="comet-avatar">
-                                        <img src="`+copyData[sc[key].comments[j]['user']].photoUrl+`" alt="" style="width:30px;height:30px;object-fit:cover">
+                                        <img src="`+image+`" alt="" style="width:30px;height:30px;object-fit:cover">
                                     </div>
                                     <div class="we-comment">
                                         <div class="coment-head">
-                                            <h5><a href="time-line.html" title="">`+copyData[sc[key].comments[j]['user']].Name+`</a></h5>
+                                            <h5><a href="time-line.html" title="">`+names+`</a></h5>
                                             <span>`+sc[key].comments[j]['time'].substring(0,24)+`</span>
                                         
                                         </div>
@@ -1103,17 +1126,18 @@ let newInterval = setInterval(function(){
                                 
                                 <li style="margin-bottom:0 !important">
                                     <div class="comet-avatar">
-                                        <img src="`+copyData[sc[key].comments[j]['user']].photoUrl+`" alt="" style="width:30px;height:30px;object-fit:cover">
+                                        <img src="`+image+`" alt="" style="width:30px;height:30px;object-fit:cover">
                                     </div>
                                     <div class="we-comment">
                                         <div class="coment-head">
-                                            <h5><a href="time-line.html" title="">`+copyData[sc[key].comments[j]['user']].Name+`</a></h5>
+                                            <h5><a href="time-line.html" title="">`+names+`</a></h5>
                                             <span>`+sc[key].comments[j]['time'].substring(0,24)+`</span>
                                         
                                         </div>
                                         <p>`+sc[key].comments[j]['Message']+`</p>
                                     </div>
                                 </li>
+                                
                                 `
                                 
                             }
@@ -1671,5 +1695,7 @@ function refreshPage(){
     window.location.reload()
 }
 </script>
+
+
 
 

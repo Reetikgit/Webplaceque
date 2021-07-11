@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+	<title>placeQue | HOME </title>
+    <link rel="icon" href="images/logo23.png" type="image/png" sizes="16x16"> 
+    
+    <link rel="stylesheet" href="css/main.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/color.css">
+    <link rel="stylesheet" href="css/responsive.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://unpkg.com/placeholder-loading/dist/css/placeholder-loading.min.css">
+</head>
+<style>
+	.modal-dialog-full-width {
+        width: 100% !important;
+        height: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        max-width:none !important;
+
+    }
+
+    .modal-content-full-width  {
+        height: auto !important;
+        min-height: 100% !important;
+        border-radius: 0 !important;
+        background-color: #ececec !important 
+    }
+
+    .modal-header-full-width  {
+        border-bottom: 1px solid #9ea2a2 !important;
+    }
+
+    .modal-footer-full-width  {
+        border-top: 1px solid #9ea2a2 !important;
+    }
+</style>
+<script>
+		
+		$(document).ready(function(){
+		
+		$('#navigation').load("commonNavigation.html");
+        $('#footerCommon').load("footerCommon.html");
+
+ });
+</script>
+<body >
+<!--<div class="se-pre-con"></div>-->
+<div class="theme-layout">
+	<div id="navigation"></div>
+	<section>
+		<div class="">
+			<div class="">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="row" id="page-contents">
+							<div class="col-lg-3">
+								<aside class="sidebar static hide-small" >
+									<div class="widget">
+										<h4 class="widget-title">Shortcuts</h4>
+										<ul class="naves">
+											<li>
+												<i class="ti-clipboard"></i>
+												<a href="home.html" title="">place-Que Timeline</a>
+											</li>
+											<li>
+												<i class="ti-mouse-alt"></i>
+												<a href="studyDocs.html" title="">Study Documents</a>
+											</li>
+											<li>
+												<i class="ti-files"></i>
+												<a href="edit-profile-basic.html" title="">My profile</a>
+											</li>
+											<li>
+												<i class="ti-user"></i>
+												<a href="classStudents.html" title="">My classroom</a>
+											</li>
+											
+											<li>
+												<i class="ti-comments-smiley"></i>
+												<a href="otherStudents.html" title="">Friends Nearby</a>
+											</li>
+											<li>
+												<i class="ti-bell"></i>
+												<a href="resume1.html" title="">Your Resume</a>
+											</li>
+										
+											<li>
+												<i class="fa fa-bar-chart-o"></i>
+												<a href="allDrives.html" title="">Drive updates</a>
+											</li>
+											<li>
+												<i class="ti-power-off"></i>
+												<a href="#1" onclick="logout()" title="">Logout</a>
+											</li>
+										</ul>
+									</div><!-- Shortcuts -->
+									<div class="widget">
+										<h4 class="widget-title">Upcomming Drives</h4>
+										<ul class="activitiez" id="drives">
+											<div>
+												<div class="ph-row">
+												  <div class="ph-col-12"></div>
+												  <div class="ph-col-2"></div>
+												  <div class="ph-col-10 empty"></div>
+												  <div class="ph-col-8 big"></div>
+												  <div class="ph-col-4 big empty"></div>
+												</div>
+											  </div>
+											  <div>
+												<div class="ph-row">
+												  <div class="ph-col-12"></div>
+												  <div class="ph-col-2"></div>
+												  <div class="ph-col-10 empty"></div>
+												  <div class="ph-col-8 big"></div>
+												  <div class="ph-col-4 big empty"></div>
+												</div>
+											  </div>
+											  <div>
+												<div class="ph-row">
+												  <div class="ph-col-12"></div>
+												  <div class="ph-col-2"></div>
+												  <div class="ph-col-10 empty"></div>
+												  <div class="ph-col-8 big"></div>
+												  <div class="ph-col-4 big empty"></div>
+												</div>
+											  </div>
+											<!-- <li>
+												<div class="activity-meta">
+													<i>2 Days Ago</i>
+													<span><a href="#" title="">All students must register for C2TC traning program</a></span>
+												</div>
+											</li>
+											<li>
+												<div class="activity-meta">
+													<i>3 days ago</i>
+													<span><a href="#" title="">Capgemeni drive is scheduled on may 3rd </a></span>
+													<h6>"All registered student shuold take the test without fail</h6>
+												</div>
+											</li> -->
+										</ul>
+									</div><!-- recent activites -->
+								
+								</aside>
+							</div><!-- sidebar -->
+							<div class="col-lg-6">
+                          
+                                    <div class="central-meta">
+                                        <div class="messages">
+                                            <h5 class="f-title"><i class="ti-bell"></i>All Messages <span class="more-options"><i class="fa fa-ellipsis-h"></i></span></h5>
+                                            <div class="message-box">
+                                                <ul class="peoples" id="classMates">
+                                                    
+                                                    <div class="ph-item">
+                                                       
+                                                        <div class="ph-col-2">
+                                                          <div class="ph-avatar"></div>
+                                                        </div>
+                                                        <div>
+                                                          <div class="ph-row">
+                                                            <div class="ph-col-12"></div>
+                                                            <div class="ph-col-2"></div>
+                                                            <div class="ph-col-10 empty"></div>
+                                                            <div class="ph-col-8 big"></div>
+                                                            <div class="ph-col-4 big empty"></div>
+                                                          </div>
+                                                        </div>
+                                                      
+                                                        <div class="ph-col-2">
+                                                            <div class="ph-avatar"></div>
+                                                          </div>
+                                                          <div>
+                                                            <div class="ph-row">
+                                                              <div class="ph-col-12"></div>
+                                                              <div class="ph-col-2"></div>
+                                                              <div class="ph-col-10 empty"></div>
+                                                              <div class="ph-col-8 big"></div>
+                                                              <div class="ph-col-4 big empty"></div>
+                                                            </div>
+                                                          </div>
+                                                      
+                                                          <div class="ph-col-2">
+                                                            <div class="ph-avatar"></div>
+                                                          </div>
+                                                          <div>
+                                                            <div class="ph-row">
+                                                              <div class="ph-col-12"></div>
+                                                              <div class="ph-col-2"></div>
+                                                              <div class="ph-col-10 empty"></div>
+                                                              <div class="ph-col-8 big"></div>
+                                                              <div class="ph-col-4 big empty"></div>
+                                                            </div>
+                                                          </div>
+                                                      
+                                                          <div class="ph-col-2">
+                                                            <div class="ph-avatar"></div>
+                                                          </div>
+                                                          <div>
+                                                            <div class="ph-row">
+                                                              <div class="ph-col-12"></div>
+                                                              <div class="ph-col-2"></div>
+                                                              <div class="ph-col-10 empty"></div>
+                                                              <div class="ph-col-8 big"></div>
+                                                              <div class="ph-col-4 big empty"></div>
+                                                            </div>
+                                                          </div>
+                                                        
+                                                      
+                                                    </div>
+                                           
+                                                   
+                                                </ul>
+                                                <div class="peoples-mesg-box" >
+                                                    <div class="conversation-head">
+                                                        <figure><img id="chatimage" style="width:30px;height:30px;object-fit:cover;cusror:pointer" src="images/resources/friend-avatar.jpg" alt=""></figure>
+                                                        <span id="chatuser">....<i>online</i></span>
+                                                    </div>
+                                                    <ul class="chatting-area" id="singleChat">
+                                                        
+                                                    </ul>
+                                                    <div class="message-text-container">
+                                                       
+                                                        <textarea id="messagebox"></textarea>
+                                                        <button title="send"><i class="fa fa-paper-plane" onclick="sendMessage2()"></i></button>
+                                                
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>	
+                                </div><!-- centerl meta -->
+							
+							
+							
+							<div class="col-lg-3">
+								<aside class="sidebar static">
+									<div class="widget">
+										<h4 class="widget-title">My SGPS SCORE</h4>	
+										<div class="your-page" style="background-color: rgba(5, 72, 75, 0.918) !important;">
+											
+											<div class="page-likes">
+												
+												<!-- Tab panes -->
+												<div class="tab-content" >
+												  <div class="tab-pane active fade show " style="background-color: rgb(36, 20, 43);" id="link1" >
+													<span style="color: white;font-weight: 700;" ><i style="color: white;font-weight: 700;" class="ti-heart"></i><span id="sgps">Loading..</span></span>
+													  
+												  </div>
+												
+												</div>
+											</div>
+										</div>
+									</div><!-- page like widget -->
+									<div class="widget">
+										<div class="banner medium-opacity bluesh">
+											<div class="bg-image" style="background-image: url(https://i.pinimg.com/originals/88/6b/15/886b1598b09c5c588004570c4fd1e28c.gif)"></div>
+											<div class="baner-top">
+												<span><img alt="" src="https://cdn5.vectorstock.com/i/1000x1000/18/69/cv-or-resume-related-icons-image-vector-12641869.jpg"></span>
+												<i class="fa fa-ellipsis-h"></i>
+											</div>
+											<div class="banermeta">
+												<p>
+													Your resume is ready with us 
+												</p>
+												<span>like them all</span>
+												<a href="resume1.html" data-ripple="" title="" href="#">View now!</a>
+											</div>
+										</div>											
+									</div>
+									
+								</aside>
+							</div><!-- sidebar -->
+						</div>	
+					</div>
+				</div>
+			</div>
+		</div>	
+	</section>
+
+	<div id="footerCommon"></div><!-- footer -->
+	<div class="bottombar">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<span class="copyright"><a target="_blank" href="https://www.templateshub.net">placeQue @2021</a></span>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+	<div class="side-panel">
+			<h4 class="panel-title">General Setting</h4>
+			<form method="post">
+				<div class="setting-row">
+					<span>use night mode</span>
+					<input type="checkbox" id="nightmode1"/> 
+					<label for="nightmode1" data-on-label="ON" data-off-label="OFF"></label>
+				</div>
+				<div class="setting-row">
+					<span>Notifications</span>
+					<input type="checkbox" id="switch22" /> 
+					<label for="switch22" data-on-label="ON" data-off-label="OFF"></label>
+				</div>
+				<div class="setting-row">
+					<span>Notification sound</span>
+					<input type="checkbox" id="switch33" /> 
+					<label for="switch33" data-on-label="ON" data-off-label="OFF"></label>
+				</div>
+				<div class="setting-row">
+					<span>My profile</span>
+					<input type="checkbox" id="switch44" /> 
+					<label for="switch44" data-on-label="ON" data-off-label="OFF"></label>
+				</div>
+				<div class="setting-row">
+					<span>Show profile</span>
+					<input type="checkbox" id="switch55" /> 
+					<label for="switch55" data-on-label="ON" data-off-label="OFF"></label>
+				</div>
+			</form>
+			<h4 class="panel-title">Account Setting</h4>
+			<form method="post">
+				<div class="setting-row">
+					<span>Sub users</span>
+					<input type="checkbox" id="switch66" /> 
+					<label for="switch66" data-on-label="ON" data-off-label="OFF"></label>
+				</div>
+				<div class="setting-row">
+					<span>personal account</span>
+					<input type="checkbox" id="switch77" /> 
+					<label for="switch77" data-on-label="ON" data-off-label="OFF"></label>
+				</div>
+				<div class="setting-row">
+					<span>Business account</span>
+					<input type="checkbox" id="switch88" /> 
+					<label for="switch88" data-on-label="ON" data-off-label="OFF"></label>
+				</div>
+				<div class="setting-row">
+					<span>Show me online</span>
+					<input type="checkbox" id="switch99" /> 
+					<label for="switch99" data-on-label="ON" data-off-label="OFF"></label>
+				</div>
+				<div class="setting-row">
+					<span>Delete history</span>
+					<input type="checkbox" id="switch101" /> 
+					<label for="switch101" data-on-label="ON" data-off-label="OFF"></label>
+				</div>
+				<div class="setting-row">
+					<span>Expose author name</span>
+					<input type="checkbox" id="switch111" /> 
+					<label for="switch111" data-on-label="ON" data-off-label="OFF"></label>
+				</div>
+			</form>
+		</div><!-- side panel -->		
+	
+	<!-- <script src="js/main.min.js"></script>
+	<script src="js/script.js"></script> -->
+	
+
+
+</body>	
+<!-- <script src="js/main.min.js"></script>
+<script src="js/script.js"></script> -->
+</html>
+<script>
+	setTimeout(function(){
+
+		let ref3 = firebase.database().ref('driveData')
+	
+       
+		ref3.on('value',gotDrive,errData) 
+		function gotDrive(data){
+			let dc = data.val()
+			let keys = Object.keys(dc)
+			document.getElementById("drives").innerHTML =""
+			for(let i =0 ;i<keys.length;i++){
+				
+				let key = keys[i]
+				
+				if(!dc[key].expired && dc[key].status=="active")
+					document.getElementById("drives").innerHTML += `
+					<li>
+						<div class="activity-meta">
+							<i>Posted Recently</i>
+							<span> <img src=`+dc[key].Driveinfo.photoUrl+` style="width:30px;object-fit:contain"> <a href="#!" onclick=openDrive("`+key+`") title="">`+dc[key].Driveinfo.name+` </a></span>
+							<h6>`+dc[key].Driveinfo.comments+`</h6>
+						</div>
+					</li>
+				`
+			}
+		}
+		function errData(){
+
+		}
+
+		let ref4 = firebase.database().ref('publishedQuizResult')
+		let sc= JSON.parse(window.localStorage.getItem("studentData"))
+		let qd= JSON.parse(window.localStorage.getItem("quizDatabase"))
+		let studKey = window.localStorage.getItem("user")
+		ref4.on('value',gotDocument,errData) 
+		function gotDocument(data){
+			let dc = data.val()
+			let keys = Object.keys(dc)
+			document.getElementById("sgps").innerHTML =""
+            let sum=0
+			for(let i =0 ;i<keys.length;i++){
+				let key = keys[i]
+                if(sc[studKey].quizScores)
+				for(let j=0;j<sc[studKey].quizScores.length;j++){
+					
+				
+					if(dc[key].QuizId==sc[studKey].quizScores[j].code){
+                            sum+=sc[studKey].quizScores[j].score
+							
+                    
+                	}
+				}
+			}
+            document.getElementById("sgps").innerHTML=sum
+							
+		}
+
+        let allstds =JSON.parse(window.localStorage.getItem("studentData"))
+
+            let kys=Object.keys(allstds)
+            document.getElementById("classMates").innerHTML=""
+            for(let i=0;i<kys.length;i++){
+                let key=kys[i];
+                if(allstds[key].educationData &&allstds[key].BasicprofileData ){
+               
+                    if(allstds[key].educationData.education.semester == window.localStorage.getItem("sem") && allstds[key].educationData.education.branch ==window.localStorage.getItem("branch")  ){
+                        if(!allstds[key].photoUrl){
+                            allstds[key].photoUrl="https://img.icons8.com/bubbles/2x/user-male.png"
+                        }
+                        document.getElementById("classMates").innerHTML+=`
+                    
+                    <li>
+                        
+                        <figure><img style="width:30px;height:30px;object-fit:cover;cusror:pointer"src="`+allstds[key].photoUrl+`" alt="">
+                            <span class="status f-online"></span>
+                        </figure>
+                        <div class="people-name">
+                            <span onclick=openChat("`+key+`")>`+allstds[key].BasicprofileData.basic.fname+`</span>
+                        </div>
+                    </li>
+                    `
+
+                    
+                }
+            }
+        }
+
+
+	},2500)
+    var k;
+	function openDrive(key){
+			window.localStorage.setItem("driveKey",key)
+			window.location="detailCompany.html"
+           
+            
+		}
+    function sendMessage2(){
+        
+        let msg=document.querySelector("#messagebox").value
+        let postid=window.localStorage.getItem("userId")
+        let k = window.localStorage.getItem("messageTo")
+
+        var arr = []
+        let refData2= firebase.database().ref('studentData').child(postid)
+
+        refData2.on('value', (snapshot) => {
+            data = snapshot.val();
+       
+            if(data.messages){
+
+                for(let i =0 ;i<data.messages.length;i++){
+               
+                    arr.push(data.messages[i])
+                }
+                
+            }
+        })
+        console.log(arr)
+        if(msg!=""){
+            arr.push(
+            {
+                "Message": msg,
+                "to" : k,
+                "from":postid,
+                "time" : new Date().toString()
+
+            }
+            )
+        
+            data={
+                messages :arr
+            }
+
+            firebase.database().ref('studentData').child(postid).update(data).then(function(){
+                document.querySelector("#messagebox").value = ""
+            });  
+
+        }
+    }
+    function openChat(key){
+        window.localStorage.setItem("messageTo",key)
+        let allstds =JSON.parse(window.localStorage.getItem("studentData"))
+       document.getElementById("chatuser").innerHTML=allstds[key].Name
+       document.getElementById("chatimage").src=allstds[key].photoUrl
+       document.querySelector("#messagebox").value = ""
+            let studk=window.localStorage.getItem("userId")
+            let ref=firebase.database().ref('studentData')
+            ref.on('value',gotMessage,errMessage)
+            function gotMessage(data){
+                let m = data.val()
+                
+                console.log("------------")
+               
+                document.getElementById("singleChat").innerHTML=""
+                
+                    if(m[studk].messages){
+                        
+                        document.getElementById("singleChat").innerHTML=""
+                        for(let i=0 ;i<m[studk].messages.length;i++){
+                            if(m[studk].messages[i] && m[studk].messages[i].from && m[studk].messages[i].to==key){
+                              
+                                document.getElementById("singleChat").innerHTML +=`
+                                    <li class="me">
+                                        <figure><img src="`+m[studk].photoUrl+`" alt=""></figure>
+                                        <p>`+m[studk].messages[i].Message+`</p>
+                                    </li>
+                                    `
+                            }
+                            
+                            if(m[key].messages[i] && m[key].messages[i].to && m[key].messages[i].to==studk){
+                                document.getElementById("singleChat").innerHTML +=`
+                                    <li class="to">
+                                        <figure><img src="`+m[key].photoUrl+`" alt=""></figure>
+                                        <p>`+m[key].messages[i].Message+`</p>
+                                    </li>
+                                    `
+                                }
+                        }
+                        
+                    }
+            }
+            function errMessage(){
+
+            }
+           
+    }   
+</script>
