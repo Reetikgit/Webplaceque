@@ -521,6 +521,9 @@
     var ref2=firebase.database().ref('quizData')
     var ref3 = firebase.database().ref('driveData')
     var ref4 =firebase.database().ref('DocumentData')
+    var ref5 =firebase.database().ref('studentData')
+
+  
     if(window.localStorage.getItem("image"))
         document.getElementById("userImg").src=(window.localStorage.getItem("image"))
     
@@ -533,7 +536,21 @@
             
 			let current_user=user;
             index=1;
-          
+            if(window.location.href.includes("viewtimeline.html")){
+           
+                ref5.on('value',gotStudentData,errData)
+                function gotStudentData(data){
+                 
+                    let rr=data.val()
+                    
+                    window.localStorage.setItem("studentDatabase",JSON.stringify(rr))
+                }
+                function errData(){
+
+                }
+            }
+        
+
             window.localStorage.setItem("user",JSON.stringify(user))
             window.localStorage.setItem("userId",user.uid)
             ref.on('value',gotData,errData)
@@ -715,6 +732,7 @@
               
                 let sc=(data.val())
                 let key = Object.keys(sc)
+                window.localStorage.setItem("adminData",JSON.stringify(sc))
                 window.localStorage.setItem("image",sc[user.uid].photoUrl)
                 window.localStorage.setItem("username",sc[user.uid].name)
                 window.localStorage.setItem("dept",sc[user.uid].dept)

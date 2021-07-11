@@ -139,64 +139,138 @@
 	function gotData(data){
 		sc=data.val();
 		var keys=Object.keys(sc);
-		for(var i=0;i<keys.length;i++){
+		document.getElementById("timeline").innerHTML=""
+		for(var i=keys.length-1;i>=0;i--){
 		var k=keys[i]
 		Author=sc[k].author
 		postedtime=sc[k].timeOfPost
 		authordept=sc[k].authorDept
 		timelineimage=sc[k].timelineUrl
 		timelinetext=sc[k].timelineText
-
+		let uids = window.localStorage.getItem("userId")
+		let ad = JSON.parse(window.localStorage.getItem("adminData"))
 		document.getElementById("timeline").innerHTML+= 
-		`	<li> <div class="col-lg-12 col-md-12 col-sm-12">
+		`	<li> 
+			<div class="col-lg-12 col-md-12 col-sm-12">
 				<div class="blog-img">
-					<img src=`+timelineimage+` alt="" class="bg_img">
+					<img src=`+timelineimage+` alt=""  style="width:100%;height:70%;object-fit:cover">
 				</div>
 			</div>
 			<div class="col-lg-12 col-md-12 col-sm-12">
 				<div class="blog-caption">
-					<span class="date text-black-50">Posted by - `+Author+`, on - `+postedtime+`,`+authordept+`</span>
+					<span class="date text-black-50"><span style="font-weight:700">Posted by - `+Author+`,</span> on - `+postedtime+`,`+authordept+`</span>
 			        <div class="blog-by">
 						<p>`+timelinetext+`</p>
 															
 					</div>
 				</div>
 			</div>
-		</div>
-       <div class="d-flex flex-column comment-section">
-				<div class="bg-white p-2">
-															<div class="d-flex flex-row user-info"><img class="rounded-circle" src="https://i.imgur.com/RpzrMR2.jpg" width="40">
-																<div class="d-flex flex-column justify-content-start ml-2"><span class="d-block font-weight-bold name">Marry Andrews</span><span class="date text-black-50">Shared publicly - Jan 2020</span></div>
-															</div>
-															<div class="mt-2">
-																<p class="comment-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-															</div>
-														</div>
-														<div class="bg-white">
-															<div class="d-flex flex-row fs-12">
-																<div class="like p-2 cursor"><i class="fa fa-thumbs-o-up"></i><span class="ml-1">Like</span></div>
-																<div class="like p-2 cursor"><i class="fa fa-commenting-o"></i><span class="ml-1">Comment</span></div>
-																<div class="like p-2 cursor"><i class="fa fa-share"></i><span class="ml-1">Share</span></div>
-															</div>
-														</div>
-														<div class="bg-light p-2">
-															<div class="d-flex flex-row align-items-start"><img class="rounded-circle" src="https://images.static-collegedunia.com/public/college_data/images/logos/1460356989Sai_Vidya_Institute_of_Technology_Logo.jpg" width="40"><textarea class="form-control ml-1 shadow-none textarea" style="height: 5em;"></textarea></div>
-															<div class="mt-2 text-right"><button class="btn btn-primary btn-sm shadow-none" type="button">Post comment</button><button class="btn btn-outline-primary btn-sm ml-1 shadow-none" type="button">Cancel</button></div>
-														</div>
-													</div>
-												</div>
-												</li>`
-                                                
-		
+			
+      		<div class="d-flex flex-column comment-section">
+				<div id="commentSection`+k+`" style="max-height:200px;overflow-y:scroll">
+					
+					
+				</div>
+					
+				<div class="bg-light p-2">
+					<div class="d-flex flex-row align-items-start"><img class="rounded-circle" src="`+window.localStorage.getItem("image")+`" width="40"><input type="text" id="cmtmsg`+k+`" class="form-control ml-1  shadow-none textarea" style="height: 5em;"></div>
+					<div class="mt-2 text-right"><button class="btn btn-primary btn-sm shadow-none"  onclick=sendComment("`+k+`","`+uids+`") type="button">Post comment</button></div>
+				</div>
+			</div>
+			
+			</li>`
+			if(sc[k].comments){
+				let name= "anonymous"
+				let image = "https://upload.wikimedia.org/wikipedia/commons/7/70/User_icon_BLACK-01.png";
+				let std=JSON.parse(window.localStorage.getItem("studentDatabase"))
+				document.getElementById("commentSection"+k).innerHTML =""
+				for(let j=0;j<sc[k].comments.length;j++){
+					// alert(sc[k].comments[j].user)
+					
+					
+					if(sc[k].comments[j].type =="admin"){
+						image =ad[sc[k].comments[j].user].photoUrl
+						names=ad[sc[k].comments[j].user].name
+					}else{
+						names =std[sc[k].comments[j].user].Name
+						if(std[sc[k].comments[j].user].photoUrl){
+							image = std[sc[k].comments[j].user].photoUrl
+						}else{
+							image = "https://upload.wikimedia.org/wikipedia/commons/7/70/User_icon_BLACK-01.png";
+						}
+					}
+					
+				document.getElementById("commentSection"+k).innerHTML +=
+				`
+				<div class="bg-white p-2" >
+						<div class="d-flex flex-row user-info"><img class="rounded-circle" src="`+image+`" style="width:50px;height:50px;object-fit:cover">
+							<div class="d-flex flex-column justify-content-start ml-2"><span class="d-block font-weight-bold name">`+ names+`</span><span class="date text-black-50">`+sc[k].comments[j].time+`</span></div>
+						</div>
+						<div class="mt-2">
+							<p class="comment-text">`+sc[k].comments[j].Message+`</p>
+						</div>
+				</div>
+				` 
+			}
+		}
+			
 		}
 
 	}
+
 	
 	function errData(){
 		console.log("as")
 	}
 	
 
+	function sendComment(postid,userid){
+	
+		let message = document.getElementById("cmtmsg"+postid).value
+		var arr2 = []
+		
+	
+		let refData2= firebase.database().ref('adminTimelineData').child(postid)
+		console.log(arr2)
+		 refData2.on('value', (snapshot) => {
+			data = snapshot.val();
+			console.log(data)
+			if(data.comments){
+
+				for(let i =0 ;i<data.comments.length;i++){
+				
+					arr2.push(data.comments[i])
+					console.log(arr2)
+				}
+				
+			}
+		})
+	
+		
+		if(message!=""){
+			arr2.push(
+			{
+				"Message": message,
+				"type":"admin",
+				"user" : userid,
+				"time" : new Date().toString()
+
+			}
+			)
+			console.log("0000000000")
+			console.log(arr2)
+			data2={
+				comments :arr2
+			}
+			console.log(data2)
+			console.log(postid)
+			setTimeout(function(){
+				firebase.database().ref('adminTimelineData').child(postid).update(data2)
+			},1000)
+		
+
+		}
+}
 </script>
 
 </html>
