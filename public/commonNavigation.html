@@ -221,6 +221,8 @@
             <li><a href="widgets.html" title="">Widgts</a></li> -->
 
             <li><span onclick="logout()">Logout</span></li>
+            <!-- <li><span onclick="playsound()">Play sound</span></li>
+            <li><span onclick="stopSound()">Stop sound</span></li> -->
         </ul>
     </nav>
     
@@ -1398,6 +1400,15 @@ if(message!=""){
 
 }
 }
+var ad;
+// function playsound(){
+//     ad =new Audio('https://firebasestorage.googleapis.com/v0/b/l2mjsw.appspot.com/o/trailThrough.mp3?alt=media&token=814b2261-4d05-4e95-b2dc-feee4e0450ab');
+//     ad.play();
+
+// }
+// function stopSound(){
+//     ad.pause()
+// }
 function logout(){
     firebase.auth().signOut().then(function() {
         // Sign-out successful.
